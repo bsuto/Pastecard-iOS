@@ -24,7 +24,12 @@ class SignInController: UIViewController {
     }
     
     func addUser() {
-        if (Reachability.isConnectedToNetwork()) {
+        if (userField.text == "") {
+            let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertControllerStyle.alert)
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder()}
+            alert.addAction(okayAction)
+            self.present(alert, animated: true)
+        } else if (Reachability.isConnectedToNetwork()) {
             userField.resignFirstResponder()
             let nameCheck = userField.text
             let url = URL(string: "http://pastecard.net/api/check.php?user=" + nameCheck!)
@@ -39,15 +44,16 @@ class SignInController: UIViewController {
                     self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
                 } else {
                     let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder()}
+                    alert.addAction(okayAction)
+                    self.present(alert, animated: true)
                 }
             }
             task.resume()
         } else {
             let alert = UIAlertController(title: "🙄", message: "You have to have a wifi or cellular connection to sign in!", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
+            self.present(alert, animated: true)
         }
     }
     @IBAction func keyboardGoAction(_ sender: Any) {
