@@ -7,6 +7,7 @@ To install this app on your own device:
 2. Generate an iOS Development signing certificate in the Accounts pane of Xcode preferences
 3. Connect your iPhone and locate it in Window > Devices and Simulators
 4. Make sure your iPhone is the deployment target and Run the app
+5. You may have to allow your signing certificate in Settings > General > Device Management first
 
 A few notes:
 * The iOS app will go into the same __read-only mode__ as the web app when there's no internet connection

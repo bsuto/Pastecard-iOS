@@ -31,8 +31,8 @@ class SignInController: UIViewController {
             self.present(alert, animated: true)
         } else if (Reachability.isConnectedToNetwork()) {
             userField.resignFirstResponder()
-            let nameCheck = userField.text
-            let url = URL(string: "http://pastecard.net/api/check.php?user=" + nameCheck!)
+            let nameCheck = userField.text?.lowercased()
+            let url = URL(string: "http://pastecard.net/api/check.php?user=" + (nameCheck?.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
             var request = URLRequest(url: url!)
             request.httpMethod = "GET"
             
