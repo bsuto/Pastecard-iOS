@@ -174,7 +174,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
         swipeUp.direction = .up
-        self.view.addGestureRecognizer(swipeUp)
+        self.pasteCard.addGestureRecognizer(swipeUp)
         tapCard = UITapGestureRecognizer(target: self, action: #selector(makeEditable))
         self.pasteCard.addGestureRecognizer(tapCard)
         
@@ -185,7 +185,11 @@ class ViewController: UIViewController, UITextViewDelegate {
             self.present(svc, animated: true, completion: nil)
         }
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
-            self.loadText()
+            if (Reachability.isConnectedToNetwork()) {
+                self.loadText()
+            } else {
+                self.haptic.notificationOccurred(.error)
+            }
         }
         let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
             self.signOut()
@@ -208,11 +212,11 @@ class ViewController: UIViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerKeyboardNotifications()
+        cleanUp()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if (defaults.string(forKey: "username") != nil) {
-            cleanUp()
             if (Reachability.isConnectedToNetwork()) {
                 loadText()
             } else {
