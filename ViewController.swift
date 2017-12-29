@@ -28,9 +28,12 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     @IBAction func saveAction(_ sender: UIButton) {
         cleanUp()
+        cancelText = pasteCard.text
         let user = defaults.string(forKey: "username")!
         let text = deSymbol(text: pasteCard.text)
         let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        pasteCard.text = "Saving…"
+        tapCard.isEnabled = false;
         
         guard let url = URL(string: "http://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
@@ -38,11 +41,17 @@ class ViewController: UIViewController, UITextViewDelegate {
         request.httpBody = postData?.data(using: String.Encoding.utf8);
         
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil {return}
+            if error != nil {
+                self.pasteCard.text = self.cancelText
+                return
+            }
             var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             responseData = responseData?.removingPercentEncoding
             self.saveLocal(text: responseData!)
-            DispatchQueue.main.async { self.pasteCard.text = responseData }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                self.pasteCard.text = responseData
+                self.tapCard.isEnabled = true;
+            }
         }
         task.resume()
     }
@@ -142,8 +151,11 @@ class ViewController: UIViewController, UITextViewDelegate {
         }
     }
     @objc func foregroundLoad(notification: Notification) {
+        pasteCard.text = "Loading…"
+        tapCard.isEnabled = false;
         if (Reachability.isConnectedToNetwork()) {
             loadText()
+            tapCard.isEnabled = true;
         } else {
             pasteCard.text = loadLocal()
         }
@@ -216,8 +228,11 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         if (defaults.string(forKey: "username") != nil) {
+            pasteCard.text = "Loading…"
+            tapCard.isEnabled = false;
             if (Reachability.isConnectedToNetwork()) {
                 loadText()
+                tapCard.isEnabled = true;
             } else {
                 pasteCard.text = loadLocal()
             }
