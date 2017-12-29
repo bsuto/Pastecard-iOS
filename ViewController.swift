@@ -11,6 +11,7 @@ import SafariServices
 
 class ViewController: UIViewController, UITextViewDelegate {
     
+    // MARK: Variables and Outlets
     let defaults = UserDefaults.standard
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
@@ -27,26 +28,35 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.text = cancelText
         cleanUp()
     }
+    
+    // MARK: -
+    // MARK: Save functions
     @IBAction func saveAction(_ sender: UIButton) {
         cleanUp()
         cancelText = pasteCard.text
-        let user = defaults.string(forKey: "username")!
-        let text = deSymbol(text: pasteCard.text)
-        let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        // show progress message and lock the card
         pasteCard.text = "Saving…"
         tapCard.isEnabled = false;
         
+        // assemble the POST request
+        let user = defaults.string(forKey: "username")!
+        let text = deSymbol(text: pasteCard.text)
+        let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let url = URL(string: "http://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData?.data(using: String.Encoding.utf8);
         
+        // set a five second timeout and attempt to write the text to the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 self.pasteCard.text = self.cancelText
                 return
             }
+            
+            // on success, save the returned string locally, update the card, and cancel the timeout
             var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             responseData = responseData?.removingPercentEncoding
             self.saveLocal(text: responseData!)
@@ -71,6 +81,73 @@ class ViewController: UIViewController, UITextViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+    func saveLocal(text: String) {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(self.file)
+            do {
+                try text.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {}
+        }
+    }
+    
+    // MARK: -
+    // MARK: Load functions
+    func loadText() {
+        // assemble the GET request
+        let path = "http://pastecard.net/api/db/"
+        let user = defaults.string(forKey: "username")
+        let textExtension = ".txt"
+        let url = URL(string: path + user! + textExtension)
+        
+        // set a five second timeout and attempt to get the text from the server
+        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
+        do {
+            let cardContents = try String(contentsOf: url!)
+            pasteCard.text = cardContents
+            timer.invalidate()
+        } catch {}
+    }
+    
+    // most common load function, set a loading message and lock the card while trying
+    @objc func foregroundLoad(notification: Notification) {
+        pasteCard.text = "Loading…"
+        tapCard.isEnabled = false;
+        if (Reachability.isConnectedToNetwork()) {
+            loadText()
+            tapCard.isEnabled = true;
+        } else {
+            pasteCard.text = loadLocal()
+        }
+    }
+    
+    @objc func loadFailure() {
+        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
+            self.pasteCard.text = self.loadLocal()
+        }))
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
+            self.loadText()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func loadLocal() -> String {
+        var returnText = ""
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(self.file)
+            do {
+                returnText = try String(contentsOf: fileURL, encoding: .utf8)
+            }
+            catch {}
+        }
+        return returnText
+    }
+    
+    // MARK: -
+    // MARK: Other functions
+    
+    // the Done button above the keyboard
     func addDoneButton() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -85,6 +162,16 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.resignFirstResponder()
     }
     
+    // functions for gestures
+    @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
+        if sender.state == .ended {
+            if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
+                makeEditable()
+            } else {
+                haptic.notificationOccurred(.error)
+            }
+        }
+    }
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
         present(actionSheetController, animated: true, completion: nil)
     }
@@ -113,36 +200,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         return returnString
     }
     
-    func saveLocal(text: String) {
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(self.file)
-            do {
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
-            }
-            catch {}
-        }
-    }
-    func loadLocal() -> String {
-        var returnText = ""
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(self.file)
-            do {
-                returnText = try String(contentsOf: fileURL, encoding: .utf8)
-            }
-            catch {}
-        }
-        return returnText
-    }
-    
-    @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
-        if sender.state == .ended {
-            if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
-                makeEditable()
-            } else {
-                haptic.notificationOccurred(.error)
-            }
-        }
-    }
     func makeEditable() {
         cancelButton.isHidden = false
         saveButton.isHidden = false
@@ -154,48 +211,14 @@ class ViewController: UIViewController, UITextViewDelegate {
         swipeUp.isEnabled = false;
     }
     
-    func loadText() {
-        let path = "http://pastecard.net/api/db/"
-        let user = defaults.string(forKey: "username")
-        let textExtension = ".txt"
-        let url = URL(string: path + user! + textExtension)
-        var cardContents = ""
-        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
-        do {
-            cardContents = try String(contentsOf: url!)
-            pasteCard.text = cardContents
-            timer.invalidate()
-        } catch _ as NSError {
-            print("String error")
-        }
-    }
-    @objc func foregroundLoad(notification: Notification) {
-        pasteCard.text = "Loading…"
-        tapCard.isEnabled = false;
-        if (Reachability.isConnectedToNetwork()) {
-            loadText()
-            tapCard.isEnabled = true;
-        } else {
-            pasteCard.text = loadLocal()
-        }
-    }
-    @objc func loadFailure() {
-        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
-            self.pasteCard.text = self.loadLocal()
-    }))
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
-            self.loadText()
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
+    // limit the text view to 1034 characters
     func textView(_ pasteCard: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = pasteCard.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        return changedText.count <= 1134
+        return changedText.count <= 1034
     }
+    
     @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardInfo = userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue
@@ -209,16 +232,19 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.scrollIndicatorInsets = .zero
     }
 
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         pasteCard.delegate = self
         
+        // start listening for gestures
         swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
         swipeUp.direction = .up
         self.pasteCard.addGestureRecognizer(swipeUp)
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
         
+        // assemble the swipe menu
         let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
             let url = URL (string: "http://pastecard.net/help/")
             let svc = SFSafariViewController(url: url!)
@@ -241,6 +267,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         actionSheetController.addAction(signOutAction)
         actionSheetController.addAction(cancelAction)
         
+        // add borders to the card and buttons
         pasteCard.layer.borderWidth = 0.5
         pasteCard.layer.borderColor = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.0).cgColor
         cancelButton.layer.borderWidth = 0.5
@@ -272,7 +299,6 @@ class ViewController: UIViewController, UITextViewDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
