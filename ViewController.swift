@@ -41,7 +41,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         // assemble the POST request
         let user = defaults.string(forKey: "username")!
-        let text = deSymbol(text: pasteCard.text)
+        let text = deSymbol(text: cancelText)
         let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let url = URL(string: "http://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
