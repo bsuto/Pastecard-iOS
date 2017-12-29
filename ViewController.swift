@@ -141,6 +141,13 @@ class ViewController: UIViewController, UITextViewDelegate {
             print("String error")
         }
     }
+    @objc func foregroundLoad(notification: Notification) {
+        if (Reachability.isConnectedToNetwork()) {
+            loadText()
+        } else {
+            pasteCard.text = loadLocal()
+        }
+    }
     
     func textView(_ pasteCard: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = pasteCard.text ?? ""
@@ -148,7 +155,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         return changedText.count <= 1134
     }
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardInfo = userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
@@ -156,16 +163,9 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.contentInset = contentInsets
         pasteCard.scrollIndicatorInsets = contentInsets
     }
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: Notification) {
         pasteCard.contentInset = .zero
         pasteCard.scrollIndicatorInsets = .zero
-    }
-    func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
@@ -194,8 +194,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
             self.signOut()
         }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in
-        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
         actionSheetController.addAction(refreshAction)
         actionSheetController.addAction(helpAction)
         actionSheetController.addAction(signOutAction)
@@ -211,7 +210,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        registerKeyboardNotifications()
+        registerNotifications()
         cleanUp()
     }
     
@@ -238,6 +237,15 @@ class ViewController: UIViewController, UITextViewDelegate {
             defaults.synchronize()
             DispatchQueue.main.async { self.loadText() }
         }
+    }
+    
+    func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(foregroundLoad(notification:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
 }
