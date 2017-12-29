@@ -81,8 +81,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     func deSymbol(text: String) -> String {
-        var returnString = ""
-        returnString = text.replacingOccurrences(of: "http://", with: "")
+        var returnString = text
+        returnString = returnString.replacingOccurrences(of: "http://", with: "")
         returnString = returnString.replacingOccurrences(of: "https://", with: "")
         returnString = returnString.replacingOccurrences(of: "+", with: "%2B")
         returnString = returnString.replacingOccurrences(of: "&", with: "%26")
