@@ -16,11 +16,12 @@ class ViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var pasteCard: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    var tapCard = UITapGestureRecognizer(target: self, action: #selector(makeEditable))
+    var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let haptic = UINotificationFeedbackGenerator()
     var cancelText = ""
+    var emergencyText = ""
     
     @IBAction func cancelAction(_ sender: UIButton) {
         pasteCard.text = cancelText
@@ -40,6 +41,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         request.httpMethod = "POST"
         request.httpBody = postData?.data(using: String.Encoding.utf8);
         
+        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 self.pasteCard.text = self.cancelText
@@ -51,9 +53,22 @@ class ViewController: UIViewController, UITextViewDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                 self.pasteCard.text = responseData
                 self.tapCard.isEnabled = true;
+                timer.invalidate()
             }
         }
         task.resume()
+    }
+    
+    @objc func saveFailure() {
+        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem saving your text.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { _ in
+            self.pasteCard.text = self.cancelText
+        }))
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
+            self.pasteCard.text = self.emergencyText
+            self.makeEditable()
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     func addDoneButton() {
@@ -107,7 +122,6 @@ class ViewController: UIViewController, UITextViewDelegate {
             catch {}
         }
     }
-    
     func loadLocal() -> String {
         var returnText = ""
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -120,21 +134,24 @@ class ViewController: UIViewController, UITextViewDelegate {
         return returnText
     }
     
-    @objc func makeEditable(_ sender: UITapGestureRecognizer) -> Void {
+    @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
-                cancelButton.isHidden = false
-                saveButton.isHidden = false
-                cancelText = pasteCard.text
-                pasteCard.isEditable = true
-                addDoneButton()
-                pasteCard.becomeFirstResponder()
-                tapCard.isEnabled = false;
-                swipeUp.isEnabled = false;
+                makeEditable()
             } else {
                 haptic.notificationOccurred(.error)
             }
         }
+    }
+    func makeEditable() {
+        cancelButton.isHidden = false
+        saveButton.isHidden = false
+        cancelText = pasteCard.text
+        pasteCard.isEditable = true
+        addDoneButton()
+        pasteCard.becomeFirstResponder()
+        tapCard.isEnabled = false;
+        swipeUp.isEnabled = false;
     }
     
     func loadText() {
@@ -143,9 +160,11 @@ class ViewController: UIViewController, UITextViewDelegate {
         let textExtension = ".txt"
         let url = URL(string: path + user! + textExtension)
         var cardContents = ""
+        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
         do {
             cardContents = try String(contentsOf: url!)
             pasteCard.text = cardContents
+            timer.invalidate()
         } catch _ as NSError {
             print("String error")
         }
@@ -159,6 +178,16 @@ class ViewController: UIViewController, UITextViewDelegate {
         } else {
             pasteCard.text = loadLocal()
         }
+    }
+    @objc func loadFailure() {
+        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
+            self.pasteCard.text = self.loadLocal()
+    }))
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
+            self.loadText()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func textView(_ pasteCard: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -187,7 +216,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
         swipeUp.direction = .up
         self.pasteCard.addGestureRecognizer(swipeUp)
-        tapCard = UITapGestureRecognizer(target: self, action: #selector(makeEditable))
+        tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
         
         let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
