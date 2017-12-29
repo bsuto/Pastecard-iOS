@@ -105,6 +105,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         do {
             let cardContents = try String(contentsOf: url!)
             pasteCard.text = cardContents
+            saveLocal(text: cardContents) // save it locally too
             timer.invalidate()
         } catch {}
     }
