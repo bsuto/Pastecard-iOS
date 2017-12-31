@@ -110,16 +110,15 @@ class ViewController: UIViewController, UITextViewDelegate {
         } catch {}
     }
     
-    // most common load function, set a loading message and lock the card while trying
-    @objc func foregroundLoad(notification: Notification) {
-        pasteCard.text = "Loading…"
+    // most common load function, lock the card while trying
+    @objc func foregroundLoad(notification: Notification?) {
         tapCard.isEnabled = false;
         if (Reachability.isConnectedToNetwork()) {
             loadText()
-            tapCard.isEnabled = true;
         } else {
             pasteCard.text = loadLocal()
         }
+        tapCard.isEnabled = true;
     }
     
     @objc func loadFailure() {
@@ -285,14 +284,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         if (defaults.string(forKey: "username") != nil) {
-            pasteCard.text = "Loading…"
-            tapCard.isEnabled = false;
-            if (Reachability.isConnectedToNetwork()) {
-                loadText()
-                tapCard.isEnabled = true;
-            } else {
-                pasteCard.text = loadLocal()
-            }
+            foregroundLoad(notification: nil)
         } else {
             performSegue(withIdentifier: "showSignIn", sender: Any?.self)
         }
