@@ -26,7 +26,7 @@ class SignInController: UIViewController {
     func addUser() {
         if (userField.text == "") {
             let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertControllerStyle.alert)
-            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder()}
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder() }
             alert.addAction(okayAction)
             self.present(alert, animated: true)
         } else if (Reachability.isConnectedToNetwork()) {
@@ -44,7 +44,7 @@ class SignInController: UIViewController {
                     self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
                 } else {
                     let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertControllerStyle.alert)
-                    let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder()}
+                    let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder() }
                     alert.addAction(okayAction)
                     self.present(alert, animated: true)
                 }
