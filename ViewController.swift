@@ -307,8 +307,9 @@ class ViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(foregroundLoad(notification:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
     }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    override func viewWillDisappear(_ animated: Bool){
+        super.viewWillDisappear(animated)
+        if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
     }
 
 }
