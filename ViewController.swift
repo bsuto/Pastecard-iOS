@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITextViewDelegate {
                 var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
                 responseData = responseData?.removingPercentEncoding
                 
-                self.saveLocal(text: responseData!) // save it locally too
+                self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
                 self.tapCard.isEnabled = true
                 timer.invalidate()
@@ -109,7 +109,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
         do {
             let remoteText = try String(contentsOf: url!)
-            saveLocal(text: remoteText) // save it locally too
+            saveLocal(text: remoteText)
             pasteCard.text = remoteText
             timer.invalidate()
         } catch {}
@@ -153,7 +153,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.resignFirstResponder()
     }
     
-    // tap and swipe gestures
+    // tap and swipe gesture actions
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
@@ -299,7 +299,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadAction(notification:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
