@@ -24,45 +24,41 @@ class ViewController: UIViewController, UITextViewDelegate {
     var cancelText = ""
     var emergencyText = ""
     
-    @IBAction func cancelAction(_ sender: UIButton) {
-        pasteCard.text = cancelText
-        cleanUp()
-    }
-    
-    // MARK: -
-    // MARK: Save functions
+    // MARK: - Save functions
     @IBAction func saveAction(_ sender: UIButton) {
         cleanUp()
-        cancelText = pasteCard.text
+        emergencyText = pasteCard.text
         
         // show progress message and lock the card
         pasteCard.text = "Saving…"
-        tapCard.isEnabled = false;
+        tapCard.isEnabled = false
         
         // assemble the POST request
         let user = defaults.string(forKey: "username")!
-        let text = deSymbol(text: cancelText)
+        let text = deSymbol(text: emergencyText)
         let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let url = URL(string: "http://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = postData?.data(using: String.Encoding.utf8);
+        request.httpBody = postData?.data(using: String.Encoding.utf8)
         
         // set a five second timeout and attempt to write the text to the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 self.pasteCard.text = self.cancelText
+                self.tapCard.isEnabled = true
                 return
             }
             
-            // on success, save the returned string locally, update the card, and cancel the timeout
-            var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
-            responseData = responseData?.removingPercentEncoding
-            self.saveLocal(text: responseData!)
+            // on success, pause a little bit so the Saving message is actually readable
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+                responseData = responseData?.removingPercentEncoding
+                
+                self.saveLocal(text: responseData!) // save it locally too
                 self.pasteCard.text = responseData
-                self.tapCard.isEnabled = true;
+                self.tapCard.isEnabled = true
                 timer.invalidate()
             }
         }
@@ -91,9 +87,18 @@ class ViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // MARK: -
-    // MARK: Load functions
-    func loadText() {
+    // MARK: - Load functions
+    @objc func loadAction(notification: Notification?) {
+        tapCard.isEnabled = false // lock the card while trying
+        if (Reachability.isConnectedToNetwork()) {
+            loadRemote()
+        } else {
+            loadLocal()
+        }
+        tapCard.isEnabled = true
+    }
+    
+    func loadRemote() {
         // assemble the GET request
         let path = "http://pastecard.net/api/db/"
         let user = defaults.string(forKey: "username")
@@ -103,49 +108,35 @@ class ViewController: UIViewController, UITextViewDelegate {
         // set a five second timeout and attempt to get the text from the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
         do {
-            let cardContents = try String(contentsOf: url!)
-            pasteCard.text = cardContents
-            saveLocal(text: cardContents) // save it locally too
+            let remoteText = try String(contentsOf: url!)
+            saveLocal(text: remoteText) // save it locally too
+            pasteCard.text = remoteText
             timer.invalidate()
         } catch {}
-    }
-    
-    // most common load function, lock the card while trying
-    @objc func foregroundLoad(notification: Notification?) {
-        tapCard.isEnabled = false;
-        if (Reachability.isConnectedToNetwork()) {
-            loadText()
-        } else {
-            pasteCard.text = loadLocal()
-        }
-        tapCard.isEnabled = true;
     }
     
     @objc func loadFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
-            self.pasteCard.text = self.loadLocal()
+            self.loadLocal()
         }))
         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
-            self.loadText()
+            self.loadRemote()
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
-    func loadLocal() -> String {
-        var returnText = ""
+    func loadLocal() {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(self.file)
             do {
-                returnText = try String(contentsOf: fileURL, encoding: .utf8)
-            }
-            catch {}
+                let localText = try String(contentsOf: fileURL, encoding: .utf8)
+                pasteCard.text = localText
+            } catch {}
         }
-        return returnText
     }
     
-    // MARK: -
-    // MARK: Other functions
+    // MARK: - Other functions
     
     // the Done button above the keyboard
     func addDoneButton() {
@@ -162,7 +153,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.resignFirstResponder()
     }
     
-    // functions for gestures
+    // tap and swipe gestures
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
@@ -182,13 +173,18 @@ class ViewController: UIViewController, UITextViewDelegate {
         performSegue(withIdentifier: "showSignIn", sender: Any?.self)
     }
     
+    @IBAction func cancelAction(_ sender: UIButton) {
+        pasteCard.text = cancelText
+        cleanUp()
+    }
+    
     func cleanUp() {
         cancelButton.isHidden = true
         saveButton.isHidden = true
         pasteCard.isEditable = false
         pasteCard.inputAccessoryView = nil
-        tapCard.isEnabled = true;
-        swipeUp.isEnabled = true;
+        tapCard.isEnabled = true
+        swipeUp.isEnabled = true
     }
     
     func deSymbol(text: String) -> String {
@@ -207,8 +203,8 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.isEditable = true
         addDoneButton()
         pasteCard.becomeFirstResponder()
-        tapCard.isEnabled = false;
-        swipeUp.isEnabled = false;
+        tapCard.isEnabled = false
+        swipeUp.isEnabled = false
     }
     
     // limit the text view to 1034 characters
@@ -219,6 +215,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         return changedText.count <= 1034
     }
     
+    // scroll to the text cursor when the keyboard shows
     @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardInfo = userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue
@@ -232,7 +229,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.scrollIndicatorInsets = .zero
     }
 
-    // MARK: -
+    // MARK: - App Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         pasteCard.delegate = self
@@ -253,7 +250,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         }
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
             if (Reachability.isConnectedToNetwork()) {
-                self.loadText()
+                self.loadRemote()
             } else {
                 self.haptic.notificationOccurred(.error)
             }
@@ -283,33 +280,33 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (defaults.string(forKey: "username") != nil) {
-            foregroundLoad(notification: nil)
-        } else {
+        if (defaults.string(forKey: "username") == nil) {
             performSegue(withIdentifier: "showSignIn", sender: Any?.self)
+        } else {
+            DispatchQueue.main.async { self.loadAction(notification: nil) }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
+    // coming back from Sign In
     @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? SignInController {
             defaults.set(sourceViewController.username, forKey: "username")
             defaults.synchronize()
-            DispatchQueue.main.async { self.loadText() }
+            DispatchQueue.main.async { self.loadRemote() } // skip to remote because user has to be online
         }
     }
     
     func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(foregroundLoad(notification:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadAction(notification:)), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
     }
-    override func viewWillDisappear(_ animated: Bool){
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }
