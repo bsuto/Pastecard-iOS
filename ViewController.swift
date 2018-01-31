@@ -20,7 +20,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let haptic = UINotificationFeedbackGenerator()
     var cancelText = ""
     var emergencyText = ""
     
@@ -157,9 +156,9 @@ class ViewController: UIViewController, UITextViewDelegate {
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
+                let haptic = UIImpactFeedbackGenerator(style: .light)
+                haptic.impactOccurred()
                 makeEditable()
-            } else {
-                haptic.notificationOccurred(.error)
             }
         }
     }
@@ -252,7 +251,9 @@ class ViewController: UIViewController, UITextViewDelegate {
             if (Reachability.isConnectedToNetwork()) {
                 self.loadRemote()
             } else {
-                self.haptic.notificationOccurred(.error)
+                let alert = UIAlertController(title: "😳", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
+                self.present(alert, animated: true)
             }
         }
         let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in

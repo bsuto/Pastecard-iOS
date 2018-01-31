@@ -51,7 +51,7 @@ class SignInController: UIViewController {
             }
             task.resume()
         } else {
-            let alert = UIAlertController(title: "🙄", message: "You have to have a wifi or cellular connection to sign in!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "😳", message: "You must have a WiFi or cellular connection to sign in!", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
             self.present(alert, animated: true)
         }
