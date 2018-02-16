@@ -116,11 +116,13 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     @objc func loadFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
-            self.loadLocal()
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { _ in
+            if self.pasteCard.text == "Loading…" {
+                self.loadLocal()
+            }
         }))
         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
-            self.loadRemote()
+            self.loadAction(notification: nil)
         }))
         self.present(alert, animated: true, completion: nil)
     }
