@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let user = defaults.string(forKey: "username")!
         let text = deSymbol(text: emergencyText)
         let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        guard let url = URL(string: "http://pastecard.net/api/write.php") else {return}
+        guard let url = URL(string: "https://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData?.data(using: String.Encoding.utf8)
@@ -44,6 +44,8 @@ class ViewController: UIViewController, UITextViewDelegate {
         // set a five second timeout and attempt to write the text to the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            
+            // if a error, revert the card to what it was before
             if error != nil {
                 self.pasteCard.text = self.cancelText
                 self.tapCard.isEnabled = true
@@ -66,7 +68,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     @objc func saveFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem saving your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
             self.pasteCard.text = self.cancelText
         }))
         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
@@ -99,7 +101,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     func loadRemote() {
         // assemble the GET request
-        let path = "http://pastecard.net/api/db/"
+        let path = "https://pastecard.net/api/db/"
         let user = defaults.string(forKey: "username")
         let textExtension = ".txt"
         let url = URL(string: path + user! + textExtension)
@@ -116,7 +118,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     @objc func loadFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
             if self.pasteCard.text == "Loading…" {
                 self.loadLocal()
             }
@@ -244,7 +246,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         // assemble the swipe menu
         let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL (string: "http://pastecard.net/help/")
+            let url = URL (string: "https://pastecard.net/help/")
             let svc = SFSafariViewController(url: url!)
             svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
             self.present(svc, animated: true, completion: nil)
@@ -253,7 +255,7 @@ class ViewController: UIViewController, UITextViewDelegate {
             if (Reachability.isConnectedToNetwork()) {
                 self.loadRemote()
             } else {
-                let alert = UIAlertController(title: "😳", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
                 self.present(alert, animated: true)
             }

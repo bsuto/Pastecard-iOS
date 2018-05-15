@@ -17,7 +17,7 @@ class SignInController: UIViewController {
     var username: String!
     
     @IBAction func loadSignUp(_ sender: UIButton) {
-        let url = URL (string: "http://pastecard.net/signup/")
+        let url = URL (string: "https://pastecard.net/signup/")
         let svc = SFSafariViewController(url: url!)
         svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
         present(svc, animated: true, completion: nil)
@@ -32,7 +32,7 @@ class SignInController: UIViewController {
         } else if (Reachability.isConnectedToNetwork()) {
             userField.resignFirstResponder()
             let nameCheck = userField.text?.lowercased()
-            let url = URL(string: "http://pastecard.net/api/check.php?user=" + (nameCheck?.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+            let url = URL(string: "https://pastecard.net/api/check.php?user=" + (nameCheck?.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
             var request = URLRequest(url: url!)
             request.httpMethod = "GET"
             
@@ -51,7 +51,7 @@ class SignInController: UIViewController {
             }
             task.resume()
         } else {
-            let alert = UIAlertController(title: "😳", message: "You must have a WiFi or cellular connection to sign in!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign in.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
             self.present(alert, animated: true)
         }
