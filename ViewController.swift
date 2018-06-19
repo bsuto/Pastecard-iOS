@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class ViewController: UIViewController, UITextViewDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
     // MARK: Variables and Outlets
     let defaults = UserDefaults.standard
@@ -19,7 +19,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
-    let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     var cancelText = ""
     var emergencyText = ""
     
@@ -45,7 +44,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             
-            // if a error, revert the card to what it was before
+            // if an error, revert the card to what it was before
             if error != nil {
                 self.pasteCard.text = self.cancelText
                 self.tapCard.isEnabled = true
@@ -156,7 +155,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.resignFirstResponder()
     }
     
-    // tap and swipe gesture actions
+    // tap gesture
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
@@ -166,8 +165,43 @@ class ViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+    
+    // swipe gesture
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
-        present(actionSheetController, animated: true, completion: nil)
+        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // assemble the menu
+        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
+            let url = URL (string: "https://pastecard.net/help/")
+            let svc = SFSafariViewController(url: url!)
+            svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
+            self.present(svc, animated: true, completion: nil)
+        }
+        let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
+            if (Reachability.isConnectedToNetwork()) {
+                self.loadRemote()
+            } else {
+                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
+                self.present(alert, animated: true)
+            }
+        }
+        let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
+            self.signOut()
+        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
+        
+        popoverMenu.addAction(refreshAction)
+        popoverMenu.addAction(helpAction)
+        popoverMenu.addAction(signOutAction)
+        popoverMenu.addAction(cancelAction)
+        
+        // turn action sheet into popover on iPad
+        popoverMenu.popoverPresentationController?.sourceView = self.view
+        popoverMenu.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+        popoverMenu.popoverPresentationController?.permittedArrowDirections = []
+        
+        present(popoverMenu, animated: true)
     }
     
     func signOut() {
@@ -204,7 +238,9 @@ class ViewController: UIViewController, UITextViewDelegate {
         saveButton.isHidden = false
         cancelText = pasteCard.text
         pasteCard.isEditable = true
-        addDoneButton()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            addDoneButton()
+        }
         pasteCard.becomeFirstResponder()
         tapCard.isEnabled = false
         swipeUp.isEnabled = false
@@ -243,31 +279,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         self.pasteCard.addGestureRecognizer(swipeUp)
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
-        
-        // assemble the swipe menu
-        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL (string: "https://pastecard.net/help/")
-            let svc = SFSafariViewController(url: url!)
-            svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
-            self.present(svc, animated: true, completion: nil)
-        }
-        let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
-            if (Reachability.isConnectedToNetwork()) {
-                self.loadRemote()
-            } else {
-                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
-                self.present(alert, animated: true)
-            }
-        }
-        let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
-            self.signOut()
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
-        actionSheetController.addAction(refreshAction)
-        actionSheetController.addAction(helpAction)
-        actionSheetController.addAction(signOutAction)
-        actionSheetController.addAction(cancelAction)
         
         // add borders to the card and buttons
         pasteCard.layer.borderWidth = 0.5

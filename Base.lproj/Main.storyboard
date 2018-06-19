@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,24 +16,48 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pastecard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Loading…" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-i6-bEL">
-                                <rect key="frame" x="16" y="64" width="343" height="515"/>
+                                <rect key="frame" x="16" y="64" width="382" height="584"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="This is the full contents of your Pastecard." label="Pastecard text">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="9s3-Vx-9jr"/>
+                                    <constraint firstAttribute="width" secondItem="mIS-i6-bEL" secondAttribute="height" multiplier="2:3" id="UY3-mm-oKr"/>
+                                    <constraint firstAttribute="width" constant="500" id="ZXj-d4-oHp">
+                                        <variation key="widthClass=regular" constant="400"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="shj-mL-jMv"/>
+                                </constraints>
                                 <viewLayoutGuide key="safeArea" id="CH4-bI-Y69"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9s3-Vx-9jr"/>
+                                        <exclude reference="UY3-mm-oKr"/>
+                                        <exclude reference="ZXj-d4-oHp"/>
+                                        <exclude reference="shj-mL-jMv"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="9s3-Vx-9jr"/>
+                                        <exclude reference="UY3-mm-oKr"/>
+                                        <include reference="ZXj-d4-oHp"/>
+                                        <exclude reference="shj-mL-jMv"/>
+                                    </mask>
+                                </variation>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jUc-Wd-ufd">
-                                <rect key="frame" x="16" y="587" width="343" height="34"/>
+                                <rect key="frame" x="16" y="656" width="382" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9Y-cv-Fhi">
-                                        <rect key="frame" x="0.0" y="0.0" width="163.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="Discard any changes" label="Cancel"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -44,7 +69,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-kl-Let">
-                                        <rect key="frame" x="179.5" y="0.0" width="163.5" height="34"/>
+                                        <rect key="frame" x="199" y="0.0" width="183" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="Save your changes" label="Save"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -56,29 +81,79 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="500" id="1Eg-lc-qrn">
+                                        <variation key="widthClass=regular" constant="400"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1Eg-lc-qrn"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="1Eg-lc-qrn"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-EB-KLj">
-                                <rect key="frame" x="16" y="53" width="343" height="12"/>
+                                <rect key="frame" x="16" y="53" width="382" height="12"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="Gr3-vL-03g"/>
+                                    <constraint firstAttribute="width" constant="400" id="cCi-kd-lAe"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="cCi-kd-lAe"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="cCi-kd-lAe"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="aFv-EB-KLj" secondAttribute="trailing" constant="16" id="7nM-n2-r7Q"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="884-h6-lVp"/>
+                            <constraint firstItem="mIS-i6-bEL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BOh-Dv-7oO"/>
                             <constraint firstItem="aFv-EB-KLj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="NcC-75-NTN"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="aFv-EB-KLj" secondAttribute="bottom" constant="-1" id="Oql-Cc-RzZ"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="OtH-2C-akl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" constant="88" id="Pwt-dp-fzT"/>
                             <constraint firstItem="jUc-Wd-ufd" firstAttribute="top" secondItem="mIS-i6-bEL" secondAttribute="bottom" constant="8" id="VvU-6G-e9u"/>
+                            <constraint firstItem="aFv-EB-KLj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZkF-bj-7hp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mIS-i6-bEL" secondAttribute="trailing" constant="16" id="fcL-4L-Mcp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jUc-Wd-ufd" secondAttribute="trailing" constant="16" id="hCj-S7-81I"/>
+                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jJH-5v-veo"/>
                             <constraint firstItem="jUc-Wd-ufd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="xjf-49-sO1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ZkF-bj-7hp"/>
+                                <exclude reference="BOh-Dv-7oO"/>
+                                <exclude reference="jJH-5v-veo"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="Pwt-dp-fzT"/>
+                                <exclude reference="fcL-4L-Mcp"/>
+                                <exclude reference="hCj-S7-81I"/>
+                                <exclude reference="7nM-n2-r7Q"/>
+                                <exclude reference="NcC-75-NTN"/>
+                                <include reference="ZkF-bj-7hp"/>
+                                <exclude reference="884-h6-lVp"/>
+                                <include reference="BOh-Dv-7oO"/>
+                                <include reference="jJH-5v-veo"/>
+                                <exclude reference="xjf-49-sO1"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="A9Y-cv-Fhi" id="tn4-tf-ALA"/>
@@ -96,11 +171,11 @@
             <objects>
                 <viewController title="Sign In Controller" id="lsL-uc-6MA" customClass="SignInController" customModule="Pastecard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zp6-xn-cxi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9C-BL-8bU">
-                                <rect key="frame" x="16" y="64" width="343" height="41"/>
+                                <rect key="frame" x="16" y="64" width="382" height="40.666666666666657"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES" header="YES"/>
                                 </accessibility>
@@ -109,7 +184,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-er-sMS">
-                                <rect key="frame" x="16" y="149" width="343" height="21"/>
+                                <rect key="frame" x="16" y="148.66666666666666" width="382" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pastecard.net/" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-U0-yoD">
                                         <rect key="frame" x="0.0" y="0.0" width="111" height="21"/>
@@ -121,7 +196,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9JC-9D-6Qq">
-                                        <rect key="frame" x="111" y="0.0" width="232" height="21"/>
+                                        <rect key="frame" x="111" y="0.0" width="271" height="21"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="Enter your Pastecard username here" label="Username field"/>
                                         <nil key="textColor"/>
@@ -132,12 +207,25 @@
                                         </connections>
                                     </textField>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="5Bf-sV-gSD"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5Bf-sV-gSD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="5Bf-sV-gSD"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Xw6-pW-1qK">
-                                <rect key="frame" x="16" y="192" width="343" height="34"/>
+                                <rect key="frame" x="16" y="191.66666666666666" width="382" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52X-At-fYt">
-                                        <rect key="frame" x="0.0" y="0.0" width="163.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="Sign up for a Pastecard account" label="Sign Up"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -148,7 +236,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eof-hq-Xcv">
-                                        <rect key="frame" x="179.5" y="0.0" width="163.5" height="34"/>
+                                        <rect key="frame" x="199" y="0.0" width="183" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration" hint="Sign into Pastecard with your username" label="Go"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -159,21 +247,57 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="CLw-Bt-KX9"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CLw-Bt-KX9"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="CLw-Bt-KX9"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xhR-er-sMS" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="C6D-Wa-iG7"/>
                             <constraint firstItem="xhR-er-sMS" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="Ecy-q4-T62"/>
                             <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="xhR-er-sMS" secondAttribute="trailing" constant="16" id="HgK-n7-AdG"/>
-                            <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="z9C-BL-8bU" secondAttribute="trailing" constant="16" id="USX-hH-3VU"/>
-                            <constraint firstItem="z9C-BL-8bU" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="UhE-QY-HFd"/>
+                            <constraint firstItem="Xw6-pW-1qK" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="Xrk-NG-ddn"/>
                             <constraint firstItem="z9C-BL-8bU" firstAttribute="top" secondItem="50k-dZ-l5a" secondAttribute="top" constant="44" id="ZEG-Ff-ph1"/>
+                            <constraint firstItem="z9C-BL-8bU" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="guA-s4-vNf"/>
                             <constraint firstItem="Xw6-pW-1qK" firstAttribute="top" secondItem="xhR-er-sMS" secondAttribute="bottom" constant="22" id="jT9-Wx-JLW"/>
+                            <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="z9C-BL-8bU" secondAttribute="trailing" constant="16" id="qNr-yK-VY8"/>
                             <constraint firstItem="xhR-er-sMS" firstAttribute="top" secondItem="z9C-BL-8bU" secondAttribute="bottom" constant="44" id="tX9-NI-EbH"/>
                             <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="Xw6-pW-1qK" secondAttribute="trailing" constant="16" id="u2b-hy-cuu"/>
                             <constraint firstItem="Xw6-pW-1qK" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="xks-d1-FcE"/>
+                            <constraint firstItem="z9C-BL-8bU" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="yy4-om-kuK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="50k-dZ-l5a"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="guA-s4-vNf"/>
+                                <exclude reference="C6D-Wa-iG7"/>
+                                <exclude reference="Xrk-NG-ddn"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="HgK-n7-AdG"/>
+                                <exclude reference="qNr-yK-VY8"/>
+                                <exclude reference="u2b-hy-cuu"/>
+                                <include reference="guA-s4-vNf"/>
+                                <exclude reference="yy4-om-kuK"/>
+                                <include reference="C6D-Wa-iG7"/>
+                                <exclude reference="Ecy-q4-T62"/>
+                                <include reference="Xrk-NG-ddn"/>
+                                <exclude reference="xks-d1-FcE"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="goButton" destination="eof-hq-Xcv" id="Ctb-kx-556"/>
