@@ -197,8 +197,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         popoverMenu.addAction(cancelAction)
         
         // turn action sheet into popover on iPad
-        popoverMenu.popoverPresentationController?.sourceView = self.view
-        popoverMenu.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+        popoverMenu.popoverPresentationController?.sourceView = self.pasteCard
+        popoverMenu.popoverPresentationController?.sourceRect = CGRect(x: self.pasteCard.bounds.midX, y: self.pasteCard.bounds.maxY, width: 0, height: -240)
         popoverMenu.popoverPresentationController?.permittedArrowDirections = []
         
         present(popoverMenu, animated: true)
