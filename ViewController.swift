@@ -66,11 +66,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     @objc func saveFailure() {
-        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem saving your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
+        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem saving your text.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
             self.pasteCard.text = self.cancelText
         }))
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
             self.pasteCard.text = self.emergencyText
             self.makeEditable()
         }))
@@ -116,13 +116,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     @objc func loadFailure() {
-        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
+        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
             if self.pasteCard.text == "Loading…" {
                 self.loadLocal()
             }
         }))
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
             self.loadAction(notification: nil)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -172,17 +172,16 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         
         // assemble the menu
         let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL (string: "https://pastecard.net/help/")
+            let url = URL(string: "https://pastecard.net/help/")
             let svc = SFSafariViewController(url: url!)
-            svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
             self.present(svc, animated: true, completion: nil)
         }
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
             if (Reachability.isConnectedToNetwork()) {
                 self.loadRemote()
             } else {
-                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
+                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
                 self.present(alert, animated: true)
             }
         }
@@ -257,7 +256,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     // scroll to the text cursor when the keyboard shows
     @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardInfo = userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         pasteCard.contentInset = contentInsets
@@ -313,8 +312,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

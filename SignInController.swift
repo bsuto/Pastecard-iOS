@@ -17,16 +17,15 @@ class SignInController: UIViewController {
     var username: String!
     
     @IBAction func loadSignUp(_ sender: UIButton) {
-        let url = URL (string: "https://pastecard.net/signup/")
+        let url = URL(string: "https://pastecard.net/signup/")
         let svc = SFSafariViewController(url: url!)
-        svc.preferredControlTintColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0)
         present(svc, animated: true, completion: nil)
     }
     
     func addUser() {
         if (userField.text == "") {
-            let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertControllerStyle.alert)
-            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder() }
+            let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertController.Style.alert)
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
             alert.addAction(okayAction)
             self.present(alert, animated: true)
         } else if (Reachability.isConnectedToNetwork()) {
@@ -43,16 +42,16 @@ class SignInController: UIViewController {
                     self.username = nameCheck
                     self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
                 } else {
-                    let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertControllerStyle.alert)
-                    let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in self.userField.becomeFirstResponder() }
+                    let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertController.Style.alert)
+                    let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
                     alert.addAction(okayAction)
                     self.present(alert, animated: true)
                 }
             }
             task.resume()
         } else {
-            let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign in.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default))
+            let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign in.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
             self.present(alert, animated: true)
         }
     }
