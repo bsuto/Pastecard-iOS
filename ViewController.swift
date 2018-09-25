@@ -204,8 +204,21 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     func signOut() {
+        // sign out user
         defaults.setValue(nil, forKey: "username")
         defaults.synchronize()
+        
+        // clear contents of local save file
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(self.file)
+            do {
+                let empty = ""
+                try empty.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {}
+        }
+        
+        // show sign in
         performSegue(withIdentifier: "showSignIn", sender: Any?.self)
     }
     
