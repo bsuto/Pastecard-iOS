@@ -6,81 +6,71 @@
 //  Copyright © 2017 Brian Sutorius. All rights reserved.
 //
 
-import Foundation
-import SafariServices
-
-extension String {
-    func isAlphanumeric() -> Bool {
-        return self.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && self != ""
-    }
-}
+import UIKit
 
 class SignInController: UIViewController {
     
-    // MARK: Variables and Outlets
+    // MARK: Variables, Outlets and Functions
+    var username: String!
+    var nameField: UITextField!
+    let alertBox = UIAlertController(title: "Choose your Username", message: "Your Pastecard URL will be pastecard.net/(username)", preferredStyle: .alert)
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var userField: UITextField!
-    var username: String!
+    @IBAction func keyboardGoAction(_ sender: Any) {
+        addUser()
+    }
+    @IBAction func goAction(_ sender: UIButton) {
+        addUser()
+    }
+    
+    // enable submit button when there's valid text in the field
+    @objc func textFieldDidChange(){
+        if let t = nameField.text {
+            let alphaNumeric: Bool = t.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && t != ""
+            let b = alertBox.actions[1]
+            b.isEnabled = alphaNumeric
+        }
+    }
     
     // MARK: - Sign Up
+    func createUser(name: String) {
+            
+        // assemble the API request to create user
+        let url = URL(string: "https://pastecard.net/api/appsignup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if error != nil {return}
+            let responseString = String(data: data!, encoding: .utf8)
+            
+            // if it succeeds, set the username and go to the card
+            if (responseString == "success") {
+                self.username = name
+                self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
+                
+            // if the username is taken, alert
+            } else if (responseString == "taken") {
+                let alert = UIAlertController(title: "😬", message: "That username is not available.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
+                self.present(alert, animated: true)
+                
+            // if a server error, alert
+            } else {
+                let alert = UIAlertController(title: "😳", message: "Oops, something didn't work. Please go back and try again.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
+                self.present(alert, animated: true)
+            }
+        }
+        task.resume()
+    }
+    
     @IBAction func signUp(_ sender: UIButton) {
         
-        // check internet connection
+        // if an internet connection, show the alert box
         if (Reachability.isConnectedToNetwork()) {
-            
-            // assemble the sign up alert box
-            let ac = UIAlertController(title: "Choose your Username", message: "Your Pastecard URL will be pastecard.net/(username)", preferredStyle: .alert)
-            ac.addTextField()
-            let submitAction = UIAlertAction(title: "Sign Up", style: .default) { [unowned ac] _ in
-                let nameField = ac.textFields![0]
-                let name = nameField.text?.lowercased()
-                
-                // check alphanumeric
-                if (name!.isAlphanumeric()) {
-                    
-                    // assemble and send the API request to create user
-                    let url = URL(string: "https://pastecard.net/api/appsignup.php?user=" + (name?.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-                    var request = URLRequest(url: url!)
-                    request.httpMethod = "GET"
-                    
-                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                        if error != nil {return}
-                        let responseString = String(data: data!, encoding: .utf8)
-                        
-                        // if it succeeds, set the username and go to the card
-                        if (responseString == "success") {
-                            self.username = name
-                            self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
-                            
-                        // if the username is taken, alert
-                        } else if (responseString == "taken") {
-                            let alert = UIAlertController(title: "😬", message: "That username is not available.", preferredStyle: UIAlertController.Style.alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-                            self.present(alert, animated: true)
-                            
-                        // if a server error, alert
-                        } else {
-                            let alert = UIAlertController(title: "😳", message: "Oops, something didn't work. Please go back and try again.", preferredStyle: UIAlertController.Style.alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-                            self.present(alert, animated: true)
-                        }
-                    }
-                    task.resume()
-                    
-                // if the username has unallowed characters, alert
-                } else {
-                    let alert = UIAlertController(title: "😬", message: "Usernames can only have letters and numbers.", preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-                    self.present(alert, animated: true)
-                }
-            }
-            
-            // show the sign up alert box
-            ac.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default))
-            ac.addAction(submitAction)
-            self.present(ac, animated: true)
-        
+            self.present(alertBox, animated: true)
         } else {
             let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign up.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
@@ -92,7 +82,7 @@ class SignInController: UIViewController {
     func addUser() {
         
         // check if username was entered at all
-        if (userField.text == "") {
+        if (userField.text!.isEmpty) {
             let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertController.Style.alert)
             let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
             alert.addAction(okayAction)
@@ -134,14 +124,7 @@ class SignInController: UIViewController {
         }
     }
     
-    // MARK: - Other & App Life Cycle
-    @IBAction func keyboardGoAction(_ sender: Any) {
-        addUser()
-    }
-    
-    @IBAction func goAction(_ sender: UIButton) {
-        addUser()
-    }
+    // MARK: - App Life Cycle
     
     override func viewDidLoad() {
         
@@ -150,6 +133,19 @@ class SignInController: UIViewController {
         signUpButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
         goButton.layer.borderWidth = 0.5
         goButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
+        
+        // assemble the sign up alert box
+        alertBox.addTextField { (textField) -> Void in
+            self.nameField = textField
+            textField.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControl.Event.editingChanged)
+        }
+        alertBox.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel))
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+            let name = self.nameField.text?.lowercased()
+            self.createUser(name: name!)
+            }
+        alertBox.addAction(submitAction)
+        submitAction.isEnabled = false
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
