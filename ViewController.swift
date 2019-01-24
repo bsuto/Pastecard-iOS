@@ -176,6 +176,14 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             let svc = SFSafariViewController(url: url!)
             self.present(svc, animated: true, completion: nil)
         }
+        let shareAction: UIAlertAction = UIAlertAction(title: "Share…", style: .default) { action -> Void in
+            let text = [ self.pasteCard.text ]
+            let avc = UIActivityViewController(activityItems: text as [Any], applicationActivities: nil)
+            avc.popoverPresentationController?.sourceView = self.view
+            avc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+            avc.popoverPresentationController?.permittedArrowDirections = []
+            self.present(avc, animated: true, completion: nil)
+        }
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
             if (Reachability.isConnectedToNetwork()) {
                 self.loadRemote()
@@ -191,6 +199,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
         
         popoverMenu.addAction(refreshAction)
+        popoverMenu.addAction(shareAction)
         popoverMenu.addAction(helpAction)
         popoverMenu.addAction(signOutAction)
         popoverMenu.addAction(cancelAction)
