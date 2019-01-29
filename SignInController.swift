@@ -13,7 +13,7 @@ class SignInController: UIViewController {
     // MARK: Variables, Outlets and Functions
     var username: String!
     var nameField: UITextField!
-    let alertBox = UIAlertController(title: "Choose your Username", message: "Your Pastecard URL will be pastecard.net/(username)", preferredStyle: .alert)
+    let alertBox = UIAlertController(title: "Choose your Username", message: "Your Pastecard URL will be \n pastecard.net/(username)", preferredStyle: .alert)
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var userField: UITextField!
@@ -24,12 +24,25 @@ class SignInController: UIViewController {
         addUser()
     }
     
-    // enable submit button when there's valid text in the field
+    // when there's valid text in the sign up field
     @objc func textFieldDidChange(){
         if let t = nameField.text {
-            let alphaNumeric: Bool = t.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && t != ""
-            let b = alertBox.actions[1]
-            b.isEnabled = alphaNumeric
+            let validUsername: Bool = t.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && t != "" && t.count < 21
+            
+            // enable the submit button and update the helper text
+            if (validUsername) {
+                alertBox.actions[1].isEnabled = true
+                alertBox.message = "Your Pastecard URL will be \n pastecard.net/\(t)"
+            } else {
+                alertBox.actions[1].isEnabled = false
+                if t == "" {
+                    alertBox.message = "Your Pastecard URL will be \n pastecard.net/(username)"
+                } else if t.count > 20 {
+                    alertBox.message = "Invalid username: \n 20 character maximum"
+                } else {
+                    alertBox.message = "Invalid username: \n Letters and numbers only"
+                }
+            }
         }
     }
     
