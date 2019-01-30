@@ -10,7 +10,7 @@ This is an experimental native app for [Pastecard](https://pastecard.net). It re
 
 ## What are the benefits of this app over the web app?
 * Take advantage of multitasking on iPad
-* A share extension for web views (if text is selected, append that to your Pastecard. Otherwise, append the current URL)
+* A share extension to append the current URL to your Pastecard
 * All the warm feelings of a true native app
 
 ## A few notes:
