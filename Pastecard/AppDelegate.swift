@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if (vc.defaults.string(forKey: "username") == nil) {
+        if (vc.defaults?.string(forKey: "username") == nil) {
             vc.performSegue(withIdentifier: "showSignIn", sender: Any?.self)
         } else {
             DispatchQueue.main.async { self.vc.loadAction(notification: nil) }

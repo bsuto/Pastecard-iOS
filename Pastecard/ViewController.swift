@@ -12,7 +12,7 @@ import SafariServices
 class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
     // MARK: Variables and Outlets
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults(suiteName: "group.net.pastecard")
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
     @IBOutlet weak var saveButton: UIButton!
@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         tapCard.isEnabled = false
         
         // assemble the POST request
-        let user = defaults.string(forKey: "username")!
+        let user = defaults!.string(forKey: "username")!
         let text = deSymbol(text: emergencyText)
         let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let url = URL(string: "https://pastecard.net/api/write.php") else {return}
@@ -101,7 +101,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     func loadRemote() {
         // assemble the GET request
         let path = "https://pastecard.net/api/db/"
-        let user = defaults.string(forKey: "username")
+        let user = defaults!.string(forKey: "username")
         let textExtension = ".txt"
         let url = URL(string: path + user! + textExtension)
         
@@ -214,8 +214,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     
     func signOut() {
         // sign out user
-        defaults.setValue(nil, forKey: "username")
-        defaults.synchronize()
+        defaults!.setValue(nil, forKey: "username")
+        defaults!.synchronize()
         
         // clear contents of local save file
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -317,7 +317,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (defaults.string(forKey: "username") == nil) {
+        if (defaults?.string(forKey: "username") == nil) {
             performSegue(withIdentifier: "showSignIn", sender: Any?.self)
         } else {
             DispatchQueue.main.async { self.loadAction(notification: nil) }
@@ -327,8 +327,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     // coming back from Sign In
     @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? SignInController {
-            defaults.set(sourceViewController.username, forKey: "username")
-            defaults.synchronize()
+            defaults!.set(sourceViewController.username, forKey: "username")
+            defaults!.synchronize()
             DispatchQueue.main.async { self.loadRemote() } // skip to remote because user has to be online
         }
     }
