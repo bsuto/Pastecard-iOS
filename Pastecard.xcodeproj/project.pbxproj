@@ -62,7 +62,7 @@
 		7A6D7C4021FB3D900001A0A9 /* bookmarklet.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bookmarklet.js; sourceTree = "<group>"; };
 		7A6D7C4221FB409F0001A0A9 /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7A6D7C4321FB493E0001A0A9 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
-		7A70F40F1FF2B23000F383AF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7A70F40F1FF2B23000F383AF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Pastecard/README.md; sourceTree = "<group>"; };
 		7A85426F1FF18760008CA130 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7AB395F01FE4258900079651 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		7AF204251FE1ECC90086A9F2 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +135,6 @@
 				7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */,
 				7AF204311FE1ECC90086A9F2 /* LaunchScreen.storyboard */,
 				7AF204341FE1ECC90086A9F2 /* Info.plist */,
-				7A70F40F1FF2B23000F383AF /* README.md */,
 			);
 			path = Pastecard;
 			sourceTree = "<group>";
@@ -143,6 +142,7 @@
 		7AF84C20201E2F0100E181B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A70F40F1FF2B23000F383AF /* README.md */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
