@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MobileCoreServices
 
 class ShareViewController: UIViewController {
 
@@ -51,28 +50,28 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // draw a border on the dialog
-        self.view.viewWithTag(1)?.layer.borderWidth = 2.0
-        self.view.viewWithTag(1)?.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
-        
         // get the logged-in user from the main app
         let username = shareDefaults!.string(forKey: "username")
         
-        let extensionItem = extensionContext?.inputItems.first as! NSExtensionItem
-        let itemProvider = extensionItem.attachments?.first as! NSItemProvider
-        let propertyList = String(kUTTypePropertyList)
-        if itemProvider.hasItemConformingToTypeIdentifier(propertyList) {
-            itemProvider.loadItem(forTypeIdentifier: propertyList, options: nil, completionHandler: { (item, error) -> Void in
-                guard let dictionary = item as? NSDictionary else { return }
-                OperationQueue.main.addOperation {
-                    if let results = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary {
-                        let saveText = results["text"] as? String
-                        self.saveToServer(user: username!, text: saveText ?? "")
+        // https://stackoverflow.com/a/39296032
+        if let item = extensionContext?.inputItems.first as? NSExtensionItem {
+            if let attachments = item.attachments {
+                for attachment: NSItemProvider in attachments {
+                    if attachment.hasItemConformingToTypeIdentifier("public.url") {
+                        attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
+                            if let shareURL = url as? NSURL {
+                                var shareText: String = shareURL.absoluteString!
+                                
+                                // remove protocol
+                                shareText = shareText.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
+                                shareText = shareText.replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
+                                
+                                self.saveToServer(user: username!, text: shareText )
+                            }
+                        })
                     }
                 }
-            })
-        } else {
-            print("error")
+            }
         }
     }
 }
