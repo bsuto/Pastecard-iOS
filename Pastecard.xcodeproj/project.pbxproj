@@ -10,7 +10,6 @@
 		7A6D7C3421FB3CE40001A0A9 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */; };
 		7A6D7C3721FB3CE40001A0A9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D7C3521FB3CE40001A0A9 /* MainInterface.storyboard */; };
 		7A6D7C3B21FB3CE40001A0A9 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A6D7C3121FB3CE40001A0A9 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7A6D7C4121FB3D900001A0A9 /* bookmarklet.js in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D7C4021FB3D900001A0A9 /* bookmarklet.js */; };
 		7A8542701FF18760008CA130 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A85426F1FF18760008CA130 /* Reachability.swift */; };
 		7AB395F11FE4258900079651 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB395F01FE4258900079651 /* SignInController.swift */; };
 		7AF204291FE1ECC90086A9F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF204281FE1ECC90086A9F2 /* AppDelegate.swift */; };
@@ -59,7 +58,6 @@
 		7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7A6D7C3621FB3CE40001A0A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7A6D7C3821FB3CE40001A0A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A6D7C4021FB3D900001A0A9 /* bookmarklet.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bookmarklet.js; sourceTree = "<group>"; };
 		7A6D7C4221FB409F0001A0A9 /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7A6D7C4321FB493E0001A0A9 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		7A70F40F1FF2B23000F383AF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Pastecard/README.md; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */,
 				7A6D7C3521FB3CE40001A0A9 /* MainInterface.storyboard */,
 				7A6D7C3821FB3CE40001A0A9 /* Info.plist */,
-				7A6D7C4021FB3D900001A0A9 /* bookmarklet.js */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -245,7 +242,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6D7C4121FB3D900001A0A9 /* bookmarklet.js in Resources */,
 				7A6D7C3721FB3CE40001A0A9 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
