@@ -46,6 +46,16 @@ class SignInController: UIViewController {
         }
     }
     
+    @objc func userFieldDidChange(){
+        if let t = userField.text {
+            if (t == "") {
+                goButton.isEnabled = false
+            } else {
+                goButton.isEnabled = true
+            }
+        }
+    }
+    
     // MARK: - Sign Up
     func createUser(name: String) {
             
@@ -94,15 +104,8 @@ class SignInController: UIViewController {
     // MARK: - Sign In
     func addUser() {
         
-        // check if username was entered at all
-        if (userField.text!.isEmpty) {
-            let alert = UIAlertController(title: "😉", message: "Please enter your Pastecard username.", preferredStyle: UIAlertController.Style.alert)
-            let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
-            alert.addAction(okayAction)
-            self.present(alert, animated: true)
-            
         // check internet connection
-        } else if (Reachability.isConnectedToNetwork()) {
+        if (Reachability.isConnectedToNetwork()) {
             
             // assemble and send the API request to check if username exists
             userField.resignFirstResponder()
@@ -159,6 +162,9 @@ class SignInController: UIViewController {
             }
         alertBox.addAction(submitAction)
         submitAction.isEnabled = false
+        
+        // show and hide the Go button
+        userField.addTarget(self, action: #selector(self.userFieldDidChange), for: UIControl.Event.editingChanged)
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
