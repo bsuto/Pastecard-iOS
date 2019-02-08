@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9M3-hP-E12">
-                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEg-Or-Do1">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="12"/>
@@ -44,20 +44,20 @@
                                 </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="jEg-Or-Do1" secondAttribute="trailing" id="1SI-y2-X7N"/>
+                                    <constraint firstAttribute="height" constant="80" id="3aL-d1-umV"/>
                                     <constraint firstItem="XlI-sr-F0V" firstAttribute="top" secondItem="jEg-Or-Do1" secondAttribute="bottom" constant="12" id="4rR-zy-tJA"/>
                                     <constraint firstItem="XlI-sr-F0V" firstAttribute="leading" secondItem="9M3-hP-E12" secondAttribute="leading" id="DPk-7p-1Ct"/>
                                     <constraint firstAttribute="trailing" secondItem="XlI-sr-F0V" secondAttribute="trailing" id="KrE-ff-tGX"/>
                                     <constraint firstItem="jEg-Or-Do1" firstAttribute="top" secondItem="9M3-hP-E12" secondAttribute="top" id="WO9-j5-Q1d"/>
-                                    <constraint firstAttribute="height" constant="60" id="hzN-rF-YSF"/>
                                     <constraint firstItem="jEg-Or-Do1" firstAttribute="leading" secondItem="9M3-hP-E12" secondAttribute="leading" id="inW-jP-PpL"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9M3-hP-E12" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" id="c6i-Ae-576"/>
-                            <constraint firstItem="9M3-hP-E12" firstAttribute="bottom" secondItem="1Xd-am-t49" secondAttribute="bottom" id="eUT-JV-8h9"/>
-                            <constraint firstItem="9M3-hP-E12" firstAttribute="trailing" secondItem="1Xd-am-t49" secondAttribute="trailing" id="fSz-x3-ue6"/>
+                            <constraint firstItem="9M3-hP-E12" firstAttribute="leading" secondItem="wbc-yd-nQP" secondAttribute="leading" id="0nZ-LA-VJs"/>
+                            <constraint firstAttribute="trailing" secondItem="9M3-hP-E12" secondAttribute="trailing" id="HmZ-q8-ZUL"/>
+                            <constraint firstAttribute="bottom" secondItem="9M3-hP-E12" secondAttribute="bottom" id="bkB-we-SDy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Xd-am-t49"/>
                     </view>

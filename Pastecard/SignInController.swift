@@ -46,6 +46,7 @@ class SignInController: UIViewController {
         }
     }
     
+    // enable the Go button if there's text in the username field
     @objc func userFieldDidChange(){
         if let t = userField.text {
             if (t == "") {
@@ -91,7 +92,7 @@ class SignInController: UIViewController {
     
     @IBAction func signUp(_ sender: Any) {
         
-        // if an internet connection, show the alert box
+        // if an internet connection, show the sign up alert
         if (Reachability.isConnectedToNetwork()) {
             self.present(alertBox, animated: true)
         } else {
@@ -163,7 +164,7 @@ class SignInController: UIViewController {
         alertBox.addAction(submitAction)
         submitAction.isEnabled = false
         
-        // show and hide the Go button
+        // watch the username field for enabling the Go button
         userField.addTarget(self, action: #selector(self.userFieldDidChange), for: UIControl.Event.editingChanged)
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
