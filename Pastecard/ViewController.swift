@@ -42,20 +42,22 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         
         // set a five second timeout and attempt to write the text to the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             // if an error, revert the card to what it was before
             if error != nil {
+                timer.invalidate()
                 self.pasteCard.text = self.cancelText
                 self.tapCard.isEnabled = true
                 return
             }
             
-            // on success, pause a little bit so the Saving message is actually readable
+            // pause a little bit so the Saving message is actually readable
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                 var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
                 responseData = responseData?.removingPercentEncoding
                 
+                // save the text locally and put it in the fcard
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
                 self.tapCard.isEnabled = true
@@ -107,12 +109,25 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         
         // set a five second timeout and attempt to get the text from the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
-        do {
-            let remoteText = try String(contentsOf: url!)
-            saveLocal(text: remoteText)
-            pasteCard.text = remoteText
-            timer.invalidate()
-        } catch {}
+        let task = URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            
+            // if an error, go immediately to load failure
+            if error != nil {
+                timer.invalidate()
+                self.loadFailure()
+                return
+            }
+            
+            // save the text locally and put it in the card
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if let remoteText = String(data: data!, encoding: .utf8) {
+                    self.saveLocal(text: remoteText)
+                    self.pasteCard.text = remoteText
+                    timer.invalidate()
+                }
+            }
+        }
+        task.resume()
     }
     
     @objc func loadFailure() {
