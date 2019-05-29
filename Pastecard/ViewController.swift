@@ -52,11 +52,10 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 return
             }
             
+            let responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))?.removingPercentEncoding
+            
             // pause a little bit so the Saving message is actually readable
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                var responseData = String(data: data!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
-                responseData = responseData?.removingPercentEncoding
-                
                 // save the text locally and put it in the fcard
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
@@ -105,11 +104,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         let path = "https://pastecard.net/api/db/"
         let user = defaults!.string(forKey: "username")
         let textExtension = ".txt"
-        let url = URL(string: path + user! + textExtension)
+        let url = URL(string: path + user! + textExtension)!
         
         // set a five second timeout and attempt to get the text from the server
         let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
-        let task = URLSession.shared.dataTask(with:url!) { (data, response, error) in
+        let task = URLSession.shared.downloadTask(with:url) { localUrl, response, error in
             
             // if an error, go immediately to load failure
             if error != nil {
@@ -118,12 +117,14 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 return
             }
             
-            // save the text locally and put it in the card
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                if let remoteText = String(data: data!, encoding: .utf8) {
-                    self.saveLocal(text: remoteText)
-                    self.pasteCard.text = remoteText
-                    timer.invalidate()
+            if let localUrl = localUrl {
+                if let remoteText = try? String(contentsOf: localUrl, encoding: .utf8) {
+                    // save the text locally and put it in the card
+                    DispatchQueue.main.async() {
+                        self.saveLocal(text: remoteText)
+                        self.pasteCard.text = remoteText
+                        timer.invalidate()
+                    }
                 }
             }
         }
