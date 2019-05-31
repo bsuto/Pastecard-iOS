@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     @IBOutlet weak var pasteCard: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    private var item: DispatchWorkItem?
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     var cancelText = ""
@@ -26,10 +27,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     @IBAction func saveAction(_ sender: UIButton) {
         cleanUp()
         emergencyText = pasteCard.text
-        
-        // show progress message and lock the card
         pasteCard.text = "Saving…"
-        tapCard.isEnabled = false
         
         // assemble the POST request
         let user = defaults!.string(forKey: "username")!
@@ -40,15 +38,20 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         request.httpMethod = "POST"
         request.httpBody = postData?.data(using: String.Encoding.utf8)
         
-        // set a five second timeout and attempt to write the text to the server
-        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.saveFailure), userInfo: nil, repeats: false)
+        // set a five second timeout before going to save failure
+        item = DispatchWorkItem { [weak self] in
+            self?.saveFailure()
+            self?.item = nil
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
+        
+        // fire the POST request
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             // if an error, revert the card to what it was before
             if error != nil {
-                timer.invalidate()
+                self.item?.cancel()
                 self.pasteCard.text = self.cancelText
-                self.tapCard.isEnabled = true
                 return
             }
             
@@ -56,17 +59,17 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             
             // pause a little bit so the Saving message is actually readable
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
-                // save the text locally and put it in the fcard
+                // save the text locally and put it in the card
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
                 self.tapCard.isEnabled = true
-                timer.invalidate()
+                self.item?.cancel()
             }
         }
         task.resume()
     }
     
-    @objc func saveFailure() {
+    func saveFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem saving your text.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
             self.pasteCard.text = self.cancelText
@@ -90,13 +93,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     
     // MARK: - Load functions
     @objc func loadAction(notification: Notification?) {
-        tapCard.isEnabled = false // lock the card while trying
         if (Reachability.isConnectedToNetwork()) {
             loadRemote()
         } else {
             loadLocal()
         }
-        tapCard.isEnabled = true
     }
     
     func loadRemote() {
@@ -106,13 +107,18 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         let textExtension = ".txt"
         let url = URL(string: path + user! + textExtension)!
         
-        // set a five second timeout and attempt to get the text from the server
-        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.loadFailure), userInfo: nil, repeats: false)
+        // set a five second timeout before going to load failure
+        item = DispatchWorkItem { [weak self] in
+            self?.loadFailure()
+            self?.item = nil
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
+
+        // fire the GET request
         let task = URLSession.shared.downloadTask(with:url) { localUrl, response, error in
-            
             // if an error, go immediately to load failure
             if error != nil {
-                timer.invalidate()
+                self.item?.cancel()
                 self.loadFailure()
                 return
             }
@@ -123,19 +129,21 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                     DispatchQueue.main.async() {
                         self.saveLocal(text: remoteText)
                         self.pasteCard.text = remoteText
-                        timer.invalidate()
+                        self.item?.cancel()
                     }
+                    self.tapCard.isEnabled = true // unlock the card in case it'd been locked before
                 }
             }
         }
         task.resume()
     }
     
-    @objc func loadFailure() {
+    func loadFailure() {
         let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
             if self.pasteCard.text == "Loading…" {
                 self.loadLocal()
+                self.tapCard.isEnabled = false // lock the card, you're likely offline
             }
         }))
         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
@@ -174,6 +182,11 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     // tap gesture
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
+            // if the app is loading or saving, don't attempt to edit the card
+            if (self.pasteCard.text == "Saving…" || self.pasteCard.text == "Loading…") {
+                return
+            }
+            
             if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
                 let haptic = UIImpactFeedbackGenerator(style: .light)
                 haptic.impactOccurred()

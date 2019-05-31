@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {}
 
+    // essentially, hit the Cancel button if you leave the app with the card open
     func applicationDidEnterBackground(_ application: UIApplication) {
         if (vc.pasteCard.isEditable == true) {
             vc.pasteCard.text = vc.cancelText
