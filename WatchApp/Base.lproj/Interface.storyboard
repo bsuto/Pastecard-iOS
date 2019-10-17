@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15400" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch40"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15400"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchApp" customModuleProvider="target">
+                    <items>
+                        <label alignment="left" text="Loading…" textAlignment="left" id="6gZ-ec-DcM"/>
+                    </items>
+                    <menu key="menu" id="Xfk-Gi-sDl">
+                        <items>
+                            <menuItem title="Add" icon="add" id="cff-hZ-68k">
+                                <connections>
+                                    <action selector="addText" destination="AgC-eL-Hgc" id="UAV-zY-Da6"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Refresh" icon="resume" id="SH3-mp-PCM">
+                                <connections>
+                                    <action selector="refresh" destination="AgC-eL-Hgc" id="i43-tT-Hpk"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="34" y="31"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+</document>
