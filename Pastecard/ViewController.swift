@@ -347,7 +347,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     
     override func viewDidAppear(_ animated: Bool) {
         if (defaults?.string(forKey: "username") == nil) {
-            performSegue(withIdentifier: "showSignIn", sender: Any?.self)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "showSignIn", sender: self)
+            }
         } else {
             DispatchQueue.main.async { self.loadAction(notification: nil) }
         }
