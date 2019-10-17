@@ -1,15 +1,15 @@
 //
 //  ShareViewController.swift
-//  URLExtension
+//  TextExtension
 //
-//  Created by Brian Sutorius on 1/25/19.
+//  Created by Brian Sutorius on 10/17/19.
 //  Copyright © 2019 Brian Sutorius. All rights reserved.
 //
 
 import UIKit
 
 class ShareViewController: UIViewController {
-
+    
     let shareDefaults = UserDefaults(suiteName: "group.net.pastecard")
     
     // hide the dialog and kill the extension
@@ -54,21 +54,19 @@ class ShareViewController: UIViewController {
         // get the logged-in user from the main app
         if let username = shareDefaults!.string(forKey: "username"), !username.isEmpty {
             
-            // https://stackoverflow.com/a/39296032
             if let item = extensionContext?.inputItems.first as? NSExtensionItem {
                 if let attachments = item.attachments {
                     for attachment: NSItemProvider in attachments {
-                        if attachment.hasItemConformingToTypeIdentifier("public.url") {
-                            attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
-                                if let shareURL = url as? NSURL {
-                                    var shareText: String = shareURL.absoluteString!
+                        if attachment.hasItemConformingToTypeIdentifier("public.text") {
+                            attachment.loadItem(forTypeIdentifier: "public.text", options: nil, completionHandler: { (results, error) in
+                                var shareText = results as! String
                                     
                                     // remove protocol
                                     shareText = shareText.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
                                     shareText = shareText.replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
                                     
                                     self.saveToServer(user: username, text: shareText )
-                                }
+
                             })
                         }
                     }
@@ -79,4 +77,5 @@ class ShareViewController: UIViewController {
             self.cleanUp()
         }
     }
+    
 }

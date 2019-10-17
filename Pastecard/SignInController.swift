@@ -122,7 +122,9 @@ class SignInController: UIViewController {
                 // if it does, set the username and go to the card
                 if (responseString == "true") {
                     self.username = nameCheck
-                    self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
+                    DispatchQueue.main.async {
+                      self.performSegue(withIdentifier: "unwindSegue", sender: self)
+                    }
                 
                 // otherwise, alert
                 } else {
