@@ -11,9 +11,10 @@ import UIKit
 class ShareViewController: UIViewController {
 
     let shareDefaults = UserDefaults(suiteName: "group.net.pastecard")
+    private var workItem: DispatchWorkItem?
     
     // hide the dialog and kill the extension
-    @objc func cleanUp() {
+    func cleanUp() {
         self.view.viewWithTag(1)?.isHidden = true
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
@@ -29,8 +30,14 @@ class ShareViewController: UIViewController {
         request.httpMethod = "POST"
         request.httpBody = postData?.data(using: String.Encoding.utf8)
         
-        // set a five second timeout and attempt to write the text to the server
-        let timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.cleanUp), userInfo: nil, repeats: false)
+        // set a five second timeout
+        workItem = DispatchWorkItem { [weak self] in
+            self?.cleanUp()
+            self?.workItem = nil
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: workItem!)
+        
+        // attempt to write the text to the server
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 self.cleanUp()
@@ -40,8 +47,8 @@ class ShareViewController: UIViewController {
             // on success, pause a little bit so the Saving message is actually readable
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 
-                // cancel the timer and clean up
-                timer.invalidate()
+                // cancel the timeout and clean up
+                self.workItem = nil
                 self.cleanUp()
             }
         }
