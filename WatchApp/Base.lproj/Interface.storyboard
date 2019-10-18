@@ -6,12 +6,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15400"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Pastecard-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchApp" customModuleProvider="target">
+                <controller title="Pastecard" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchApp" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="Loading…" textAlignment="left" id="6gZ-ec-DcM"/>
+                        <label alignment="left" text="Loading…" textAlignment="left" numberOfLines="0" id="6gZ-ec-DcM"/>
                     </items>
                     <menu key="menu" id="Xfk-Gi-sDl">
                         <items>
@@ -27,6 +27,9 @@
                             </menuItem>
                         </items>
                     </menu>
+                    <connections>
+                        <outlet property="cardLabel" destination="6gZ-ec-DcM" id="WGi-kw-hPA"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="34" y="31"/>

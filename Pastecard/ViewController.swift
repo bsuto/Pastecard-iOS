@@ -370,7 +370,10 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
+        if self.isBeingDismissed {
+            NotificationCenter.default.removeObserver(self)
+            self.item?.cancel()
+        }
     }
 
     override func didReceiveMemoryWarning() {
