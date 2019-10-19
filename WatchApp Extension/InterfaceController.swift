@@ -7,12 +7,14 @@
 //
 
 import WatchKit
+import WatchConnectivity
 import Foundation
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     // MARK: Variables and Outlets
-    let watchDefaults = UserDefaults(suiteName: "group.net.pastecard")
+    var username = ""
+    var session : WCSession!
     let file = "pastecard.txt"
     private var item: DispatchWorkItem?
     @IBOutlet weak var cardLabel: WKInterfaceLabel!
@@ -28,8 +30,7 @@ class InterfaceController: WKInterfaceController {
     func loadRemote() {
         
         // check for logged-in user
-        let user = watchDefaults!.string(forKey: "username")
-        if user == nil {
+        if username == "" {
             errorAlert(message: "Please log in from the iPhone app first.")
             return
         }
@@ -37,7 +38,7 @@ class InterfaceController: WKInterfaceController {
         // assemble the GET request
         let path = "https://pastecard.net/api/db/"
         let textExtension = ".txt"
-        let url = URL(string: path + user! + textExtension)
+        let url = URL(string: path + username + textExtension)
         
         // set a five second timeout before showing error
         item = DispatchWorkItem { [weak self] in
@@ -82,43 +83,33 @@ class InterfaceController: WKInterfaceController {
     // MARK: Save Functions
     func saveText(text: String) {
         
-        let username = "demo"
-        if (username == "demo") {
-        // if let username = watchDefaults!.string(forKey: "username"), !username.isEmpty {
-            
-            // prepare the request
-            let postData = ("user=" + username + "&text=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-            guard let url = URL(string: "https://pastecard.net/api/bm.php") else {return}
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.httpBody = postData?.data(using: String.Encoding.utf8)
-            
-            // set a five second timeout before showing error
-            item = DispatchWorkItem { [weak self] in
-                self?.errorAlert(message: "Unable to send to the server. Please try again later.")
-                self?.item = nil
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
-            
-            // fire the POST request
-            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                if error != nil {
-                    return
-                }
-                
-                // cancel the timeout
-                self.item?.cancel()
-                
-                // refresh the text
-                self.loadRemote()
-            }
-            task.resume()
+        // prepare the request
+        let postData = ("user=" + username + "&text=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        guard let url = URL(string: "https://pastecard.net/api/bm.php") else {return}
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = postData?.data(using: String.Encoding.utf8)
+        
+        // set a five second timeout before showing error
+        item = DispatchWorkItem { [weak self] in
+            self?.errorAlert(message: "Unable to send to the server. Please try again later.")
+            self?.item?.cancel()
         }
-        else {
-            // if no logged-in user
-            errorAlert(message: "Please log in from the iPhone app first.")
-            return
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
+        
+        // fire the POST request
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                return
+            }
+            
+            // cancel the timeout
+            self.item?.cancel()
+            
+            // refresh the text
+            self.loadRemote()
         }
+        task.resume()
     }
     
     func saveLocal(text: String) {
@@ -135,6 +126,7 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
+        // refresh card
         loadRemote()
     }
     
@@ -150,6 +142,11 @@ class InterfaceController: WKInterfaceController {
     
     override func willActivate() {
         super.willActivate()
+        
+        // start WCSession
+        session = WCSession.default
+        session.delegate = self
+        session.activate()
     }
     
     override func didDeactivate() {
@@ -158,5 +155,19 @@ class InterfaceController: WKInterfaceController {
         // cancel any timeouts that may still be running
         self.item?.cancel()
     }
+    
+    // MARK: WCSessionDelegate
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        NSLog("%@", "activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+    }
 
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        NSLog("didReceiveApplicationContext : %@", applicationContext)
+        
+        // set logged-in user from phone
+        let loggedIn = (applicationContext["username"] as? String)!
+        DispatchQueue.main.async() {
+            self.username = loggedIn
+        }
+    }
 }

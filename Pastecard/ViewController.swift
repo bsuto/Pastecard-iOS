@@ -8,12 +8,14 @@
 
 import UIKit
 import SafariServices
+import WatchConnectivity
 
-class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate, WCSessionDelegate {
     
     // MARK: Variables and Outlets
     let defaults = UserDefaults(suiteName: "group.net.pastecard")
     let file = "pastecard.txt"
+    var session : WCSession!
     @IBOutlet weak var pasteCard: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -216,6 +218,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
             if (Reachability.isConnectedToNetwork()) {
                 self.loadRemote()
+                self.syncUser()
             } else {
                 let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
@@ -245,6 +248,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         // sign out user
         defaults!.setValue(nil, forKey: "username")
         defaults!.synchronize()
+        syncUser()
         
         // clear contents of local save file
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -317,6 +321,18 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         pasteCard.contentInset = .zero
         pasteCard.scrollIndicatorInsets = .zero
     }
+    
+    // send the logged-in user to the watch app
+    func syncUser() {
+        let user = defaults!.string(forKey: "username")
+        let userMessage = ["username": user]
+        
+        do {
+            try session.updateApplicationContext(userMessage as [String : Any])
+        } catch {
+            print("Something went wrong")
+        }
+    }
 
     // MARK: - App Life Cycle
     override func viewDidLoad() {
@@ -337,6 +353,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         cancelButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
         saveButton.layer.borderWidth = 0.5
         saveButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
+        
+        // start WCSession
+        if WCSession.isSupported() {
+            session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -358,9 +381,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     // coming back from Sign In
     @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? SignInController {
+            
+            // set the logged-in user
             defaults!.set(sourceViewController.username, forKey: "username")
             defaults!.synchronize()
-            DispatchQueue.main.async { self.loadRemote() } // skip to remote because user has to be online
+            
+            // load the card (skip to remote because user has to be online)
+            DispatchQueue.main.async { self.loadRemote() }
         }
     }
     
@@ -378,5 +405,22 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: WCSessionDelegate
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        NSLog("%@", "activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+    }
+
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("%@", "sessionDidBecomeInactive: \(session)")
+    }
+
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("%@", "sessionDidDeactivate: \(session)")
+    }
+
+    func sessionWatchStateDidChange(_ session: WCSession) {
+        print("%@", "sessionWatchStateDidChange: \(session)")
     }
 }
