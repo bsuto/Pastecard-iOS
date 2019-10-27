@@ -330,13 +330,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
         
-        // add borders to the card and buttons
+        // add border to the card
         pasteCard.layer.borderWidth = 0.5
         pasteCard.layer.borderColor = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.0).cgColor
-        cancelButton.layer.borderWidth = 0.5
-        cancelButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
-        saveButton.layer.borderWidth = 0.5
-        saveButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

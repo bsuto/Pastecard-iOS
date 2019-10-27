@@ -147,12 +147,6 @@ class SignInController: UIViewController {
     
     override func viewDidLoad() {
         
-        // add borders to the buttons
-        signUpButton.layer.borderWidth = 0.5
-        signUpButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
-        goButton.layer.borderWidth = 0.5
-        goButton.layer.borderColor = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.0).cgColor
-        
         // assemble the sign up alert box
         alertBox.addTextField { (textField) -> Void in
             self.nameField = textField
