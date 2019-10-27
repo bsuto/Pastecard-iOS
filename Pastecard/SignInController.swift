@@ -128,10 +128,12 @@ class SignInController: UIViewController {
                 
                 // otherwise, alert
                 } else {
-                    let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertController.Style.alert)
-                    let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
-                    alert.addAction(okayAction)
-                    self.present(alert, animated: true)
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "😳", message: "The computer can’t find that username, sorry!", preferredStyle: UIAlertController.Style.alert)
+                        let okayAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) in self.userField.becomeFirstResponder() }
+                        alert.addAction(okayAction)
+                        self.present(alert, animated: true)
+                    }
                 }
             }
             task.resume()
@@ -162,7 +164,8 @@ class SignInController: UIViewController {
         
         // watch the username field for enabling the Go button
         userField.addTarget(self, action: #selector(self.userFieldDidChange), for: UIControl.Event.editingChanged)
-        
+
+        // watch outside the username field to dismiss the keyboard
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
