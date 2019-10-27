@@ -1,6 +1,6 @@
 # Pastecard for iOS
 
-This is an experimental native app for [Pastecard](https://pastecard.net). It requires iOS 10 or later and is not guaranteed to always work or even be that nice.
+This is an experimental native app for [Pastecard](https://pastecard.net). It requires iOS 11 or later and is not guaranteed to always work or even be that nice.
 
 ## What are the benefits of this app over the web app?
 * Take advantage of multitasking on iPad
