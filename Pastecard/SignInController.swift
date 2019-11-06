@@ -149,6 +149,11 @@ class SignInController: UIViewController {
     
     override func viewDidLoad() {
         
+        // prevent swipe to dismiss
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
+        
         // assemble the sign up alert box
         alertBox.addTextField { (textField) -> Void in
             self.nameField = textField
