@@ -246,6 +246,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         defaults!.setValue(nil, forKey: "username")
         defaults!.synchronize()
         
+        // clear card
+        pasteCard.text = "Loading…"
+        
         // clear contents of local save file
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(self.file)
