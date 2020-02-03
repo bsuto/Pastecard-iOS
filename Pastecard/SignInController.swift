@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SignInController: UIViewController {
     
@@ -17,6 +18,7 @@ class SignInController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var userField: UITextField!
+    @IBOutlet weak var termsLink: UILabel!
     @IBAction func keyboardGoAction(_ sender: Any) {
         addUser()
     }
@@ -55,6 +57,13 @@ class SignInController: UIViewController {
                 goButton.isEnabled = true
             }
         }
+    }
+    
+    // go to the terms of service
+    @objc func showTerms(){
+        let url = URL(string: "https://pastecard.net/help/#tos")
+        let svc = SFSafariViewController(url: url!)
+        self.present(svc, animated: true, completion: nil)
     }
     
     // MARK: - Sign Up
@@ -172,6 +181,9 @@ class SignInController: UIViewController {
 
         // watch outside the username field to dismiss the keyboard
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        // watch the terms of service link
+        self.termsLink.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTerms)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
