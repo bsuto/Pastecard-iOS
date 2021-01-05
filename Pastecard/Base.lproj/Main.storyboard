@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,138 +14,97 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pastecard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Loading…" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-i6-bEL">
-                                <rect key="frame" x="16" y="44" width="288" height="436"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <accessibility key="accessibilityConfiguration" hint="This is the full contents of your Pastecard." label="Pastecard text">
-                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="9s3-Vx-9jr"/>
-                                    <constraint firstAttribute="width" secondItem="mIS-i6-bEL" secondAttribute="height" multiplier="2:3" id="UY3-mm-oKr"/>
-                                    <constraint firstAttribute="width" constant="500" id="ZXj-d4-oHp">
-                                        <variation key="widthClass=regular" constant="400"/>
-                                    </constraint>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="shj-mL-jMv"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="CH4-bI-Y69"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="9s3-Vx-9jr"/>
-                                        <exclude reference="UY3-mm-oKr"/>
-                                        <exclude reference="ZXj-d4-oHp"/>
-                                        <exclude reference="shj-mL-jMv"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="9s3-Vx-9jr"/>
-                                        <exclude reference="UY3-mm-oKr"/>
-                                        <include reference="ZXj-d4-oHp"/>
-                                        <exclude reference="shj-mL-jMv"/>
-                                    </mask>
-                                </variation>
-                            </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jUc-Wd-ufd">
-                                <rect key="frame" x="16" y="488" width="288" height="34"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWU-9h-teh" userLabel="Shadow">
+                                <rect key="frame" x="16" y="68" width="343" height="604"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9Y-cv-Fhi">
-                                        <rect key="frame" x="0.0" y="0.0" width="136" height="34"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-EB-KLj" userLabel="Blue Border">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
+                                        <color key="backgroundColor" name="trademarkBlue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Gr3-vL-03g"/>
+                                            <constraint firstAttribute="width" constant="400" id="cCi-kd-lAe"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="cCi-kd-lAe"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="cCi-kd-lAe"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Loading…" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-i6-bEL" userLabel="Pastecard">
+                                        <rect key="frame" x="0.0" y="24" width="343" height="580"/>
+                                        <viewLayoutGuide key="safeArea" id="CH4-bI-Y69"/>
+                                        <color key="backgroundColor" name="fafaBackground"/>
+                                        <accessibility key="accessibilityConfiguration" hint="This is the full contents of your Pastecard." label="Pastecard text">
+                                            <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                                        </accessibility>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="aFv-EB-KLj" firstAttribute="top" secondItem="rWU-9h-teh" secondAttribute="top" id="70b-xR-QTf"/>
+                                    <constraint firstAttribute="trailing" secondItem="mIS-i6-bEL" secondAttribute="trailing" id="INu-ll-ZFO"/>
+                                    <constraint firstAttribute="trailing" secondItem="aFv-EB-KLj" secondAttribute="trailing" id="MwT-qY-sl9"/>
+                                    <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="rWU-9h-teh" secondAttribute="top" constant="24" id="UON-7d-znP"/>
+                                    <constraint firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" id="a9J-EZ-RhK"/>
+                                    <constraint firstItem="mIS-i6-bEL" firstAttribute="leading" secondItem="rWU-9h-teh" secondAttribute="leading" id="q88-SZ-RmO"/>
+                                    <constraint firstItem="aFv-EB-KLj" firstAttribute="leading" secondItem="rWU-9h-teh" secondAttribute="leading" id="yGb-xN-4Oc"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jUc-Wd-ufd">
+                                <rect key="frame" x="16" y="696" width="343" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9Y-cv-Fhi">
+                                        <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="34"/>
+                                        <color key="backgroundColor" name="fafaBackground"/>
                                         <accessibility key="accessibilityConfiguration" hint="Discard any changes" label="Cancel"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" name="buttonText"/>
+                                        </state>
                                         <connections>
                                             <action selector="cancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HL3-Sy-tC1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-kl-Let">
-                                        <rect key="frame" x="152" y="0.0" width="136" height="34"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-kl-Let">
+                                        <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="34"/>
+                                        <color key="backgroundColor" name="fafaBackground"/>
                                         <accessibility key="accessibilityConfiguration" hint="Save your changes" label="Save"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Save"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" name="buttonText"/>
+                                        </state>
                                         <connections>
                                             <action selector="saveAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xr1-tb-VBd"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="500" id="1Eg-lc-qrn">
-                                        <variation key="widthClass=regular" constant="400"/>
-                                    </constraint>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="1Eg-lc-qrn"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="1Eg-lc-qrn"/>
-                                    </mask>
-                                </variation>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-EB-KLj">
-                                <rect key="frame" x="16" y="33" width="288" height="12"/>
-                                <color key="backgroundColor" name="trademarkBlue"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="Gr3-vL-03g"/>
-                                    <constraint firstAttribute="width" constant="400" id="cCi-kd-lAe"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="cCi-kd-lAe"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="cCi-kd-lAe"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
-                        <color key="backgroundColor" name="fafaBackground"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="aFv-EB-KLj" secondAttribute="trailing" constant="16" id="7nM-n2-r7Q"/>
-                            <constraint firstItem="mIS-i6-bEL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="884-h6-lVp"/>
-                            <constraint firstItem="mIS-i6-bEL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BOh-Dv-7oO"/>
-                            <constraint firstItem="aFv-EB-KLj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="NcC-75-NTN"/>
-                            <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="aFv-EB-KLj" secondAttribute="bottom" constant="-1" id="Oql-Cc-RzZ"/>
-                            <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="OtH-2C-akl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" constant="88" id="Pwt-dp-fzT"/>
-                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="top" secondItem="mIS-i6-bEL" secondAttribute="bottom" constant="8" id="VvU-6G-e9u"/>
-                            <constraint firstItem="aFv-EB-KLj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZkF-bj-7hp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mIS-i6-bEL" secondAttribute="trailing" constant="16" id="fcL-4L-Mcp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jUc-Wd-ufd" secondAttribute="bottom" constant="48" id="1vJ-4g-NHR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rWU-9h-teh" secondAttribute="trailing" constant="16" id="Nez-Pr-PRY"/>
+                            <constraint firstItem="rWU-9h-teh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rnw-Xw-yed"/>
+                            <constraint firstItem="rWU-9h-teh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="crK-Fq-WIv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jUc-Wd-ufd" secondAttribute="trailing" constant="16" id="hCj-S7-81I"/>
-                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jJH-5v-veo"/>
+                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="top" secondItem="rWU-9h-teh" secondAttribute="bottom" constant="24" id="pKr-rd-Qe3"/>
                             <constraint firstItem="jUc-Wd-ufd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="xjf-49-sO1"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="ZkF-bj-7hp"/>
-                                <exclude reference="BOh-Dv-7oO"/>
-                                <exclude reference="jJH-5v-veo"/>
-                            </mask>
-                        </variation>
                         <variation key="widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="Pwt-dp-fzT"/>
-                                <exclude reference="fcL-4L-Mcp"/>
                                 <exclude reference="hCj-S7-81I"/>
-                                <exclude reference="7nM-n2-r7Q"/>
-                                <exclude reference="NcC-75-NTN"/>
-                                <include reference="ZkF-bj-7hp"/>
-                                <exclude reference="884-h6-lVp"/>
-                                <include reference="BOh-Dv-7oO"/>
-                                <include reference="jJH-5v-veo"/>
                                 <exclude reference="xjf-49-sO1"/>
                             </mask>
                         </variation>
@@ -154,35 +113,36 @@
                         <outlet property="cancelButton" destination="A9Y-cv-Fhi" id="tn4-tf-ALA"/>
                         <outlet property="pasteCard" destination="mIS-i6-bEL" id="VnK-kd-iEv"/>
                         <outlet property="saveButton" destination="jNF-kl-Let" id="PRj-Be-QoF"/>
+                        <outlet property="shadowView" destination="rWU-9h-teh" id="1bV-TM-hNp"/>
                         <segue destination="lsL-uc-6MA" kind="presentation" identifier="showSignIn" id="oVP-16-vDt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="131.25"/>
+            <point key="canvasLocation" x="133.59999999999999" y="130.78817733990149"/>
         </scene>
         <!--Sign In Controller-->
         <scene sceneID="Og0-vc-MHY">
             <objects>
                 <viewController title="Sign In Controller" id="lsL-uc-6MA" customClass="SignInController" customModule="Pastecard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zp6-xn-cxi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9C-BL-8bU">
-                                <rect key="frame" x="16" y="44" width="288" height="41"/>
+                                <rect key="frame" x="16" y="44" width="343" height="40.666666666666657"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES" header="YES"/>
                                 </accessibility>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-er-sMS">
-                                <rect key="frame" x="16" y="129" width="288" height="21"/>
+                                <rect key="frame" x="16" y="128.66666666666666" width="343" height="22"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pastecard.net/" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-U0-yoD">
-                                        <rect key="frame" x="0.0" y="0.0" width="111" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="22"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -191,8 +151,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9JC-9D-6Qq">
-                                        <rect key="frame" x="111" y="0.0" width="177" height="21"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="110" y="0.0" width="233" height="22"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="Enter your Pastecard username here" label="Username field"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
@@ -216,11 +176,11 @@
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Xw6-pW-1qK">
-                                <rect key="frame" x="16" y="172" width="288" height="34"/>
+                                <rect key="frame" x="16" y="174.66666666666666" width="343" height="34"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52X-At-fYt">
-                                        <rect key="frame" x="0.0" y="0.0" width="136" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52X-At-fYt">
+                                        <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="34"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="Sign up for a Pastecard account" label="Sign Up"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Sign Up"/>
@@ -228,9 +188,9 @@
                                             <action selector="signUp:" destination="lsL-uc-6MA" eventType="touchUpInside" id="xJ1-8m-0ed"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eof-hq-Xcv">
-                                        <rect key="frame" x="152" y="0.0" width="136" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eof-hq-Xcv">
+                                        <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="34"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="Sign into Pastecard with your username" label="Go"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="Go"/>
@@ -254,22 +214,23 @@
                                 </variation>
                             </stackView>
                             <label opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy &amp; Terms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvZ-ze-czU">
-                                <rect key="frame" x="111" y="500" width="98" height="16"/>
+                                <rect key="frame" x="138.66666666666666" y="676.33333333333337" width="98" height="15.666666666666629"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="50k-dZ-l5a"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="50k-dZ-l5a" firstAttribute="bottom" secondItem="YvZ-ze-czU" secondAttribute="bottom" constant="32" id="Bvn-rT-d0n"/>
                             <constraint firstItem="xhR-er-sMS" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="C6D-Wa-iG7"/>
                             <constraint firstItem="xhR-er-sMS" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="Ecy-q4-T62"/>
                             <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="xhR-er-sMS" secondAttribute="trailing" constant="16" id="HgK-n7-AdG"/>
+                            <constraint firstItem="Xw6-pW-1qK" firstAttribute="top" secondItem="xhR-er-sMS" secondAttribute="bottom" constant="24" id="Vwo-V5-8b1"/>
                             <constraint firstItem="Xw6-pW-1qK" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="Xrk-NG-ddn"/>
                             <constraint firstItem="z9C-BL-8bU" firstAttribute="top" secondItem="50k-dZ-l5a" secondAttribute="top" constant="44" id="ZEG-Ff-ph1"/>
                             <constraint firstItem="z9C-BL-8bU" firstAttribute="centerX" secondItem="zp6-xn-cxi" secondAttribute="centerX" id="guA-s4-vNf"/>
-                            <constraint firstItem="Xw6-pW-1qK" firstAttribute="top" secondItem="xhR-er-sMS" secondAttribute="bottom" constant="22" id="jT9-Wx-JLW"/>
                             <constraint firstItem="50k-dZ-l5a" firstAttribute="trailing" secondItem="z9C-BL-8bU" secondAttribute="trailing" constant="16" id="qNr-yK-VY8"/>
                             <constraint firstItem="YvZ-ze-czU" firstAttribute="centerX" secondItem="Xw6-pW-1qK" secondAttribute="centerX" id="st8-6g-g1S"/>
                             <constraint firstItem="xhR-er-sMS" firstAttribute="top" secondItem="z9C-BL-8bU" secondAttribute="bottom" constant="44" id="tX9-NI-EbH"/>
@@ -277,7 +238,6 @@
                             <constraint firstItem="Xw6-pW-1qK" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="xks-d1-FcE"/>
                             <constraint firstItem="z9C-BL-8bU" firstAttribute="leading" secondItem="50k-dZ-l5a" secondAttribute="leading" constant="16" id="yy4-om-kuK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="50k-dZ-l5a"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="guA-s4-vNf"/>
@@ -314,11 +274,26 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="buttonText">
+            <color red="0.0" green="0.25098039215686274" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="fafaBackground">
             <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="trademarkBlue">
             <color red="0.0" green="0.25098039215686274" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

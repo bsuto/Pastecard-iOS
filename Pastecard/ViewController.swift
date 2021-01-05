@@ -17,7 +17,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     @IBOutlet weak var pasteCard: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    private var item: DispatchWorkItem?
+	@IBOutlet weak var shadowView: UIView!
+	private var item: DispatchWorkItem?
+	var userInterfaceStyle: UIUserInterfaceStyle?
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     var cancelText = ""
@@ -92,13 +94,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     // MARK: - Load functions
-    @objc func loadAction(notification: Notification?) {
-        if (Reachability.isConnectedToNetwork()) {
-            loadRemote()
-        } else {
-            loadLocal()
-        }
-    }
     
     func loadRemote() {
         // assemble the GET request
@@ -147,7 +142,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             }
         }))
         alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
-            self.loadAction(notification: nil)
+            self.loadRemote()
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -187,7 +182,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 return
             }
             
-            if (pasteCard.isEditable == false && Reachability.isConnectedToNetwork()) {
+            if (pasteCard.isEditable == false) {
                 let haptic = UIImpactFeedbackGenerator(style: .light)
                 haptic.impactOccurred()
                 makeEditable()
@@ -214,13 +209,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             self.present(avc, animated: true, completion: nil)
         }
         let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
-            if (Reachability.isConnectedToNetwork()) {
-                self.loadRemote()
-            } else {
-                let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to refresh.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-                self.present(alert, animated: true)
-            }
+            self.loadRemote()
         }
         let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
             self.signOut()
@@ -333,10 +322,19 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
         
-        // add border to the card
-        pasteCard.layer.borderWidth = 0.5
-        pasteCard.layer.borderColor = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.0).cgColor
+        // add custom styles
+		userInterfaceStyle = self.traitCollection.userInterfaceStyle
+		setStyle()
     }
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+			super.traitCollectionDidChange(previousTraitCollection)
+			setStyle()
+	}
+	
+	override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+			userInterfaceStyle = newCollection.userInterfaceStyle
+	}
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -350,7 +348,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 self.performSegue(withIdentifier: "showSignIn", sender: self)
             }
         } else {
-            DispatchQueue.main.async { self.loadAction(notification: nil) }
+            DispatchQueue.main.async { self.loadRemote() }
         }
     }
 
@@ -359,9 +357,54 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         if let sourceViewController = sender.source as? SignInController {
             defaults!.set(sourceViewController.username, forKey: "username")
             defaults!.synchronize()
-            DispatchQueue.main.async { self.loadRemote() } // skip to remote because user has to be online
+            DispatchQueue.main.async { self.loadRemote() }
         }
     }
+	
+	private func setStyle() {
+		// card shadow
+		let lightShadow = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.00)
+		let darkShadow = UIColor(red: 0.47, green: 0.47, blue: 0.47, alpha: 1.00)
+		shadowView.layer.shadowOpacity = 1
+		shadowView.layer.shadowRadius = 4
+		shadowView.layer.masksToBounds = false
+		
+		// button borders
+		let blueBorder = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.00)
+		saveButton.layer.cornerRadius = 12
+		saveButton.layer.borderWidth = 2
+		cancelButton.layer.cornerRadius = 12
+		cancelButton.layer.borderWidth = 2
+		
+		// light and dark modes
+		switch userInterfaceStyle {
+		case .dark:
+			shadowView.layer.shadowColor = darkShadow.cgColor
+			shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
+			saveButton.layer.borderColor = UIColor.label.cgColor
+			cancelButton.layer.borderColor = UIColor.label.cgColor
+		case .light:
+			shadowView.layer.shadowColor = lightShadow.cgColor
+			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
+			saveButton.layer.borderColor = blueBorder.cgColor
+			cancelButton.layer.borderColor = blueBorder.cgColor
+		case .none:
+			shadowView.layer.shadowColor = lightShadow.cgColor
+			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
+			saveButton.layer.borderColor = blueBorder.cgColor
+			cancelButton.layer.borderColor = blueBorder.cgColor
+		case .some(.unspecified):
+			shadowView.layer.shadowColor = lightShadow.cgColor
+			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
+			saveButton.layer.borderColor = blueBorder.cgColor
+			cancelButton.layer.borderColor = blueBorder.cgColor
+		case .some(_):
+			shadowView.layer.shadowColor = lightShadow.cgColor
+			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
+			saveButton.layer.borderColor = blueBorder.cgColor
+			cancelButton.layer.borderColor = blueBorder.cgColor
+		}
+	}
     
     func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)

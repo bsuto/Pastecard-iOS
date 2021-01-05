@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (vc.defaults?.string(forKey: "username") == nil) {
             vc.performSegue(withIdentifier: "showSignIn", sender: Any?.self)
         } else {
-            DispatchQueue.main.async { self.vc.loadAction(notification: nil) }
+            DispatchQueue.main.async { self.vc.loadRemote() }
         }
     }
 
