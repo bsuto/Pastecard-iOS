@@ -368,6 +368,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
 		shadowView.layer.shadowOpacity = 1
 		shadowView.layer.shadowRadius = 4
 		shadowView.layer.masksToBounds = false
+		pasteCard.layer.zPosition = 10
 		
 		// button borders
 		let blueBorder = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.00)

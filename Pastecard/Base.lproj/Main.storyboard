@@ -18,28 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWU-9h-teh" userLabel="Shadow">
-                                <rect key="frame" x="16" y="68" width="343" height="604"/>
+                                <rect key="frame" x="18.666666666666657" y="68" width="337.66666666666674" height="578.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-EB-KLj" userLabel="Blue Border">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="24"/>
                                         <color key="backgroundColor" name="trademarkBlue"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="Gr3-vL-03g"/>
-                                            <constraint firstAttribute="width" constant="400" id="cCi-kd-lAe"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="cCi-kd-lAe"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="cCi-kd-lAe"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Loading…" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-i6-bEL" userLabel="Pastecard">
-                                        <rect key="frame" x="0.0" y="24" width="343" height="580"/>
+                                        <rect key="frame" x="0.0" y="24" width="337.66666666666669" height="554.66666666666663"/>
                                         <viewLayoutGuide key="safeArea" id="CH4-bI-Y69"/>
                                         <color key="backgroundColor" name="fafaBackground"/>
                                         <accessibility key="accessibilityConfiguration" hint="This is the full contents of your Pastecard." label="Pastecard text">
@@ -57,18 +46,40 @@
                                     <constraint firstAttribute="trailing" secondItem="aFv-EB-KLj" secondAttribute="trailing" id="MwT-qY-sl9"/>
                                     <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="rWU-9h-teh" secondAttribute="top" constant="24" id="UON-7d-znP"/>
                                     <constraint firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" id="a9J-EZ-RhK"/>
+                                    <constraint firstAttribute="width" secondItem="rWU-9h-teh" secondAttribute="height" multiplier="7:12" id="eKi-DG-xZM"/>
                                     <constraint firstItem="mIS-i6-bEL" firstAttribute="leading" secondItem="rWU-9h-teh" secondAttribute="leading" id="q88-SZ-RmO"/>
+                                    <constraint firstAttribute="width" secondItem="rWU-9h-teh" secondAttribute="height" multiplier="2:3" id="qBB-au-WKs"/>
+                                    <constraint firstAttribute="width" constant="300" id="rvM-Zc-f0B"/>
                                     <constraint firstItem="aFv-EB-KLj" firstAttribute="leading" secondItem="rWU-9h-teh" secondAttribute="leading" id="yGb-xN-4Oc"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="eKi-DG-xZM"/>
+                                        <exclude reference="qBB-au-WKs"/>
+                                        <exclude reference="rvM-Zc-f0B"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="eKi-DG-xZM"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="qBB-au-WKs"/>
+                                        <include reference="rvM-Zc-f0B"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jUc-Wd-ufd">
-                                <rect key="frame" x="16" y="696" width="343" height="34"/>
+                                <rect key="frame" x="71.666666666666686" y="670.66666666666663" width="232" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9Y-cv-Fhi">
-                                        <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="108" height="34"/>
                                         <color key="backgroundColor" name="fafaBackground"/>
-                                        <accessibility key="accessibilityConfiguration" hint="Discard any changes" label="Cancel"/>
+                                        <accessibility key="accessibilityConfiguration" hint="Discard changes" label="Cancel"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <inset key="contentEdgeInsets" minX="24" minY="6" maxX="24" maxY="6"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" name="buttonText"/>
                                         </state>
@@ -77,10 +88,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-kl-Let">
-                                        <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="34"/>
+                                        <rect key="frame" x="124" y="0.0" width="108" height="34"/>
                                         <color key="backgroundColor" name="fafaBackground"/>
-                                        <accessibility key="accessibilityConfiguration" hint="Save your changes" label="Save"/>
+                                        <accessibility key="accessibilityConfiguration" hint="Save changes" label="Save"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <inset key="contentEdgeInsets" minX="24" minY="6" maxX="24" maxY="6"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" name="buttonText"/>
                                         </state>
@@ -94,18 +106,34 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jUc-Wd-ufd" secondAttribute="bottom" constant="48" id="1vJ-4g-NHR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rWU-9h-teh" secondAttribute="trailing" constant="16" id="Nez-Pr-PRY"/>
-                            <constraint firstItem="rWU-9h-teh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rnw-Xw-yed"/>
+                            <constraint firstItem="rWU-9h-teh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Aka-PU-oHw"/>
+                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TMv-Od-9k7"/>
+                            <constraint firstItem="rWU-9h-teh" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.9" id="TiW-Jv-Tuu"/>
+                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xkc-4R-Ngr"/>
                             <constraint firstItem="rWU-9h-teh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="crK-Fq-WIv"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jUc-Wd-ufd" secondAttribute="trailing" constant="16" id="hCj-S7-81I"/>
+                            <constraint firstItem="rWU-9h-teh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kHc-tx-eKX"/>
                             <constraint firstItem="jUc-Wd-ufd" firstAttribute="top" secondItem="rWU-9h-teh" secondAttribute="bottom" constant="24" id="pKr-rd-Qe3"/>
-                            <constraint firstItem="jUc-Wd-ufd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="xjf-49-sO1"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Aka-PU-oHw"/>
+                                <exclude reference="TiW-Jv-Tuu"/>
+                                <exclude reference="kHc-tx-eKX"/>
+                                <exclude reference="TMv-Od-9k7"/>
+                                <exclude reference="Xkc-4R-Ngr"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="TiW-Jv-Tuu"/>
+                                <include reference="kHc-tx-eKX"/>
+                                <include reference="Xkc-4R-Ngr"/>
+                            </mask>
+                        </variation>
                         <variation key="widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="hCj-S7-81I"/>
-                                <exclude reference="xjf-49-sO1"/>
+                                <include reference="Aka-PU-oHw"/>
+                                <include reference="TMv-Od-9k7"/>
                             </mask>
                         </variation>
                     </view>
