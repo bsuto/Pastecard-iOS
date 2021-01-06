@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WidgetKit
 import SafariServices
 
 class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
@@ -64,6 +65,10 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 // save the text locally and put it in the card
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
+				
+				// refresh the widget
+				WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+				
                 self.tapCard.isEnabled = true
                 self.item?.cancel()
             }
@@ -125,6 +130,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                         self.saveLocal(text: remoteText)
                         self.pasteCard.text = remoteText
                         self.item?.cancel()
+						
+						// refresh the widget
+						WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
                     }
                     self.tapCard.isEnabled = true // unlock the card in case it'd been locked before
                 }

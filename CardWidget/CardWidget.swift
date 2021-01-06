@@ -40,7 +40,7 @@ struct Provider: TimelineProvider {
 	
 	func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
 		let currentDate = Date()
-		let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+		let refreshDate = Calendar.current.date(byAdding: .minute, value: 50, to: currentDate)!
 		let widgetText = loadRemote()
 		
 		let entry = SimpleEntry(date: currentDate, cardText: widgetText)
