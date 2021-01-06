@@ -10,7 +10,6 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-	typealias Entry = SimpleEntry
 	let defaults = UserDefaults(suiteName: "group.net.pastecard")
 	
 	func loadRemote() -> String {
@@ -23,7 +22,6 @@ struct Provider: TimelineProvider {
 			do {
 				let contents = try String(contentsOf: cardURL)
 				remoteText = contents
-				print(contents)
 			} catch {}
 		} else {
 			remoteText = "Please sign in, in the app."
@@ -31,15 +29,15 @@ struct Provider: TimelineProvider {
 		return remoteText
 	}
 	
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), cardText: "Loading…")
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+	func placeholder(in context: Context) -> SimpleEntry {
+		SimpleEntry(date: Date(), cardText: "Loading…")
+	}
+	
+	func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
 		let entry = SimpleEntry(date: Date(), cardText: "Loading…")
-        completion(entry)
-    }
-
+		completion(entry)
+	}
+	
 	func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
 		let currentDate = Date()
 		let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
@@ -52,13 +50,13 @@ struct Provider: TimelineProvider {
 }
 
 struct SimpleEntry: TimelineEntry {
-    let date: Date
+	let date: Date
 	let cardText: String
 }
 
 struct CardWidgetEntryView : View {
-    var entry: Provider.Entry
-
+	var entry: Provider.Entry
+	
 	var body: some View {
 		VStack(spacing: 0) {
 			Rectangle()
@@ -75,26 +73,20 @@ struct CardWidgetEntryView : View {
 
 @main
 struct CardWidget: Widget {
-    private let kind: String = "CardWidget"
-
-    public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            CardWidgetEntryView(entry: entry)
-        }
-        .configurationDisplayName("Pastecard")
-        .description("Shows as much of your card as will fit.")
-    }
+	private let kind: String = "CardWidget"
+	
+	public var body: some WidgetConfiguration {
+		StaticConfiguration(kind: kind, provider: Provider()) { entry in
+			CardWidgetEntryView(entry: entry)
+		}
+		.configurationDisplayName("Pastecard")
+		.description("Shows as much of your card as will fit.")
+	}
 }
 
 struct CardWidget_Previews: PreviewProvider {
-    static var previews: some View {
-		Group {
-			CardWidgetEntryView(entry: SimpleEntry(date: Date(), cardText: "Loading…"))
-				.previewContext(WidgetPreviewContext(family: .systemSmall))
-			CardWidgetEntryView(entry: SimpleEntry(date: Date(), cardText: "Loading…"))
-				.previewContext(WidgetPreviewContext(family: .systemMedium))
-			CardWidgetEntryView(entry: SimpleEntry(date: Date(), cardText: "Loading…"))
-				.previewContext(WidgetPreviewContext(family: .systemLarge))
-		}
-    }
+	static var previews: some View {
+		CardWidgetEntryView(entry: SimpleEntry(date: Date(), cardText: "Loading…"))
+			.previewContext(WidgetPreviewContext(family: .systemMedium))
+	}
 }
