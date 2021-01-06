@@ -16,16 +16,16 @@ struct Provider: TimelineProvider {
 		let path = "https://pastecard.net/api/db/"
 		let user = defaults!.string(forKey: "username")
 		let textExtension = ".txt"
-		var remoteText = "😬\n\nSomething went wrong"
+		var remoteText = "😬\n\nSomething went wrong."
 		
-		if let cardURL = URL(string: path + user! + textExtension) {
+		if user == nil {
+			remoteText = "⚠️\n\nPlease sign in, in the app."
+		} else if let cardURL = URL(string: path + user! + textExtension) {
 			do {
 				let contents = try String(contentsOf: cardURL)
 				remoteText = contents
 			} catch {}
-		} else {
-			remoteText = "Please sign in, in the app."
-		}
+		} else {}
 		return remoteText
 	}
 	

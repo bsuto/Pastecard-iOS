@@ -258,6 +258,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         
         // show sign in
         performSegue(withIdentifier: "showSignIn", sender: Any?.self)
+		
+		// refresh the widget
+		WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
     @IBAction func cancelAction(_ sender: UIButton) {
