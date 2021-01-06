@@ -16,6 +16,11 @@
 		7A7BC649235915D100205DDA /* TextExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A7BC63F235915D100205DDA /* TextExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7A9B515623591BA800589FBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A7BC64D235915E000205DDA /* MainInterface.storyboard */; };
 		7AB395F11FE4258900079651 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB395F01FE4258900079651 /* SignInController.swift */; };
+		7ACE65C225A52D6200E13E50 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACE656F25A51EF800E13E50 /* WidgetKit.framework */; };
+		7ACE65C325A52D6200E13E50 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACE657125A51EF800E13E50 /* SwiftUI.framework */; };
+		7ACE65C625A52D6200E13E50 /* CardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACE65C525A52D6200E13E50 /* CardWidget.swift */; };
+		7ACE65C825A52D6700E13E50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ACE65C725A52D6700E13E50 /* Assets.xcassets */; };
+		7ACE65CC25A52D6700E13E50 /* CardWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7ACE65C125A52D6200E13E50 /* CardWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AF204291FE1ECC90086A9F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF204281FE1ECC90086A9F2 /* AppDelegate.swift */; };
 		7AF2042B1FE1ECC90086A9F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2042A1FE1ECC90086A9F2 /* ViewController.swift */; };
 		7AF2042E1FE1ECC90086A9F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2042C1FE1ECC90086A9F2 /* Main.storyboard */; };
@@ -38,6 +43,13 @@
 			remoteGlobalIDString = 7A7BC63E235915D100205DDA;
 			remoteInfo = TextExtension;
 		};
+		7ACE65CA25A52D6700E13E50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AF2041D1FE1ECC90086A9F2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ACE65C025A52D6200E13E50;
+			remoteInfo = CardWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +70,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				7A6D7C3B21FB3CE40001A0A9 /* Add URL to Pastecard.appex in Embed App Extensions */,
+				7ACE65CC25A52D6700E13E50 /* CardWidgetExtension.appex in Embed App Extensions */,
 				7A7BC649235915D100205DDA /* TextExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -73,12 +86,19 @@
 		7A6D7C4221FB409F0001A0A9 /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7A6D7C4321FB493E0001A0A9 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		7A70F40F1FF2B23000F383AF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Pastecard/README.md; sourceTree = "<group>"; };
+		7A789DC825A558CC00316750 /* CardWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CardWidgetExtension.entitlements; sourceTree = "<group>"; };
 		7A7BC63F235915D100205DDA /* TextExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TextExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7BC641235915D100205DDA /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7A7BC646235915D100205DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A7BC64E235915E000205DDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7A7BC64F2359198200205DDA /* TextExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TextExtension.entitlements; sourceTree = "<group>"; };
 		7AB395F01FE4258900079651 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
+		7ACE656F25A51EF800E13E50 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7ACE657125A51EF800E13E50 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7ACE65C125A52D6200E13E50 /* CardWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CardWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ACE65C525A52D6200E13E50 /* CardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWidget.swift; sourceTree = "<group>"; };
+		7ACE65C725A52D6700E13E50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7ACE65C925A52D6700E13E50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AF204251FE1ECC90086A9F2 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF204281FE1ECC90086A9F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AF2042A1FE1ECC90086A9F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +120,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ACE65BE25A52D6200E13E50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ACE65C325A52D6200E13E50 /* SwiftUI.framework in Frameworks */,
+				7ACE65C225A52D6200E13E50 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,12 +164,24 @@
 			path = TextExtension;
 			sourceTree = "<group>";
 		};
+		7ACE65C425A52D6200E13E50 /* CardWidget */ = {
+			isa = PBXGroup;
+			children = (
+				7A789DC825A558CC00316750 /* CardWidgetExtension.entitlements */,
+				7ACE65C525A52D6200E13E50 /* CardWidget.swift */,
+				7ACE65C725A52D6700E13E50 /* Assets.xcassets */,
+				7ACE65C925A52D6700E13E50 /* Info.plist */,
+			);
+			path = CardWidget;
+			sourceTree = "<group>";
+		};
 		7AF2041C1FE1ECC90086A9F2 = {
 			isa = PBXGroup;
 			children = (
 				7AF204271FE1ECC90086A9F2 /* Pastecard */,
 				7A6D7C3221FB3CE40001A0A9 /* ShareExtension */,
 				7A7BC640235915D100205DDA /* TextExtension */,
+				7ACE65C425A52D6200E13E50 /* CardWidget */,
 				7AF204261FE1ECC90086A9F2 /* Products */,
 				7AF84C20201E2F0100E181B8 /* Frameworks */,
 			);
@@ -152,6 +193,7 @@
 				7AF204251FE1ECC90086A9F2 /* Pastecard.app */,
 				7A6D7C3121FB3CE40001A0A9 /* Add URL to Pastecard.appex */,
 				7A7BC63F235915D100205DDA /* TextExtension.appex */,
+				7ACE65C125A52D6200E13E50 /* CardWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +217,8 @@
 			isa = PBXGroup;
 			children = (
 				7A70F40F1FF2B23000F383AF /* README.md */,
+				7ACE656F25A51EF800E13E50 /* WidgetKit.framework */,
+				7ACE657125A51EF800E13E50 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -216,6 +260,23 @@
 			productReference = 7A7BC63F235915D100205DDA /* TextExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		7ACE65C025A52D6200E13E50 /* CardWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ACE65CD25A52D6700E13E50 /* Build configuration list for PBXNativeTarget "CardWidgetExtension" */;
+			buildPhases = (
+				7ACE65BD25A52D6200E13E50 /* Sources */,
+				7ACE65BE25A52D6200E13E50 /* Frameworks */,
+				7ACE65BF25A52D6200E13E50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CardWidgetExtension;
+			productName = CardWidgetExtension;
+			productReference = 7ACE65C125A52D6200E13E50 /* CardWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7AF204241FE1ECC90086A9F2 /* Pastecard */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AF204371FE1ECC90086A9F2 /* Build configuration list for PBXNativeTarget "Pastecard" */;
@@ -231,6 +292,7 @@
 			dependencies = (
 				7A6D7C3A21FB3CE40001A0A9 /* PBXTargetDependency */,
 				7A7BC648235915D100205DDA /* PBXTargetDependency */,
+				7ACE65CB25A52D6700E13E50 /* PBXTargetDependency */,
 			);
 			name = Pastecard;
 			productName = Pastecard;
@@ -243,7 +305,7 @@
 		7AF2041D1FE1ECC90086A9F2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1110;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Brian Sutorius";
 				TargetAttributes = {
@@ -259,6 +321,10 @@
 					};
 					7A7BC63E235915D100205DDA = {
 						CreatedOnToolsVersion = 11.1;
+						ProvisioningStyle = Automatic;
+					};
+					7ACE65C025A52D6200E13E50 = {
+						CreatedOnToolsVersion = 12.3;
 						ProvisioningStyle = Automatic;
 					};
 					7AF204241FE1ECC90086A9F2 = {
@@ -292,6 +358,7 @@
 				7AF204241FE1ECC90086A9F2 /* Pastecard */,
 				7A6D7C3021FB3CE40001A0A9 /* URLExtension */,
 				7A7BC63E235915D100205DDA /* TextExtension */,
+				7ACE65C025A52D6200E13E50 /* CardWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -312,6 +379,14 @@
 			files = (
 				7A5B55C82365D8280006340B /* Assets.xcassets in Resources */,
 				7A9B515623591BA800589FBD /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ACE65BF25A52D6200E13E50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ACE65C825A52D6700E13E50 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +419,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7ACE65BD25A52D6200E13E50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ACE65C625A52D6200E13E50 /* CardWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF204211FE1ECC90086A9F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,6 +449,11 @@
 			isa = PBXTargetDependency;
 			target = 7A7BC63E235915D100205DDA /* TextExtension */;
 			targetProxy = 7A7BC647235915D100205DDA /* PBXContainerItemProxy */;
+		};
+		7ACE65CB25A52D6700E13E50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7ACE65C025A52D6200E13E50 /* CardWidgetExtension */;
+			targetProxy = 7ACE65CA25A52D6700E13E50 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -497,6 +585,53 @@
 			};
 			name = Release;
 		};
+		7ACE65CE25A52D6700E13E50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = CardWidget/CardWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				INFOPLIST_FILE = CardWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.CardWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7ACE65CF25A52D6700E13E50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = CardWidget/CardWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				INFOPLIST_FILE = CardWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.CardWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7AF204351FE1ECC90086A9F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -613,7 +748,7 @@
 		7AF204381FE1ECC90086A9F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -637,7 +772,7 @@
 		7AF204391FE1ECC90086A9F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -674,6 +809,15 @@
 			buildConfigurations = (
 				7A7BC64B235915D100205DDA /* Debug */,
 				7A7BC64C235915D100205DDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ACE65CD25A52D6700E13E50 /* Build configuration list for PBXNativeTarget "CardWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ACE65CE25A52D6700E13E50 /* Debug */,
+				7ACE65CF25A52D6700E13E50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
