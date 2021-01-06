@@ -100,22 +100,11 @@ class SignInController: UIViewController {
     }
     
     @IBAction func signUp(_ sender: Any) {
-        
-        // if an internet connection, show the sign up alert
-        if (Reachability.isConnectedToNetwork()) {
-            self.present(alertBox, animated: true)
-        } else {
-            let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign up.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-            self.present(alert, animated: true)
-        }
+        self.present(alertBox, animated: true)
     }
     
     // MARK: - Sign In
     func addUser() {
-        
-        // check internet connection
-        if (Reachability.isConnectedToNetwork()) {
             
             // assemble and send the API request to check if username exists
             userField.resignFirstResponder()
@@ -146,13 +135,7 @@ class SignInController: UIViewController {
                 }
             }
             task.resume()
-        
-        } else {
-            let alert = UIAlertController(title: "😉", message: "You must have a WiFi or cellular connection to sign in.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-            self.present(alert, animated: true)
-        }
-    }
+	}
     
     // MARK: - App Life Cycle
     
