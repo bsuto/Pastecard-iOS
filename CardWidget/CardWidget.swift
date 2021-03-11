@@ -19,14 +19,27 @@ struct Provider: TimelineProvider {
 		var remoteText = "😬\n\nSomething went wrong."
 		
 		if user == nil {
-			remoteText = "⚠️\n\nPlease sign in, in the app."
-		} else if let cardURL = URL(string: path + user! + textExtension) {
-			do {
-				let contents = try String(contentsOf: cardURL)
-				remoteText = contents
-			} catch {}
-		} else {}
-		return remoteText
+			remoteText = "⚠️\n\nPlease sign in first."
+            return remoteText
+        }
+        
+        if let cardURL = URL(string: path + user! + textExtension) {
+            do {
+                let contents = try String(contentsOf: cardURL)
+                remoteText = contents
+            } catch {
+                // loadLocal()
+                let fileName = "pastecard.txt"
+                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    let fileURL = dir.appendingPathComponent(fileName)
+                    do {
+                        let localText = try String(contentsOf: fileURL, encoding: .utf8)
+                        remoteText = localText
+                    } catch {}
+                }
+            }
+        } else {}
+        return remoteText
 	}
 	
 	func placeholder(in context: Context) -> SimpleEntry {
