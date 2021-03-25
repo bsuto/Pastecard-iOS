@@ -16,9 +16,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     let defaults = UserDefaults(suiteName: "group.net.pastecard")
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-	@IBOutlet weak var shadowView: UIView!
 	private var item: DispatchWorkItem?
 	var userInterfaceStyle: UIUserInterfaceStyle?
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
@@ -27,7 +24,8 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     var emergencyText = ""
     
     // MARK: - Save functions
-    @IBAction func saveAction(_ sender: UIButton) {
+    @objc func saveAction(sender: UIBarButtonItem) {
+        pasteCard.resignFirstResponder()
         cleanUp()
         emergencyText = pasteCard.text
         pasteCard.text = "Saving…"
@@ -99,7 +97,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     // MARK: - Load functions
-    
     func loadRemote() {
         // assemble the GET request
         let path = "https://pastecard.net/api/db/"
@@ -167,19 +164,17 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     
     // MARK: - Other functions
     
-    // the Done button above the keyboard
-    func addDoneButton() {
+    // the buttons above the keyboard
+    func addButtons() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        let items = [flexSpace, done]
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelAction(sender:)))
+        let save: UIBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveAction(sender:)))
+        let items = [cancel, flexSpace, save]
         doneToolbar.items = items
         doneToolbar.sizeToFit()
         pasteCard.inputAccessoryView = doneToolbar
-    }
-    @objc func doneButtonAction() {
-        pasteCard.resignFirstResponder()
     }
     
     // tap gesture
@@ -230,11 +225,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         popoverMenu.addAction(signOutAction)
         popoverMenu.addAction(cancelAction)
         
-        // turn action sheet into popover on iPad
-        popoverMenu.popoverPresentationController?.sourceView = self.pasteCard
-        popoverMenu.popoverPresentationController?.sourceRect = CGRect(x: self.pasteCard.bounds.midX, y: self.pasteCard.bounds.maxY, width: 0, height: -240)
-        popoverMenu.popoverPresentationController?.permittedArrowDirections = []
-        
         present(popoverMenu, animated: true)
     }
     
@@ -263,14 +253,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
 		WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
-    @IBAction func cancelAction(_ sender: UIButton) {
+    @objc func cancelAction(sender: UIBarButtonItem) {
         pasteCard.text = cancelText
+        pasteCard.resignFirstResponder()
         cleanUp()
     }
     
     func cleanUp() {
-        cancelButton.isHidden = true
-        saveButton.isHidden = true
         pasteCard.isEditable = false
         pasteCard.inputAccessoryView = nil
         tapCard.isEnabled = true
@@ -287,13 +276,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     func makeEditable() {
-        cancelButton.isHidden = false
-        saveButton.isHidden = false
         cancelText = pasteCard.text
         pasteCard.isEditable = true
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            addDoneButton()
-        }
+        addButtons()
         pasteCard.becomeFirstResponder()
         tapCard.isEnabled = false
         swipeUp.isEnabled = false
@@ -322,35 +307,21 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
 
     // MARK: - App Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        pasteCard.delegate = self
-        
-        // start listening for gestures
-        swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
-        swipeUp.direction = .up
-        self.pasteCard.addGestureRecognizer(swipeUp)
-        tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
-        self.pasteCard.addGestureRecognizer(tapCard)
-        
-        // add custom styles
-		userInterfaceStyle = self.traitCollection.userInterfaceStyle
-		setStyle()
-    }
-	
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-			super.traitCollectionDidChange(previousTraitCollection)
-			setStyle()
-	}
-	
-	override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-			userInterfaceStyle = newCollection.userInterfaceStyle
-	}
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        registerNotifications()
+        
+        // register notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // prepare card
+        pasteCard.textContainerInset = UIEdgeInsets(top: 18, left: 14, bottom: 18, right: 14)
         cleanUp()
+    }
+    
+    // light text in status bar
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -362,6 +333,18 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             DispatchQueue.main.async { self.loadRemote() }
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        pasteCard.delegate = self
+        
+        // start listening for gestures
+        swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
+        swipeUp.direction = .up
+        self.pasteCard.addGestureRecognizer(swipeUp)
+        tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
+        self.pasteCard.addGestureRecognizer(tapCard)
+    }
 
     // coming back from Sign In
     @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
@@ -371,57 +354,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             DispatchQueue.main.async { self.loadRemote() }
         }
     }
-	
-	private func setStyle() {
-		// card shadow
-		let lightShadow = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.00)
-		let darkShadow = UIColor(red: 0.47, green: 0.47, blue: 0.47, alpha: 1.00)
-		shadowView.layer.shadowOpacity = 1
-		shadowView.layer.shadowRadius = 4
-		shadowView.layer.masksToBounds = false
-		pasteCard.layer.zPosition = 10
-		
-		// button borders
-		let blueBorder = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.00)
-		saveButton.layer.cornerRadius = 12
-		saveButton.layer.borderWidth = 2
-		cancelButton.layer.cornerRadius = 12
-		cancelButton.layer.borderWidth = 2
-		
-		// light and dark modes
-		switch userInterfaceStyle {
-		case .dark:
-			shadowView.layer.shadowColor = darkShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
-			saveButton.layer.borderColor = UIColor.label.cgColor
-			cancelButton.layer.borderColor = UIColor.label.cgColor
-		case .light:
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .none:
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .some(.unspecified):
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .some(_):
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		}
-	}
     
-    func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
