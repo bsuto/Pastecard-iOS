@@ -10,7 +10,7 @@ import UIKit
 import WidgetKit
 import SafariServices
 
-class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class ViewController: UIViewController, UITextViewDelegate {
     
     // MARK: Variables and Outlets
     let defaults = UserDefaults(suiteName: "group.net.pastecard")
@@ -169,7 +169,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelAction(sender:)))
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(sender:)))
         let save: UIBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveAction(sender:)))
         let items = [cancel, flexSpace, save]
         doneToolbar.items = items
@@ -177,7 +177,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         pasteCard.inputAccessoryView = doneToolbar
     }
     
-    // tap gesture
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             // if the app is loading or saving, don't attempt to edit the card
@@ -193,7 +192,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         }
     }
     
-    // swipe gesture
+    // swipe up menu
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
         let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
