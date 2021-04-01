@@ -83,17 +83,21 @@ class SignInController: UIViewController {
                 self.username = name
                 self.performSegue(withIdentifier: "unwindSegue", sender: Any?.self)
                 
-            // if the username is taken, alert
+            // if the username is taken
             } else if (responseString == "taken") {
-                let alert = UIAlertController(title: "😬", message: "That username is not available.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { _ in self.signUp((Any).self) })
-                self.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "😬", message: "That username is not available.", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { _ in self.signUp((Any).self) })
+                    self.present(alert, animated: true)
+                }
                 
-            // if a server error, alert
+            // if a server error
             } else {
-                let alert = UIAlertController(title: "😳", message: "Oops, something didn't work. Please try again.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-                self.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "😳", message: "Oops, something didn't work. Please try again.", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
+                    self.present(alert, animated: true)
+                }
             }
         }
         task.resume()
