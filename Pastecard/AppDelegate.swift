@@ -22,16 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    
+    // essentially, hit the Cancel button if you leave the app with the card open
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // essentially, hit the Cancel button if you leave the app with the card open
         if (vc.pasteCard.isEditable == true) {
             vc.pasteCard.text = vc.cancelText
             vc.cleanUp()
         }
-        
-        // close the popover menu because swipe up for home might open it
-        vc.popoverMenu.dismiss(animated: true, completion: nil)
     }
 
     // check for logged in user when opening

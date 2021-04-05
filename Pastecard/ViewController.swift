@@ -22,7 +22,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     var cancelText = ""
     var emergencyText = ""
-    let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     // MARK: - Save functions
     @objc func saveAction(sender: UIBarButtonItem) {
@@ -164,20 +163,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     // MARK: - Other functions
-    
-    // the buttons above the keyboard
-    func addButtons() {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(sender:)))
-        let save: UIBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveAction(sender:)))
-        let items = [cancel, flexSpace, save]
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        pasteCard.inputAccessoryView = doneToolbar
-    }
-    
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             // if the app is loading or saving, don't attempt to edit the card
@@ -194,7 +179,45 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
+        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
+            let url = URL(string: "https://pastecard.net/help/")
+            let svc = SFSafariViewController(url: url!)
+            self.present(svc, animated: true, completion: nil)
+        }
+        let shareAction: UIAlertAction = UIAlertAction(title: "Share…", style: .default) { action -> Void in
+            let text = [ self.pasteCard.text ]
+            let avc = UIActivityViewController(activityItems: text as [Any], applicationActivities: nil)
+            avc.popoverPresentationController?.sourceView = self.view
+            avc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+            avc.popoverPresentationController?.permittedArrowDirections = []
+            self.present(avc, animated: true, completion: nil)
+        }
+        let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
+            self.loadRemote()
+        }
+        let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
+            self.signOut()
+        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
+        
+        popoverMenu.addAction(refreshAction)
+        popoverMenu.addAction(shareAction)
+        popoverMenu.addAction(helpAction)
+        popoverMenu.addAction(signOutAction)
+        popoverMenu.addAction(cancelAction)
+        
         present(popoverMenu, animated: true)
+    }
+    
+    // after signing in
+    @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? SignInController {
+            defaults!.set(sourceViewController.username, forKey: "username")
+            defaults!.synchronize()
+            DispatchQueue.main.async { self.loadRemote() }
+        }
     }
     
     func signOut() {
@@ -233,6 +256,19 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.inputAccessoryView = nil
         tapCard.isEnabled = true
         swipeUp.isEnabled = true
+    }
+    
+    // save and cancel buttons
+    func addButtons() {
+        let buttonBar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        buttonBar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(sender:)))
+        let save: UIBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveAction(sender:)))
+        let items = [cancel, flexSpace, save]
+        buttonBar.items = items
+        buttonBar.sizeToFit()
+        pasteCard.inputAccessoryView = buttonBar
     }
     
     func deSymbol(text: String) -> String {
@@ -283,34 +319,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        // prepare swipe up menu
-        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL(string: "https://pastecard.net/help/")
-            let svc = SFSafariViewController(url: url!)
-            self.present(svc, animated: true, completion: nil)
-        }
-        let shareAction: UIAlertAction = UIAlertAction(title: "Share…", style: .default) { action -> Void in
-            let text = [ self.pasteCard.text ]
-            let avc = UIActivityViewController(activityItems: text as [Any], applicationActivities: nil)
-            avc.popoverPresentationController?.sourceView = self.view
-            avc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
-            avc.popoverPresentationController?.permittedArrowDirections = []
-            self.present(avc, animated: true, completion: nil)
-        }
-        let refreshAction: UIAlertAction = UIAlertAction(title: "Refresh", style: .default) { action -> Void in
-            self.loadRemote()
-        }
-        let signOutAction: UIAlertAction = UIAlertAction(title: "Sign Out", style: .destructive) { action -> Void in
-            self.signOut()
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
-        
-        popoverMenu.addAction(refreshAction)
-        popoverMenu.addAction(shareAction)
-        popoverMenu.addAction(helpAction)
-        popoverMenu.addAction(signOutAction)
-        popoverMenu.addAction(cancelAction)
-        
         // prepare card
         pasteCard.textContainerInset = UIEdgeInsets(top: 18, left: 14, bottom: 18, right: 14)
         cleanUp()
@@ -343,15 +351,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         self.pasteCard.addGestureRecognizer(swipeUp)
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
-    }
-
-    // coming back from Sign In
-    @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? SignInController {
-            defaults!.set(sourceViewController.username, forKey: "username")
-            defaults!.synchronize()
-            DispatchQueue.main.async { self.loadRemote() }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

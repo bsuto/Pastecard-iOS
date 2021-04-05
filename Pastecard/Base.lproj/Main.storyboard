@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Loading…" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIS-i6-bEL" userLabel="Pastecard">
-                                <rect key="frame" x="0.0" y="56" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="700"/>
                                 <viewLayoutGuide key="safeArea" id="CH4-bI-Y69"/>
                                 <color key="backgroundColor" name="fafaBackground"/>
                                 <accessibility key="accessibilityConfiguration" hint="This is the full contents of your Pastecard." label="Pastecard text">
@@ -40,13 +40,13 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="fafaBackground"/>
                         <constraints>
                             <constraint firstItem="aFv-EB-KLj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AL1-8x-0Sp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aFv-EB-KLj" secondAttribute="trailing" id="BLj-R8-5nv"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="top" secondItem="aFv-EB-KLj" secondAttribute="bottom" id="BQL-En-a7o"/>
-                            <constraint firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" id="FqC-zh-7D7"/>
                             <constraint firstItem="aFv-EB-KLj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="H2p-6t-Eak"/>
+                            <constraint firstAttribute="bottom" secondItem="mIS-i6-bEL" secondAttribute="bottom" constant="56" id="KIc-H5-UpC"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="c2c-eY-CAh"/>
                             <constraint firstItem="mIS-i6-bEL" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="tAT-m3-YLC"/>
                         </constraints>
