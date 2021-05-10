@@ -74,6 +74,10 @@ class ShareViewController: UIViewController {
                                     shareText = shareText.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
                                     shareText = shareText.replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
                                     
+                                    // special case symbols
+                                    shareText = shareText.replacingOccurrences(of: "&", with: "%26")
+                                    shareText = shareText.replacingOccurrences(of: "+", with: "%2B")
+                                    
                                     self.saveToServer(user: username, text: shareText )
                                 }
                             })
