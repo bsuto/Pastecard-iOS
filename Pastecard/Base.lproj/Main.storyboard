@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -78,10 +78,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-er-sMS">
-                                <rect key="frame" x="16" y="128.66666666666666" width="343" height="22"/>
+                                <rect key="frame" x="16" y="128.66666666666666" width="343" height="18.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pastecard.net/" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-U0-yoD">
-                                        <rect key="frame" x="0.0" y="0.0" width="110" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="93.666666666666671" height="18.666666666666668"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -90,7 +90,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9JC-9D-6Qq">
-                                        <rect key="frame" x="110" y="0.0" width="233" height="22"/>
+                                        <rect key="frame" x="93.666666666666671" y="0.0" width="249.33333333333331" height="18.666666666666668"/>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="Enter your Pastecard username here" label="Username field"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -115,7 +115,7 @@
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Xw6-pW-1qK">
-                                <rect key="frame" x="16" y="174.66666666666666" width="343" height="34"/>
+                                <rect key="frame" x="16" y="171.33333333333334" width="343" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52X-At-fYt">
                                         <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="34"/>
@@ -153,7 +153,7 @@
                                 </variation>
                             </stackView>
                             <label opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy &amp; Terms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvZ-ze-czU">
-                                <rect key="frame" x="138.66666666666666" y="676.33333333333337" width="98" height="15.666666666666629"/>
+                                <rect key="frame" x="142" y="677.66666666666663" width="91.333333333333314" height="14.333333333333371"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>

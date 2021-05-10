@@ -16,8 +16,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     let defaults = UserDefaults(suiteName: "group.net.pastecard")
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
-	private var item: DispatchWorkItem?
-	var userInterfaceStyle: UIUserInterfaceStyle?
+    private var item: DispatchWorkItem?
     var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
     var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
     var cancelText = ""
@@ -63,10 +62,10 @@ class ViewController: UIViewController, UITextViewDelegate {
                 // save the text locally and put it in the card
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
-				
-				// refresh the widget
-				WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
-				
+                
+                // refresh the widget
+                WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+                
                 self.tapCard.isEnabled = true
                 self.item?.cancel()
             }
@@ -110,7 +109,7 @@ class ViewController: UIViewController, UITextViewDelegate {
             self?.item = nil
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
-
+        
         // fire the GET request
         let task = URLSession.shared.downloadTask(with:url) { localUrl, response, error in
             // if an error, go immediately to load failure
@@ -127,9 +126,9 @@ class ViewController: UIViewController, UITextViewDelegate {
                         self.saveLocal(text: remoteText)
                         self.pasteCard.text = remoteText
                         self.item?.cancel()
-						
-						// refresh the widget
-						WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+                        
+                        // refresh the widget
+                        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
                     }
                     self.tapCard.isEnabled = true // unlock the card in case it'd been locked before
                 }
@@ -179,8 +178,6 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
-        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
         let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
             let url = URL(string: "https://pastecard.net/help/")
             let svc = SFSafariViewController(url: url!)
@@ -202,6 +199,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         }
         let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
         
+        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         popoverMenu.addAction(refreshAction)
         popoverMenu.addAction(shareAction)
         popoverMenu.addAction(helpAction)
@@ -240,9 +238,9 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         // show sign in
         performSegue(withIdentifier: "showSignIn", sender: Any?.self)
-		
-		// refresh the widget
-		WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+        
+        // refresh the widget
+        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
     @objc func cancelAction(sender: UIBarButtonItem) {
@@ -310,7 +308,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         pasteCard.contentInset = .zero
         pasteCard.scrollIndicatorInsets = .zero
     }
-
+    
     // MARK: - App Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -324,7 +322,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         cleanUp()
     }
     
-    // light text in status bar
+    // force light text in status bar
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -357,7 +355,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         super.viewWillDisappear(animated)
         if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
