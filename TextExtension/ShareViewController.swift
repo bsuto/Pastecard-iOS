@@ -24,11 +24,12 @@ class ShareViewController: UIViewController {
         self.view.viewWithTag(1)?.isHidden = false
         
         // prepare the request
-        let postData = ("user=" + user + "&text=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let saveText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
+        let postData = ("user=" + user + "&text=" + saveText)
         guard let url = URL(string: "https://pastecard.net/api/bm.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = postData?.data(using: String.Encoding.utf8)
+        request.httpBody = postData.data(using: String.Encoding.utf8)
         
         // set a five second timeout
         workItem = DispatchWorkItem { [weak self] in
