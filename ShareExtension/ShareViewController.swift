@@ -69,15 +69,7 @@ class ShareViewController: UIViewController {
                             attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
                                 if let shareURL = url as? NSURL {
                                     var shareText: String = shareURL.absoluteString!
-                                    
-                                    // remove protocol
-                                    shareText = shareText.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
-                                    shareText = shareText.replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
-                                    
-                                    // special case symbols
-                                    shareText = shareText.replacingOccurrences(of: "&", with: "%26")
-                                    shareText = shareText.replacingOccurrences(of: "+", with: "%2B")
-                                    
+                                    shareText = shareText.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
                                     self.saveToServer(user: username, text: shareText )
                                 }
                             })
