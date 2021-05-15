@@ -24,11 +24,12 @@ class ShareViewController: UIViewController {
         self.view.viewWithTag(1)?.isHidden = false
         
         // prepare the request
-        let postData = ("user=" + user + "&text=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let saveText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
+        let postData = ("user=" + user + "&text=" + saveText)
         guard let url = URL(string: "https://pastecard.net/api/bm.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = postData?.data(using: String.Encoding.utf8)
+        request.httpBody = postData.data(using: String.Encoding.utf8)
         
         // set a five second timeout
         workItem = DispatchWorkItem { [weak self] in
@@ -69,15 +70,7 @@ class ShareViewController: UIViewController {
                             attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
                                 if let shareURL = url as? NSURL {
                                     var shareText: String = shareURL.absoluteString!
-                                    
-                                    // remove protocol
-                                    shareText = shareText.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
-                                    shareText = shareText.replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
-                                    
-                                    // special case symbols
-                                    shareText = shareText.replacingOccurrences(of: "&", with: "%26")
-                                    shareText = shareText.replacingOccurrences(of: "+", with: "%2B")
-                                    
+                                    shareText = shareText.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
                                     self.saveToServer(user: username, text: shareText )
                                 }
                             })

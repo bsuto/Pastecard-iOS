@@ -31,12 +31,15 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         // assemble the POST request
         let user = defaults!.string(forKey: "username")!
-        let text = deSymbol(text: emergencyText)
-        let postData = ("u=" + user + "&pc=" + text).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        var text = emergencyText
+        text = text.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
+        text = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
+        
+        let postData = ("u=" + user + "&pc=" + text)
         guard let url = URL(string: "https://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = postData?.data(using: String.Encoding.utf8)
+        request.httpBody = postData.data(using: String.Encoding.utf8)
         
         // set a five second timeout before going to save failure
         item = DispatchWorkItem { [weak self] in
@@ -267,15 +270,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         buttonBar.items = items
         buttonBar.sizeToFit()
         pasteCard.inputAccessoryView = buttonBar
-    }
-    
-    func deSymbol(text: String) -> String {
-        var returnString = text
-        returnString = returnString.replacingOccurrences(of: "http://", with: "")
-        returnString = returnString.replacingOccurrences(of: "https://", with: "")
-        returnString = returnString.replacingOccurrences(of: "+", with: "%2B")
-        returnString = returnString.replacingOccurrences(of: "&", with: "%26")
-        return returnString
     }
     
     func makeEditable() {
