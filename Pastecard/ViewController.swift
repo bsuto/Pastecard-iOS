@@ -34,7 +34,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         var text = emergencyText
         text = text.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
         text = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        
         let postData = ("u=" + user + "&pc=" + text)
         guard let url = URL(string: "https://pastecard.net/api/write.php") else {return}
         var request = URLRequest(url: url)
@@ -181,8 +180,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
-        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL(string: "https://pastecard.net/help/")
+        let helpAction: UIAlertAction = UIAlertAction(title: "Learn More", style: .default) { action -> Void in
+            let url = URL(string: "https://pastecard.net/lab/#app")
             let svc = SFSafariViewController(url: url!)
             self.present(svc, animated: true, completion: nil)
         }
