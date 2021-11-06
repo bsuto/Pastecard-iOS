@@ -140,17 +140,19 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     func loadFailure() {
-        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
-            if self.pasteCard.text == "Loading…" {
-                self.loadLocal()
-                self.tapCard.isEnabled = false // lock the card, you're likely offline
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
-            self.loadRemote()
-        }))
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+                if self.pasteCard.text == "Loading…" {
+                    self.loadLocal()
+                    self.tapCard.isEnabled = false // lock the card, you're likely offline
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
+                self.loadRemote()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func loadLocal() {
@@ -158,9 +160,10 @@ class ViewController: UIViewController, UITextViewDelegate {
             let fileURL = dir.appendingPathComponent(self.file)
             do {
                 let localText = try String(contentsOf: fileURL, encoding: .utf8)
-                pasteCard.text = localText
+                pasteCard.text = localText // put the local text into the card
             } catch {}
         }
+        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget") // refresh the widget
     }
     
     // MARK: - Other functions
