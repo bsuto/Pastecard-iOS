@@ -69,9 +69,7 @@ class ShareViewController: UIViewController {
                         if attachment.hasItemConformingToTypeIdentifier("public.url") {
                             attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
                                 if let shareURL = url as? NSURL {
-                                    var shareText: String = shareURL.absoluteString!
-                                    shareText = shareText.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
-                                    self.saveToServer(user: username, text: shareText )
+                                    self.saveToServer(user: username, text: shareURL.absoluteString! )
                                 }
                             })
                         }

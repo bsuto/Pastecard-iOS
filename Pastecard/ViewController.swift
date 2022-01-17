@@ -35,7 +35,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         // assemble the POST request
         let user = defaults!.string(forKey: "username")!
         var text = emergencyText
-        text = text.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
         text = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
         let postData = ("u=" + user + "&pc=" + text)
         guard let url = URL(string: "https://pastecard.net/api/write.php") else {return}
