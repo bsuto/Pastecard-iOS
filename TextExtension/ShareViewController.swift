@@ -67,9 +67,7 @@ class ShareViewController: UIViewController {
                     for attachment: NSItemProvider in attachments {
                         if attachment.hasItemConformingToTypeIdentifier("public.text") {
                             attachment.loadItem(forTypeIdentifier: "public.text", options: nil, completionHandler: { (results, error) in
-                                var shareText = results as! String
-                                shareText = shareText.replacingOccurrences(of: #"https?\:\/\/"#, with: "", options: .regularExpression) // remove protocols
-                                self.saveToServer(user: username, text: shareText )
+                                self.saveToServer(user: username, text: results as! String )
                             })
                         }
                     }
