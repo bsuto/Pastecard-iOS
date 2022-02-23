@@ -293,7 +293,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     // scroll to the text cursor when the keyboard shows
     @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         pasteCard.contentInset = contentInsets
@@ -312,7 +312,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        // prepare card
+        // set card padding and hide buttons
         pasteCard.textContainerInset = UIEdgeInsets(top: 18, left: 14, bottom: 18, right: 14)
         cleanUp()
     }
@@ -348,7 +348,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
