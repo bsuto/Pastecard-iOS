@@ -17,8 +17,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
     private var item: DispatchWorkItem?
-    var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
-    var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
+    var tapCard = UITapGestureRecognizer(target: ViewController.self, action: #selector(tapEdit))
+    var swipeUp = UISwipeGestureRecognizer(target: ViewController.self, action: #selector(swipeMenu))
     var cancelText = ""
     var emergencyText = ""
     
