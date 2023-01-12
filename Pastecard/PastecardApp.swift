@@ -2,16 +2,22 @@
 //  PastecardApp.swift
 //  Pastecard
 //
-//  Created by Brian Sutorius on 12/16/20.
+//  Created by Brian Sutorius on 1/1/23.
 //
 
 import SwiftUI
 
 @main
 struct PastecardApp: App {
-	var body: some Scene {
-		WindowGroup {
-			CardView()
-		}
-	}
+    let userId = UserDefaults.standard.string(forKey: "ID") ?? ""
+    
+    var body: some Scene {
+        WindowGroup {
+            if userId.isEmpty {
+                SignInView()
+            } else {
+                ContentView()
+            }
+        }
+    }
 }

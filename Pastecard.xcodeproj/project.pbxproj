@@ -3,29 +3,35 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A1ACE77258AB9140000E7A8 /* PastecardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ACE76258AB9140000E7A8 /* PastecardApp.swift */; };
-		7A1ACE79258AB9140000E7A8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ACE78258AB9140000E7A8 /* CardView.swift */; };
-		7A1ACE7B258AB9170000E7A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1ACE7A258AB9170000E7A8 /* Assets.xcassets */; };
-		7A1ACE7E258AB9170000E7A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1ACE7D258AB9170000E7A8 /* Preview Assets.xcassets */; };
-		7AA50F7A258AEBC100BBCF60 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA50F79258AEBC100BBCF60 /* SignUpView.swift */; };
+		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
+		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
+		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
+		7A68AC7C296DD9BF005CFDCC /* Pastecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A68AC7B296DD9BF005CFDCC /* Pastecard.swift */; };
+		7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */; };
+		7AFC09C2290AC47C009CAC71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09C1290AC47C009CAC71 /* ContentView.swift */; };
+		7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFC09C3290AC47D009CAC71 /* Assets.xcassets */; };
+		7AFC09C7290AC47D009CAC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A1ACE73258AB9140000E7A8 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1ACE76258AB9140000E7A8 /* PastecardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastecardApp.swift; sourceTree = "<group>"; };
-		7A1ACE78258AB9140000E7A8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		7A1ACE7A258AB9170000E7A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7A1ACE7D258AB9170000E7A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7A1ACE7F258AB9170000E7A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7AA50F79258AEBC100BBCF60 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
+		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
+		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		7A68AC7B296DD9BF005CFDCC /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
+		7AFC09BC290AC47C009CAC71 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastecardApp.swift; sourceTree = "<group>"; };
+		7AFC09C1290AC47C009CAC71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7AFC09C3290AC47D009CAC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7AFC09CD290ADFBB009CAC71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7A1ACE70258AB9140000E7A8 /* Frameworks */ = {
+		7AFC09B9290AC47C009CAC71 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,39 +41,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A1ACE6A258AB9130000E7A8 = {
+		7AFC09B3290AC47C009CAC71 = {
 			isa = PBXGroup;
 			children = (
-				7A1ACE75258AB9140000E7A8 /* Pastecard */,
-				7A1ACE74258AB9140000E7A8 /* Products */,
+				7AFC09BE290AC47C009CAC71 /* Pastecard */,
+				7AFC09BD290AC47C009CAC71 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7A1ACE74258AB9140000E7A8 /* Products */ = {
+		7AFC09BD290AC47C009CAC71 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A1ACE73258AB9140000E7A8 /* Pastecard.app */,
+				7AFC09BC290AC47C009CAC71 /* Pastecard.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7A1ACE75258AB9140000E7A8 /* Pastecard */ = {
+		7AFC09BE290AC47C009CAC71 /* Pastecard */ = {
 			isa = PBXGroup;
 			children = (
-				7A1ACE76258AB9140000E7A8 /* PastecardApp.swift */,
-				7A1ACE78258AB9140000E7A8 /* CardView.swift */,
-				7AA50F79258AEBC100BBCF60 /* SignUpView.swift */,
-				7A1ACE7A258AB9170000E7A8 /* Assets.xcassets */,
-				7A1ACE7F258AB9170000E7A8 /* Info.plist */,
-				7A1ACE7C258AB9170000E7A8 /* Preview Content */,
+				7AFC09CD290ADFBB009CAC71 /* Info.plist */,
+				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
+				7A68AC7B296DD9BF005CFDCC /* Pastecard.swift */,
+				7AFC09C1290AC47C009CAC71 /* ContentView.swift */,
+				7A417C65296B14C6002E8B4D /* SwipeMenu.swift */,
+				7A152D06296DC84C00EF049D /* SafariViewController.swift */,
+				7A417C67296B1CC4002E8B4D /* SignInView.swift */,
+				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
+				7AFC09C5290AC47D009CAC71 /* Preview Content */,
 			);
 			path = Pastecard;
 			sourceTree = "<group>";
 		};
-		7A1ACE7C258AB9170000E7A8 /* Preview Content */ = {
+		7AFC09C5290AC47D009CAC71 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				7A1ACE7D258AB9170000E7A8 /* Preview Assets.xcassets */,
+				7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -75,13 +84,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A1ACE72258AB9140000E7A8 /* Pastecard */ = {
+		7AFC09BB290AC47C009CAC71 /* Pastecard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1ACE82258AB9170000E7A8 /* Build configuration list for PBXNativeTarget "Pastecard" */;
+			buildConfigurationList = 7AFC09CA290AC47D009CAC71 /* Build configuration list for PBXNativeTarget "Pastecard" */;
 			buildPhases = (
-				7A1ACE6F258AB9140000E7A8 /* Sources */,
-				7A1ACE70258AB9140000E7A8 /* Frameworks */,
-				7A1ACE71258AB9140000E7A8 /* Resources */,
+				7AFC09B8290AC47C009CAC71 /* Sources */,
+				7AFC09B9290AC47C009CAC71 /* Frameworks */,
+				7AFC09BA290AC47C009CAC71 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -89,75 +98,78 @@
 			);
 			name = Pastecard;
 			productName = Pastecard;
-			productReference = 7A1ACE73258AB9140000E7A8 /* Pastecard.app */;
+			productReference = 7AFC09BC290AC47C009CAC71 /* Pastecard.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7A1ACE6B258AB9130000E7A8 /* Project object */ = {
+		7AFC09B4290AC47C009CAC71 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1230;
-				LastUpgradeCheck = 1230;
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
-					7A1ACE72258AB9140000E7A8 = {
-						CreatedOnToolsVersion = 12.3;
+					7AFC09BB290AC47C009CAC71 = {
+						CreatedOnToolsVersion = 14.0.1;
 					};
 				};
 			};
-			buildConfigurationList = 7A1ACE6E258AB9130000E7A8 /* Build configuration list for PBXProject "Pastecard" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 7AFC09B7290AC47C009CAC71 /* Build configuration list for PBXProject "Pastecard" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 7A1ACE6A258AB9130000E7A8;
-			productRefGroup = 7A1ACE74258AB9140000E7A8 /* Products */;
+			mainGroup = 7AFC09B3290AC47C009CAC71;
+			productRefGroup = 7AFC09BD290AC47C009CAC71 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7A1ACE72258AB9140000E7A8 /* Pastecard */,
+				7AFC09BB290AC47C009CAC71 /* Pastecard */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7A1ACE71258AB9140000E7A8 /* Resources */ = {
+		7AFC09BA290AC47C009CAC71 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1ACE7E258AB9170000E7A8 /* Preview Assets.xcassets in Resources */,
-				7A1ACE7B258AB9170000E7A8 /* Assets.xcassets in Resources */,
+				7AFC09C7290AC47D009CAC71 /* Preview Assets.xcassets in Resources */,
+				7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7A1ACE6F258AB9140000E7A8 /* Sources */ = {
+		7AFC09B8290AC47C009CAC71 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1ACE79258AB9140000E7A8 /* CardView.swift in Sources */,
-				7AA50F7A258AEBC100BBCF60 /* SignUpView.swift in Sources */,
-				7A1ACE77258AB9140000E7A8 /* PastecardApp.swift in Sources */,
+				7AFC09C2290AC47C009CAC71 /* ContentView.swift in Sources */,
+				7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */,
+				7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */,
+				7A68AC7C296DD9BF005CFDCC /* Pastecard.swift in Sources */,
+				7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */,
+				7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		7A1ACE80258AB9170000E7A8 /* Debug */ = {
+		7AFC09C8290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -201,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -211,14 +223,13 @@
 			};
 			name = Debug;
 		};
-		7A1ACE81258AB9170000E7A8 /* Release */ = {
+		7AFC09C9290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -256,7 +267,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -266,72 +277,98 @@
 			};
 			name = Release;
 		};
-		7A1ACE83258AB9170000E7A8 /* Debug */ = {
+		7AFC09CB290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pastecard.net.Pastecard;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		7A1ACE84258AB9170000E7A8 /* Release */ = {
+		7AFC09CC290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pastecard.net.Pastecard;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A1ACE6E258AB9130000E7A8 /* Build configuration list for PBXProject "Pastecard" */ = {
+		7AFC09B7290AC47C009CAC71 /* Build configuration list for PBXProject "Pastecard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A1ACE80258AB9170000E7A8 /* Debug */,
-				7A1ACE81258AB9170000E7A8 /* Release */,
+				7AFC09C8290AC47D009CAC71 /* Debug */,
+				7AFC09C9290AC47D009CAC71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A1ACE82258AB9170000E7A8 /* Build configuration list for PBXNativeTarget "Pastecard" */ = {
+		7AFC09CA290AC47D009CAC71 /* Build configuration list for PBXNativeTarget "Pastecard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A1ACE83258AB9170000E7A8 /* Debug */,
-				7A1ACE84258AB9170000E7A8 /* Release */,
+				7AFC09CB290AC47D009CAC71 /* Debug */,
+				7AFC09CC290AC47D009CAC71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7A1ACE6B258AB9130000E7A8 /* Project object */;
+	rootObject = 7AFC09B4290AC47C009CAC71 /* Project object */;
 }
