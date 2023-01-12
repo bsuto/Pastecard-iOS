@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {}
-
     // essentially, hit the Cancel button if you leave the app with the card open
     func applicationDidEnterBackground(_ application: UIApplication) {
         if (vc.pasteCard.isEditable == true) {
@@ -32,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    // check for logged in user when opening
     func applicationWillEnterForeground(_ application: UIApplication) {
         if (vc.defaults?.string(forKey: "username") == nil) {
             vc.performSegue(withIdentifier: "showSignIn", sender: Any?.self)
@@ -40,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func applicationWillResignActive(_ application: UIApplication) {}
     func applicationDidBecomeActive(_ application: UIApplication) {}
-
     func applicationWillTerminate(_ application: UIApplication) {}
 
 }

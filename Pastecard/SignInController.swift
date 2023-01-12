@@ -142,7 +142,6 @@ class SignInController: UIViewController {
 	}
     
     // MARK: - App Life Cycle
-    
     override func viewDidLoad() {
         
         // prevent swipe to dismiss

@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7ACE656D25A51EF800E13E50"
+               BlueprintIdentifier = "7ACE65C025A52D6200E13E50"
                BuildableName = "CardWidgetExtension.appex"
                BlueprintName = "CardWidgetExtension"
                ReferencedContainer = "container:Pastecard.xcodeproj">
@@ -91,6 +91,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
       launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">

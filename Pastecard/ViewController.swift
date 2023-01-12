@@ -10,24 +10,21 @@ import UIKit
 import WidgetKit
 import SafariServices
 
-class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class ViewController: UIViewController, UITextViewDelegate {
     
     // MARK: Variables and Outlets
     let defaults = UserDefaults(suiteName: "group.net.pastecard")
     let file = "pastecard.txt"
     @IBOutlet weak var pasteCard: UITextView!
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-	@IBOutlet weak var shadowView: UIView!
-	private var item: DispatchWorkItem?
-	var userInterfaceStyle: UIUserInterfaceStyle?
-    var tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
-    var swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeMenu))
+    private var item: DispatchWorkItem?
+    var tapCard = UITapGestureRecognizer(target: ViewController.self, action: #selector(tapEdit))
+    var swipeUp = UISwipeGestureRecognizer(target: ViewController.self, action: #selector(swipeMenu))
     var cancelText = ""
     var emergencyText = ""
     
     // MARK: - Save functions
-    @IBAction func saveAction(_ sender: UIButton) {
+    @objc func saveAction(sender: UIBarButtonItem) {
+        pasteCard.resignFirstResponder()
         cleanUp()
         emergencyText = pasteCard.text
         pasteCard.text = "Saving…"
@@ -66,10 +63,10 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                 // save the text locally and put it in the card
                 self.saveLocal(text: responseData!)
                 self.pasteCard.text = responseData
-				
-				// refresh the widget
-				WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
-				
+                
+                // refresh the widget
+                WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+                
                 self.tapCard.isEnabled = true
                 self.item?.cancel()
             }
@@ -100,7 +97,6 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     // MARK: - Load functions
-    
     func loadRemote() {
         // assemble the GET request
         let path = "https://pastecard.net/api/db/"
@@ -114,7 +110,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             self?.item = nil
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: item!)
-
+        
         // fire the GET request
         let task = URLSession.shared.downloadTask(with:url) { localUrl, response, error in
             // if an error, go immediately to load failure
@@ -131,9 +127,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
                         self.saveLocal(text: remoteText)
                         self.pasteCard.text = remoteText
                         self.item?.cancel()
-						
-						// refresh the widget
-						WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+                        
+                        // refresh the widget
+                        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
                     }
                     self.tapCard.isEnabled = true // unlock the card in case it'd been locked before
                 }
@@ -143,17 +139,19 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     }
     
     func loadFailure() {
-        let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
-            if self.pasteCard.text == "Loading…" {
-                self.loadLocal()
-                self.tapCard.isEnabled = false // lock the card, you're likely offline
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
-            self.loadRemote()
-        }))
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "😳", message: "Sorry, there was a problem loading your text.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+                if self.pasteCard.text == "Loading…" {
+                    self.loadLocal()
+                    self.tapCard.isEnabled = false // lock the card, you're likely offline
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
+                self.loadRemote()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func loadLocal() {
@@ -161,29 +159,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
             let fileURL = dir.appendingPathComponent(self.file)
             do {
                 let localText = try String(contentsOf: fileURL, encoding: .utf8)
-                pasteCard.text = localText
+                pasteCard.text = localText // put the local text into the card
             } catch {}
         }
+        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget") // refresh the widget
     }
     
     // MARK: - Other functions
-    
-    // the Done button above the keyboard
-    func addDoneButton() {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        let items = [flexSpace, done]
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        pasteCard.inputAccessoryView = doneToolbar
-    }
-    @objc func doneButtonAction() {
-        pasteCard.resignFirstResponder()
-    }
-    
-    // tap gesture
     @objc func tapEdit(_ sender: UITapGestureRecognizer) -> Void {
         if sender.state == .ended {
             // if the app is loading or saving, don't attempt to edit the card
@@ -199,13 +181,9 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         }
     }
     
-    // swipe gesture
     @objc func swipeMenu(_ sender: UISwipeGestureRecognizer) -> Void {
-        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        // assemble the menu
-        let helpAction: UIAlertAction = UIAlertAction(title: "Help", style: .default) { action -> Void in
-            let url = URL(string: "https://pastecard.net/help/")
+        let helpAction: UIAlertAction = UIAlertAction(title: "Learn More", style: .default) { action -> Void in
+            let url = URL(string: "https://pastecard.net/lab/#app")
             let svc = SFSafariViewController(url: url!)
             self.present(svc, animated: true, completion: nil)
         }
@@ -225,18 +203,23 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         }
         let cancelAction: UIAlertAction = UIAlertAction(title: "OK", style: .cancel) { action -> Void in }
         
+        let popoverMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         popoverMenu.addAction(refreshAction)
         popoverMenu.addAction(shareAction)
         popoverMenu.addAction(helpAction)
         popoverMenu.addAction(signOutAction)
         popoverMenu.addAction(cancelAction)
         
-        // turn action sheet into popover on iPad
-        popoverMenu.popoverPresentationController?.sourceView = self.pasteCard
-        popoverMenu.popoverPresentationController?.sourceRect = CGRect(x: self.pasteCard.bounds.midX, y: self.pasteCard.bounds.maxY, width: 0, height: -240)
-        popoverMenu.popoverPresentationController?.permittedArrowDirections = []
-        
         present(popoverMenu, animated: true)
+    }
+    
+    // after signing in
+    @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? SignInController {
+            defaults!.set(sourceViewController.username, forKey: "username")
+            defaults!.synchronize()
+            DispatchQueue.main.async { self.loadRemote() }
+        }
     }
     
     func signOut() {
@@ -259,33 +242,41 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         
         // show sign in
         performSegue(withIdentifier: "showSignIn", sender: Any?.self)
-		
-		// refresh the widget
-		WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+        
+        // refresh the widget
+        WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
-    @IBAction func cancelAction(_ sender: UIButton) {
+    @objc func cancelAction(sender: UIBarButtonItem) {
         pasteCard.text = cancelText
+        pasteCard.resignFirstResponder()
         cleanUp()
     }
     
     func cleanUp() {
-        cancelButton.isHidden = true
-        saveButton.isHidden = true
         pasteCard.isEditable = false
         pasteCard.inputAccessoryView = nil
         tapCard.isEnabled = true
         swipeUp.isEnabled = true
     }
     
+    // save and cancel buttons
+    func addButtons() {
+        let buttonBar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        buttonBar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(sender:)))
+        let save: UIBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveAction(sender:)))
+        let items = [cancel, flexSpace, save]
+        buttonBar.items = items
+        buttonBar.sizeToFit()
+        pasteCard.inputAccessoryView = buttonBar
+    }
+    
     func makeEditable() {
-        cancelButton.isHidden = false
-        saveButton.isHidden = false
         cancelText = pasteCard.text
         pasteCard.isEditable = true
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            addDoneButton()
-        }
+        addButtons()
         pasteCard.becomeFirstResponder()
         tapCard.isEnabled = false
         swipeUp.isEnabled = false
@@ -302,7 +293,7 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
     // scroll to the text cursor when the keyboard shows
     @objc func keyboardWillShow(notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         let keyboardSize = keyboardInfo.cgRectValue.size
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         pasteCard.contentInset = contentInsets
@@ -312,8 +303,37 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         pasteCard.contentInset = .zero
         pasteCard.scrollIndicatorInsets = .zero
     }
-
+    
     // MARK: - App Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // register notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // set card padding and hide buttons
+        pasteCard.textContainerInset = UIEdgeInsets(top: 18, left: 14, bottom: 18, right: 14)
+        cleanUp()
+    }
+    
+    // force light text in status bar
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // if no logged in user, go to sign in screen
+        if (defaults?.string(forKey: "username") == nil) {
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "showSignIn", sender: self)
+            }
+        } else {
+            // load logged in user text
+            DispatchQueue.main.async { self.loadRemote() }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pasteCard.delegate = self
@@ -324,101 +344,13 @@ class ViewController: UIViewController, UITextViewDelegate, UIPopoverPresentatio
         self.pasteCard.addGestureRecognizer(swipeUp)
         tapCard = UITapGestureRecognizer(target: self, action: #selector(tapEdit))
         self.pasteCard.addGestureRecognizer(tapCard)
-        
-        // add custom styles
-		userInterfaceStyle = self.traitCollection.userInterfaceStyle
-		setStyle()
-    }
-	
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-			super.traitCollectionDidChange(previousTraitCollection)
-			setStyle()
-	}
-	
-	override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-			userInterfaceStyle = newCollection.userInterfaceStyle
-	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerNotifications()
-        cleanUp()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if (defaults?.string(forKey: "username") == nil) {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "showSignIn", sender: self)
-            }
-        } else {
-            DispatchQueue.main.async { self.loadRemote() }
-        }
-    }
-
-    // coming back from Sign In
-    @IBAction func unwindAction (_ sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? SignInController {
-            defaults!.set(sourceViewController.username, forKey: "username")
-            defaults!.synchronize()
-            DispatchQueue.main.async { self.loadRemote() }
-        }
-    }
-	
-	private func setStyle() {
-		// card shadow
-		let lightShadow = UIColor(red: 0.67, green: 0.67, blue: 0.67, alpha: 1.00)
-		let darkShadow = UIColor(red: 0.47, green: 0.47, blue: 0.47, alpha: 1.00)
-		shadowView.layer.shadowOpacity = 1
-		shadowView.layer.shadowRadius = 4
-		shadowView.layer.masksToBounds = false
-		pasteCard.layer.zPosition = 10
-		
-		// button borders
-		let blueBorder = UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.00)
-		saveButton.layer.cornerRadius = 12
-		saveButton.layer.borderWidth = 2
-		cancelButton.layer.cornerRadius = 12
-		cancelButton.layer.borderWidth = 2
-		
-		// light and dark modes
-		switch userInterfaceStyle {
-		case .dark:
-			shadowView.layer.shadowColor = darkShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
-			saveButton.layer.borderColor = UIColor.label.cgColor
-			cancelButton.layer.borderColor = UIColor.label.cgColor
-		case .light:
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .none:
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .some(.unspecified):
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		case .some(_):
-			shadowView.layer.shadowColor = lightShadow.cgColor
-			shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-			saveButton.layer.borderColor = blueBorder.cgColor
-			cancelButton.layer.borderColor = blueBorder.cgColor
-		}
-	}
-    
-    func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.isBeingDismissed { NotificationCenter.default.removeObserver(self) }
+        NotificationCenter.default.removeObserver(self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

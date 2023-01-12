@@ -68,7 +68,6 @@ class ShareViewController: UIViewController {
                         if attachment.hasItemConformingToTypeIdentifier("public.text") {
                             attachment.loadItem(forTypeIdentifier: "public.text", options: nil, completionHandler: { (results, error) in
                                 self.saveToServer(user: username, text: results as! String )
-                                
                             })
                         }
                     }
