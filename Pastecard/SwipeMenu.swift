@@ -14,6 +14,7 @@ struct SwipeMenu: View {
     
     @State var online: Bool
     var uid: String
+    var shareText: String
     
     var menuHeader: some View {
         if online {
@@ -42,7 +43,7 @@ struct SwipeMenu: View {
                     }.foregroundColor(.primary)
                 }
                 ShareLink (
-                    item: "Card text"
+                    item: shareText
                 ) {
                     HStack {
                         Image(systemName: "square.and.arrow.up")
@@ -63,11 +64,8 @@ struct SwipeMenu: View {
             .headerProminence(.increased)
             Section(header: Text("pastecard.net/\(uid)")) {
                 Button {
-                    // UserDefaults.standard.set("", forKey: "ID")
-                    // UserDefaults.standard.set("", forKey: "text")
-                    ContentView().text = "signed out"
                     self.dismiss()
-                    showSignIn = true
+                    // user.signOut()
                 } label: {
                     HStack {
                         Image(systemName: "door.right.hand.open")
@@ -76,9 +74,8 @@ struct SwipeMenu: View {
                     }.foregroundColor(.primary)
                 }
                 Button {
-                    online.toggle()
-                    // confirmation alert
-                    // same as sign out + fire delete request
+                    self.dismiss()
+                    // user.deleteAcct()
                 } label: {
                     HStack {
                         Image(systemName: "trash")
@@ -100,6 +97,6 @@ struct SwipeMenu: View {
 
 struct SwipeMenu_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeMenu(online: true, uid: "example")
+        SwipeMenu(online: true, uid: "example", shareText: "Card text")
     }
 }

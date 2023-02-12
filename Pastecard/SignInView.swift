@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct SignInView: View {
-    @State var userId = ""
+    @EnvironmentObject var user: User
     
-    @Environment(\.dismiss) var dismiss
-    @FocusState private var isFocused: Bool
     @State private var showSVC = false
+    @State private var userId = ""
     
     var body: some View {
         List {
@@ -21,56 +20,44 @@ struct SignInView: View {
                     .font(Font.largeTitle.weight(.bold))
                     .frame(maxWidth: .infinity)
             }.listRowBackground(Color.primary.opacity(0))
-            Section(header: Text("Sign in with your Pastecard ID")) {
+            Section(header: Text("Sign In")) {
                 HStack(spacing:0) {
                     Text("pastecard.net/")
                     TextField("ID", text: $userId)
-                        .focused($isFocused)
-                        .toolbar {
-                            ToolbarItem(placement: .keyboard) {
-                                Spacer()
-                            }
-                            ToolbarItem(placement: .keyboard) {
-                                Button("Sign In") {
-                                    let signInValue = userId.lowercased()
-                                    UserDefaults.standard.set(signInValue, forKey: "ID")
-                                    dismiss()
-                                }
-                                .bold()
-                            }
-                        }
+                        .onSubmit { signIn() }
                 }
             }
-            Section(header: Text("Or, create a Pastecard")) {
+            Section(header: Text("Create a Pastecard")) {
                 Button {
-                    
+                    signUp()
                 } label: {
                     Text("Sign Up")
-                        .foregroundColor(.primary)
                 }
-            }
-            Section {
                 Button {
                     showSVC = true
                 } label: {
                     HStack {
                         Text("Privacy & Terms")
-                        Spacer()
-                        Image(systemName: "arrow.up.right.square")
                     }
                     .foregroundColor(.primary)
                 }
             }
         }
-        .interactiveDismissDisabled(true)
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/#tos")!)
         }
+    }
+    
+    func signIn() {
+        user.signIn(userId)
+    }
+    func signUp() {
+        user.signIn(userId)
     }
 }
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView(userId: "")
+        SignInView()
     }
 }
