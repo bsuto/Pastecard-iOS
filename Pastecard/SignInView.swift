@@ -5,6 +5,7 @@
 //  Created by Brian Sutorius on 1/8/23.
 //
 
+import Combine
 import SwiftUI
 
 struct SignInView: View {
@@ -15,65 +16,67 @@ struct SignInView: View {
     @State private var showSignUp = false
     @State private var showAlert = false
     @State private var showSVC = false
-    @State private var validID = false
-    @State private var signUpMessage = "Your Pastecard URL will be \n pastecard.net/(ID)"
+    @State private var invalidID = true
+    @State private var signUpMessage = "Your Pastecard URL will be \n pastecard.net/…"
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     
     var body: some View {
-        List {
-            HStack(alignment: .center) {
-                Text("Pastecard")
-                    .font(Font.largeTitle.weight(.bold))
-                    .frame(maxWidth: .infinity)
-            }.listRowBackground(Color.primary.opacity(0))
-            Section(header: Text("Sign In")) {
-                HStack(spacing:0) {
-                    Text("pastecard.net/")
-                    TextField("ID", text: $userId)
-                        .onSubmit { signIn() }
-                }
-            }
-            Section(header: Text("Create a Pastecard")) {
-                Button {
-                    showSignUp = true
-                } label: {
-                    Text("Sign Up")
-                }
-                Button {
-                    showSVC = true
-                } label: {
-                    HStack {
-                        Text("Privacy & Terms")
-                    }
-                    .foregroundColor(.primary)
-                }
-            }
-        }
-        .alert("Choose a Pastecard ID", isPresented: $showSignUp) {
-            TextField("ID", text: $newUser)
-                .onChange(of: newUser) { newID in
-                    let valid: Bool = newID.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && newID != "" && newID.count < 21
-                    
-                    // enable the submit button and update the helper text
-                    if (valid) {
-                        validID = true
-                        signUpMessage = "Your Pastecard URL will be \n pastecard.net/\(newID)"
-                    } else {
-                        validID = false
-                        if newID == "" {
-                            signUpMessage = "Your Pastecard URL will be \n pastecard.net/(ID)"
-                        } else if newID.count > 20 {
-                            signUpMessage = "Invalid ID: \n 20 character maximum"
-                        } else {
-                            signUpMessage = "Invalid ID: \n Letters and numbers only"
+        GeometryReader { geo in
+            List {
+                HStack(alignment: .center) {
+                    Text("Pastecard")
+                        .font(Font.largeTitle.weight(.bold))
+                        .frame(maxWidth: .infinity)
+                }.listRowBackground(Color.primary.opacity(0))
+                Section(header: Text("Sign In")) {
+                    HStack(spacing:0) {
+                        Text("pastecard.net/")
+                        TextField("ID", text: $userId)
+                            .onSubmit { signIn() }
+                        Spacer()
+                        Button {
+                            signIn()
+                        } label: {
+                            Image(systemName: "arrow.right.circle")
                         }
+                        .accessibilityLabel("Sign in with \(userId)")
+                        .disabled(userId.isEmpty)
                     }
                 }
-            Button("Submit", action: signUp)
-                .disabled(!validID)
-        } message: {
-            Text(signUpMessage)
+                Section(header: Text("Create a Pastecard")) {
+                    Button {
+                        showSignUp = true
+                    } label: {
+                        Text("Sign Up")
+                    }
+                    .alert("Choose a Pastecard ID", isPresented: $showSignUp) {
+                        TextField("ID", text: $newUser)
+                            .onReceive(Just(newUser)) { _ in validate() }
+                        Button {
+                            signUp()
+                        } label: {
+                            Text("Submit")
+                        }.disabled(invalidID)
+                    } message: {
+                        Text(signUpMessage)
+                    }
+                    Button {
+                        showSVC = true
+                    } label: {
+                        HStack {
+                            Text("Privacy & Terms")
+                        }
+                        .foregroundColor(.primary)
+                    }
+                }
+            }
+            .safeAreaInset(edge: .top) {
+                Color("TrademarkBlue")
+                    .frame(width: geo.size.width,
+                           height: geo.safeAreaInsets.top)
+                    .padding(.top, -geo.safeAreaInsets.top)
+            }
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK") {}
@@ -136,6 +139,25 @@ struct SignInView: View {
             }
         }
         task.resume()
+    }
+    
+    func validate() {
+        let valid: Bool = newUser.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil && !newUser.isEmpty && newUser.count < 21
+        
+        // enable the submit button and update the helper text
+        if (valid) {
+            invalidID = false
+            signUpMessage = "Your Pastecard URL will be \n pastecard.net/\(newUser)"
+        } else {
+            invalidID = true
+            if newUser.isEmpty {
+                signUpMessage = "Your Pastecard URL will be \n pastecard.net/…"
+            } else if newUser.count > 20 {
+                signUpMessage = "Invalid ID: \n 20 character maximum"
+            } else {
+                signUpMessage = "Invalid ID: \n Letters and numbers only"
+            }
+        }
     }
 }
 
