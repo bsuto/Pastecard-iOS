@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Pastecard.swift
 //  Pastecard
 //
 //  Created by Brian Sutorius on 2/12/23.
@@ -69,11 +69,11 @@ class Pastecard: ObservableObject {
         var returnText = ""
         
         // GET request
-        let url = URL(string: "https://pastecard.net/api/db/" + uid + ".txt")!
+        let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
         let task = URLSession.shared.downloadTask(with:url) { getUrl, response, error in
             if error != nil {
                 // load failure -- alert?
-                returnText = self.loadLocal()
+                // returnText = self.loadLocal()
             }
             if let getUrl = getUrl {
                 if let remoteText = try? String(contentsOf: getUrl, encoding: .utf8) {
