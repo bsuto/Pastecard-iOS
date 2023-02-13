@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct CardView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var card: Pastecard
     
     @State var text = "Loading…"
     @State private var lastText = ""
@@ -50,12 +50,16 @@ struct CardView: View {
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
+                                let saveText = text
+                                card.saveRemote(saveText)
+                                text = "Saving…"
+                                
                                 isFocused = false
                             }
                         }
                     }
                     .sheet(isPresented: $showMenu) {
-                        SwipeMenu(online: online, uid: user.uid, shareText: text)
+                        SwipeMenu(online: online, shareText: text)
                     }
             }
         }

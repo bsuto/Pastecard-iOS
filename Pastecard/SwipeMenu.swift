@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SwipeMenu: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var card: Pastecard
+    
     @State private var showSVC = false
     @State private var showSignIn = false
     
     @State var online: Bool
-    var uid: String
     var shareText: String
     
     var menuHeader: some View {
@@ -34,7 +35,8 @@ struct SwipeMenu: View {
         List {
             Section(header: menuHeader.padding(.top, 24)) {
                 Button {
-                    online.toggle()
+                    self.dismiss()
+                    CardView().text = card.loadRemote()
                 } label: {
                     HStack {
                         Image(systemName: "arrow.clockwise")
@@ -62,10 +64,10 @@ struct SwipeMenu: View {
                 }
             }
             .headerProminence(.increased)
-            Section(header: Text("pastecard.net/\(uid)")) {
+            Section(header: Text("pastecard.net/\(card.uid)")) {
                 Button {
                     self.dismiss()
-                    // user.signOut()
+                    card.signOut()
                 } label: {
                     HStack {
                         Image(systemName: "door.right.hand.open")
@@ -75,7 +77,7 @@ struct SwipeMenu: View {
                 }
                 Button {
                     self.dismiss()
-                    // user.deleteAcct()
+                    card.deleteAcct()
                 } label: {
                     HStack {
                         Image(systemName: "trash")
@@ -97,6 +99,6 @@ struct SwipeMenu: View {
 
 struct SwipeMenu_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeMenu(online: true, uid: "example", shareText: "Card text")
+        SwipeMenu(online: true, shareText: "Card text").environmentObject(Pastecard())
     }
 }

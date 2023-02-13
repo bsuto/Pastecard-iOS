@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var user: User
+    @StateObject var card = Pastecard()
     
     var body: some View {
-        if !user.isSignedIn {
+        if !card.isSignedIn {
             SignInView()
+                .environmentObject(card)
         } else {
             CardView()
+                .environmentObject(card)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(Pastecard())
     }
 }
