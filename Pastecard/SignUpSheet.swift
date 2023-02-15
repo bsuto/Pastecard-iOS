@@ -15,30 +15,37 @@ struct SignUpSheet: View {
     @FocusState private var newFocus: Bool
     
     var body: some View {
-        VStack {
-            Text("Create a Pastecard")
-                .font(.headline)
-            HStack(spacing:0) {
-                Text("pastecard.net/")
-                TextField("ID", text: $newUser)
-                    .onChange(of: newUser) { newValue in
-                        validate()
+        ZStack() {
+            Color(.secondarySystemBackground)
+            VStack {
+                Text("Create a Pastecard")
+                    .padding(.top, 24)
+                    .font(.headline)
+                HStack(spacing:0) {
+                    Text("pastecard.net/")
+                    TextField("ID", text: $newUser)
+                        .onChange(of: newUser) { newValue in
+                            validate()
+                        }
+                        .onSubmit { signUp() }
+                        .focused($newFocus)
+                    Spacer()
+                    Button {
+                        signUp()
+                    } label: {
+                        Image(systemName: "arrow.right.circle")
                     }
-                    .onSubmit { signUp() }
-                    .focused($newFocus)
-                Spacer()
-                Button {
-                    signUp()
-                } label: {
-                    Image(systemName: "arrow.right.circle")
+                    .accessibilityLabel("Create account")
+                    .disabled(invalidID)
                 }
-                .accessibilityLabel("Create account")
-                .disabled(invalidID)
+                .padding()
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                Spacer()
             }
-            .padding()
-            Text(errorMessage)
-                .foregroundColor(.red)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
+        .edgesIgnoringSafeArea(.bottom)
         .presentationDetents([.fraction(0.25)])
         .onAppear{newFocus = true}
     }

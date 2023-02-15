@@ -86,7 +86,7 @@ struct SignInView: View {
         
         // GET request
         let nameCheck = userId.lowercased()
-        let url = URL(string: "https://pastecard.net/api/ios-check.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+        let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
         
