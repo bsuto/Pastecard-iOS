@@ -10,6 +10,7 @@
 		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
+		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
 		7ADD8582299943C600A7292C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD8581299943C600A7292C /* ContentView.swift */; };
 		7ADD85842999451F00A7292C /* Pastecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD85832999451F00A7292C /* Pastecard.swift */; };
 		7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */; };
@@ -22,6 +23,7 @@
 		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
 		7ADD8581299943C600A7292C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
 		7AFC09BC290AC47C009CAC71 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				7AFC09C1290AC47C009CAC71 /* CardView.swift */,
 				7A417C65296B14C6002E8B4D /* SwipeMenu.swift */,
 				7A417C67296B1CC4002E8B4D /* SignInView.swift */,
+				7A536FE4299D1266002A8E85 /* SignUpSheet.swift */,
 				7ADD85832999451F00A7292C /* Pastecard.swift */,
 				7A152D06296DC84C00EF049D /* SafariViewController.swift */,
 				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
@@ -157,6 +160,7 @@
 				7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */,
 				7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */,
 				7ADD8582299943C600A7292C /* ContentView.swift in Sources */,
+				7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */,
 				7ADD85842999451F00A7292C /* Pastecard.swift in Sources */,
 				7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */,
 				7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */,

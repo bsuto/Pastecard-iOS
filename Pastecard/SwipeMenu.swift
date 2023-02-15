@@ -12,8 +12,6 @@ struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     
     @State private var showSVC = false
-    @State private var showSignIn = false
-    
     @State var online: Bool
     var shareText: String
     
@@ -90,9 +88,6 @@ struct SwipeMenu: View {
         .presentationDetents([.medium])
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/")!)
-        }
-        .fullScreenCover(isPresented: $showSignIn) {
-            SignInView()
         }
     }
 }
