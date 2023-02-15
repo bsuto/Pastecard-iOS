@@ -90,13 +90,12 @@ struct SignInView: View {
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
         
-        // send API request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil {return}
             let responseString = String(data: data!, encoding: .utf8)
             
             // if user exists, log in with it
-            if (responseString == "true") {
+            if (responseString == "success") {
                 card.signIn(nameCheck)
             } else {
                 errorMessage = "The computer can’t find that ID, sorry!"

@@ -14,9 +14,6 @@ struct CardView: View {
     @State var text = "Loading…"
     @State private var lastText = ""
     @State private var cancelText = ""
-    let charLimit = 1034
-    
-    @State var online = true
     @State private var showMenu = false
     @FocusState private var isFocused: Bool
     
@@ -31,14 +28,11 @@ struct CardView: View {
                     .font(Font.body)
                     .frame(alignment: .topLeading)
                     .padding()
-                    .onReceive(Just(text)) { _ in enforceLimit(charLimit) }
+                    .onReceive(Just(text)) { _ in enforceLimit() }
                     .focused($isFocused)
-                    .onChange(of: isFocused) { _ in
-                        if isFocused { cancelText = text }
-                    }
                     .gesture(DragGesture(minimumDistance: 44, coordinateSpace: .local).onEnded({ value in
                         if value.translation.height < 0 {
-                            showMenu.toggle()
+                            showMenu = true
                         }
                     }))
                     .toolbar {
@@ -59,16 +53,17 @@ struct CardView: View {
                         }
                     }
                     .sheet(isPresented: $showMenu) {
-                        SwipeMenu(online: online, shareText: text)
+                        SwipeMenu(shareText: text)
                     }
             }
         }
     }
     
-    func enforceLimit(_ limit: Int) {
-        if text.count > limit {
+    func enforceLimit() {
+        let charLimit = 1034
+        if text.count > charLimit {
             Task { @MainActor in
-                text = String(text.prefix(limit))
+                text = String(text.prefix(charLimit))
             }
         }
     }

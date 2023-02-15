@@ -12,26 +12,11 @@ struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     
     @State private var showSVC = false
-    @State var online: Bool
     var shareText: String
-    
-    var menuHeader: some View {
-        if online {
-            return AnyView( Text("Pastecard") )
-        } else {
-            return AnyView( HStack {
-                Text("Pastecard")
-                Spacer()
-                Image(systemName: "xmark.icloud")
-                    .font(Font.title2.weight(.semibold))
-                    .foregroundColor(.red)
-            } )
-        }
-    }
     
     var body: some View {
         List {
-            Section(header: menuHeader.padding(.top, 24)) {
+            Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
                     self.dismiss()
                     CardView().text = card.loadRemote()
@@ -52,7 +37,7 @@ struct SwipeMenu: View {
                     }.foregroundColor(.primary)
                 }
                 Button {
-                    showSVC.toggle()
+                    showSVC = true
                 } label: {
                     HStack {
                         Image(systemName: "questionmark.circle")
@@ -94,6 +79,6 @@ struct SwipeMenu: View {
 
 struct SwipeMenu_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeMenu(online: true, shareText: "Card text").environmentObject(Pastecard())
+        SwipeMenu(shareText: "Example card text").environmentObject(Pastecard())
     }
 }

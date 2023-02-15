@@ -113,7 +113,7 @@ class Pastecard: ObservableObject {
         // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
         
         // if failure
-        // show alert on cardview?
+        // show alert?
     }
     
     func append(_ text: String) {
