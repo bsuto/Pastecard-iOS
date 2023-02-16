@@ -1,11 +1,10 @@
-# Pastecard for iOS & iPadOS
+# Pastecard for iPhone
 
-This is an experimental native app for [Pastecard](https://pastecard.net). It requires iOS or iPadOS 14 or later and is not guaranteed to always work or even be that nice.
+This is an experimental native app for [Pastecard](https://pastecard.net). It requires iOS 16 or later and is not guaranteed to always work or even be that nice.
 
 ## What are the benefits of this app over the web app?
 * Home screen widgets that show your card text
 * Share extensions to append the current URL or selected text
-* Take advantage of multitasking on iPad
 * All the warm feelings of a real native app
 
 ## A few notes:
