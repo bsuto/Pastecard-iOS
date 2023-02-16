@@ -11,10 +11,12 @@ import SwiftUI
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
     
-    @State var text = "Loading…"
-    @State private var lastText = ""
+    @State private var text = "Loading…"
+    @State private var locked = true
+    @State private var savedText = ""
     @State private var cancelText = ""
     @State private var showMenu = false
+    @State private var showFailAlert = false
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -28,8 +30,16 @@ struct CardView: View {
                     .font(Font.body)
                     .frame(alignment: .topLeading)
                     .padding()
-                    .onReceive(Just(text)) { _ in enforceLimit() }
                     .focused($isFocused)
+                    .onChange(of: isFocused) { _ in
+//                        if locked {
+//                            isFocused = false
+//                        }
+                        if !locked && isFocused {
+                            cancelText = text
+                        }
+                    }
+                    .onReceive(Just(text)) { _ in enforceLimit() }
                     .gesture(DragGesture(minimumDistance: 44, coordinateSpace: .local).onEnded({ value in
                         if value.translation.height < 0 {
                             showMenu = true
@@ -44,17 +54,34 @@ struct CardView: View {
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
-                                let saveText = text
-                                card.saveRemote(saveText)
+                                savedText = text
+                                card.saveRemote(savedText)
                                 text = "Saving…"
                                 
                                 isFocused = false
+                                locked = true
                             }
                         }
                     }
                     .sheet(isPresented: $showMenu) {
                         SwipeMenu(shareText: text)
                     }
+                    .alert("Error", isPresented: $showFailAlert, actions: {
+                        Button("Cancel", role: .cancel) {
+                            text = cancelText
+                        }
+                        Button("Try Again") {
+                            text = savedText
+                            isFocused = true
+                        }
+                    }, message: {
+                        Text("There was a problem saving to the cloud.")
+                    })
+            }
+        }
+        .onAppear {
+            Task {
+                await card.loadRemote()
             }
         }
     }
@@ -66,6 +93,16 @@ struct CardView: View {
                 text = String(text.prefix(charLimit))
             }
         }
+    }
+    
+    func setText(_ returnText: String) {
+        locked = false
+        text = returnText
+    }
+    
+    func saveFailure() {
+        locked = false
+        showFailAlert = true
     }
 }
 

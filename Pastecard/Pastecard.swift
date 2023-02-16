@@ -14,18 +14,16 @@ class Pastecard: ObservableObject {
     
     init() {
         if let savedUser = UserDefaults.standard.string(forKey: "ID") {
-            if !savedUser.isEmpty {
-                self.isSignedIn = true
-                self.uid = savedUser
-            }
+            self.isSignedIn = true
+            self.uid = savedUser
         }
     }
     
-    func signIn(_ user: String) {
+    func signIn(_ user: String) async {
         self.isSignedIn = true
         self.uid = user
         UserDefaults.standard.set(user, forKey: "ID")
-        CardView().text = loadRemote()
+        await loadRemote()
     }
     
     func signOut() {
@@ -33,7 +31,7 @@ class Pastecard: ObservableObject {
         self.uid = ""
         UserDefaults.standard.set("", forKey: "ID")
         UserDefaults.standard.set("", forKey: "text")
-        CardView().text = "Loading…"
+        CardView().setText("Loading…")
     }
     
     func deleteAcct() {
@@ -49,7 +47,7 @@ class Pastecard: ObservableObject {
             if (responseString == "success") {
                 self.signOut()
             } else {
-                // if a server error
+                // server error
             }
         }
         task.resume()
@@ -65,32 +63,23 @@ class Pastecard: ObservableObject {
         return returnText
     }
 
-    func loadRemote() -> String {
+    func loadRemote() async {
         var returnText = ""
         
-        // GET request
-        let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
-        let task = URLSession.shared.downloadTask(with:url) { getUrl, response, error in
-            if error != nil {
-                // load failure -- alert?
-                // returnText = self.loadLocal()
+        do {
+            let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let remoteText = String(decoding: data, as: UTF8.self)
+            
+            if !remoteText.isEmpty {
+                returnText = remoteText
             }
-            if let getUrl = getUrl {
-                if let remoteText = try? String(contentsOf: getUrl, encoding: .utf8) {
-                    if remoteText.isEmpty {
-                        returnText = ""
-                    } else {
-                        returnText = remoteText
-                    }
-                }
-            }
+        } catch {
+            returnText = loadLocal()
         }
-        task.resume()
         
-        // if success
         self.saveLocal(returnText)
-        return returnText
-        // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+        await CardView().setText(returnText)
     }
     
     func saveLocal(_ text: String) {
@@ -98,32 +87,43 @@ class Pastecard: ObservableObject {
     }
     
     func saveRemote(_ text: String) {
-        // POST request
-        var sendText = text
-        sendText = sendText.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        let postData = ("user=" + uid + "&text=" + sendText)
+        // legacy POST request
+        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-write.php")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
+        request.timeoutInterval = 5
         
-        // if success
-        saveLocal(text)
-        CardView().text = text
-        // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
-        
-        // if failure
-        // show alert?
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                CardView().saveFailure()
+            } else {
+                self.saveLocal(text)
+                CardView().setText(text)
+                // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
+            }
+        }.resume()
     }
     
     func append(_ text: String) {
-        // POST request
-        var sendText = text
-        sendText = sendText.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        let postData = ("user=" + uid + "&text=" + sendText)
+        // legacy POST request
+        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-append.php")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                // extension failure?
+            }
+        }.resume()
     }
+    
+    // widgetLoad ?
 }

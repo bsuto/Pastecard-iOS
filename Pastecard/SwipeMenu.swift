@@ -12,6 +12,7 @@ struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     
     @State private var showSVC = false
+    @State private var showDeleteAlert = false
     var shareText: String
     
     var body: some View {
@@ -19,7 +20,9 @@ struct SwipeMenu: View {
             Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
                     self.dismiss()
-                    CardView().text = card.loadRemote()
+                    Task {
+                        await card.loadRemote()
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "arrow.clockwise")
@@ -53,14 +56,13 @@ struct SwipeMenu: View {
                     card.signOut()
                 } label: {
                     HStack {
-                        Image(systemName: "door.right.hand.open")
+                        Image(systemName: "door.left.hand.open")
                             .font(Font.body.weight(.semibold))
                         Text("Sign Out")
                     }.foregroundColor(.primary)
                 }
                 Button {
-                    self.dismiss()
-                    card.deleteAcct()
+                    showDeleteAlert = true
                 } label: {
                     HStack {
                         Image(systemName: "trash")
@@ -74,6 +76,15 @@ struct SwipeMenu: View {
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/")!)
         }
+        .alert("Are you sure?", isPresented: $showDeleteAlert, actions: {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                self.dismiss()
+                card.deleteAcct()
+            }
+        }, message: {
+            Text("Do you really want to delete your account? This cannot be undone.")
+        })
     }
 }
 

@@ -26,11 +26,11 @@ struct SignUpSheet: View {
                     .onChange(of: newUser) { newValue in
                         validate()
                     }
-                    .onSubmit { signUp() }
+                    .onSubmit { Task { await signUp() } }
                     .focused($newFocus)
                 Spacer()
                 Button {
-                    signUp()
+                    Task { await signUp() }
                 } label: {
                     Image(systemName: "arrow.right.circle")
                 }
@@ -45,32 +45,27 @@ struct SignUpSheet: View {
         .background(Color(UIColor.secondarySystemBackground))
         .frame(maxHeight: .infinity, alignment: .top)
         .edgesIgnoringSafeArea(.bottom)
-        .presentationDetents([.fraction(0.25)])
+        .presentationDetents([.fraction(0.2)])
         .onAppear{newFocus = true}
     }
     
-    func signUp() {
+    func signUp() async {
         if invalidID { return }
         
-        // GET request
         let name = newUser.lowercased()
-        let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
+        let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)!
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil {return}
-            let responseString = String(data: data!, encoding: .utf8)
-            
-            if (responseString == "success") {
-                card.signIn(name)
-            } else if (responseString == "taken") {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let responseString = String(data: data, encoding: .utf8)
+            if responseString == "success" {
+                await card.signIn(name)
+            } else if responseString == "taken" {
                 errorMessage = "That ID is not available."
             } else {
                 errorMessage = "Oops, something didn’t work. Please try again."
             }
-        }
-        task.resume()
+        } catch {}
     }
     
     func validate() {

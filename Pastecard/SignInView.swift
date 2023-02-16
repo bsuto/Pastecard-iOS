@@ -84,7 +84,7 @@ struct SignInView: View {
     func signIn() {
         if userId.isEmpty { return }
         
-        // GET request
+        // legacy GET request
         let nameCheck = userId.lowercased()
         let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
         var request = URLRequest(url: url!)
@@ -94,9 +94,8 @@ struct SignInView: View {
             if error != nil {return}
             let responseString = String(data: data!, encoding: .utf8)
             
-            // if user exists, log in with it
             if (responseString == "success") {
-                card.signIn(nameCheck)
+                Task { await card.signIn(nameCheck) }
             } else {
                 errorMessage = "The computer can’t find that ID, sorry!"
             }

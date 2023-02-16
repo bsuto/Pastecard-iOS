@@ -11,11 +11,11 @@ struct ContentView: View {
     @StateObject var card = Pastecard()
     
     var body: some View {
-        if !card.isSignedIn {
-            SignInView()
+        if card.isSignedIn {
+            CardView()
                 .environmentObject(card)
         } else {
-            CardView()
+            SignInView()
                 .environmentObject(card)
         }
     }
