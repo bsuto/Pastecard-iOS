@@ -20,9 +20,7 @@ struct SwipeMenu: View {
             Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
                     self.dismiss()
-                    Task {
-                        await card.loadRemote()
-                    }
+                    CardView().refreshText()
                 } label: {
                     HStack {
                         Image(systemName: "arrow.clockwise")

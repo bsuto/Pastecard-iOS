@@ -61,11 +61,13 @@ struct SignUpSheet: View {
             if responseString == "success" {
                 await card.signIn(name)
             } else if responseString == "taken" {
-                errorMessage = "That ID is not available."
+                errorMessage = "Sorry, that ID is not available."
             } else {
                 errorMessage = "Oops, something didn’t work. Please try again."
             }
-        } catch {}
+        } catch {
+            errorMessage = "Oops, something didn’t work. Please try again."
+        }
     }
     
     func validate() {

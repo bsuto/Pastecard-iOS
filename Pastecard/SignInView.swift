@@ -29,11 +29,26 @@ struct SignInView: View {
                         Text("pastecard.net/")
                         TextField("ID", text: $userId)
                             .focused($idFocus)
-                            .onSubmit { signIn() }
+                            .onSubmit {
+                                Task {
+                                    do {
+                                        try await signIn()
+                                    } catch {
+                                        errorMessage = "Oops, something didn’t work. Please try again."
+                                    }
+                                }
+                            }
                         Spacer()
                         Button {
-                            idFocus = false
-                            signIn()
+                            Task {
+                                idFocus = false
+                                do {
+                                    try await signIn()
+                                } catch {
+                                    errorMessage = "Oops, something didn’t work. Please try again."
+                                }
+                            }
+                            
                         } label: {
                             Image(systemName: "arrow.right.circle")
                         }
@@ -41,7 +56,7 @@ struct SignInView: View {
                         .disabled(userId.isEmpty)
                     }
                 }
-                Section(){
+                Section() {
                     Text(errorMessage)
                         .padding(.top, -18)
                         .foregroundColor(.red)
@@ -73,6 +88,9 @@ struct SignInView: View {
                     .padding(.top, -geo.safeAreaInsets.top)
             }
         }
+//        .onTapGesture {
+//            idFocus = false
+//        }
         .sheet(isPresented: $showSignUp) {
             SignUpSheet()
         }
@@ -81,26 +99,22 @@ struct SignInView: View {
         }
     }
     
-    func signIn() {
+    func signIn() async throws {
         if userId.isEmpty { return }
         
-        // legacy GET request
         let nameCheck = userId.lowercased()
         let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil {return}
-            let responseString = String(data: data!, encoding: .utf8)
-            
-            if (responseString == "success") {
-                Task { await card.signIn(nameCheck) }
-            } else {
-                errorMessage = "The computer can’t find that ID, sorry!"
-            }
+        let (data, response) = try await URLSession.shared.data(from: url!)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw NetworkError.signInError
         }
-        task.resume()
+        let responseString = String(data: data, encoding: .utf8)
+        if responseString == "success" {
+            Task { await card.signIn(nameCheck) }
+        } else {
+            errorMessage = "Sorry, the computer can’t find that ID."
+        }
     }
 }
 

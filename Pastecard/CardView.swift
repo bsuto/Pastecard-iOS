@@ -37,6 +37,8 @@ struct CardView: View {
 //                        }
                         if !locked && isFocused {
                             cancelText = text
+                            let impact = UIImpactFeedbackGenerator(style: .light)
+                            impact.impactOccurred()
                         }
                     }
                     .onReceive(Just(text)) { _ in enforceLimit() }
@@ -55,9 +57,14 @@ struct CardView: View {
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
                                 savedText = text
-                                card.saveRemote(savedText)
+                                Task {
+                                    do {
+                                        try await card.saveRemote(savedText)
+                                    } catch {
+                                        saveFailure()
+                                    }
+                                }
                                 text = "Saving…"
-                                
                                 isFocused = false
                                 locked = true
                             }
@@ -79,16 +86,26 @@ struct CardView: View {
                     })
             }
         }
-        .onAppear {
-            Task {
-                await card.loadRemote()
+        .task {
+            refreshText()
+        }
+    }
+    
+    func refreshText() {
+        Task {
+            var loadedText: String
+            do {
+                loadedText = try await card.loadRemote()
+            } catch {
+                loadedText = card.loadLocal()
             }
+            setText(loadedText)
         }
     }
     
     func enforceLimit() {
         let charLimit = 1034
-        if text.count > charLimit {
+        if isFocused && text.count > charLimit {
             Task { @MainActor in
                 text = String(text.prefix(charLimit))
             }

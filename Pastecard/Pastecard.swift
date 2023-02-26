@@ -5,8 +5,15 @@
 //  Created by Brian Sutorius on 2/12/23.
 //
 
-import Combine
 import Foundation
+
+enum NetworkError: Error {
+    case timeout
+    case loadError
+    case saveError
+    case appendError
+    case signInError
+}
 
 class Pastecard: ObservableObject {
     @Published var isSignedIn = false
@@ -23,7 +30,6 @@ class Pastecard: ObservableObject {
         self.isSignedIn = true
         self.uid = user
         UserDefaults.standard.set(user, forKey: "ID")
-        await loadRemote()
     }
     
     func signOut() {
@@ -63,31 +69,30 @@ class Pastecard: ObservableObject {
         return returnText
     }
 
-    func loadRemote() async {
+    func loadRemote() async throws -> String {
         var returnText = ""
+        let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
         
-        do {
-            let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let remoteText = String(decoding: data, as: UTF8.self)
-            
-            if !remoteText.isEmpty {
-                returnText = remoteText
-            }
-        } catch {
-            returnText = loadLocal()
+        let (data, response) = try await URLSession.shared.data(from: url)
+        let remoteText = String(decoding: data, as: UTF8.self)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            // returnText = loadLocal()
+            throw NetworkError.loadError
+        }
+        
+        if !remoteText.isEmpty {
+            returnText = remoteText
         }
         
         self.saveLocal(returnText)
-        await CardView().setText(returnText)
+        return returnText
     }
     
     func saveLocal(_ text: String) {
         UserDefaults.standard.set(text, forKey: "text")
     }
     
-    func saveRemote(_ text: String) {
-        // legacy POST request
+    func saveRemote(_ text: String) async throws {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-write.php")!
@@ -95,34 +100,30 @@ class Pastecard: ObservableObject {
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
         request.timeoutInterval = 5
+        let (_, response) = try await URLSession.shared.data(for: request)
         
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                CardView().saveFailure()
-            } else {
-                self.saveLocal(text)
-                CardView().setText(text)
-                // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
-            }
-        }.resume()
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.saveError
+        }
+        
+        self.saveLocal(text)
+        await CardView().setText(text)
+        // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
-    func append(_ text: String) {
-        // legacy POST request
+    func append(_ text: String) async throws {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-append.php")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
+        // request.timeoutInterval = 5
+        let (_, response) = try await URLSession.shared.data(for: request)
         
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                // extension failure?
-            }
-        }.resume()
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.appendError
+        }
     }
     
     // widgetLoad ?
