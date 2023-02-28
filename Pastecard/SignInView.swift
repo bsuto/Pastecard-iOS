@@ -29,6 +29,7 @@ struct SignInView: View {
                         Text("pastecard.net/")
                         TextField("ID", text: $userId)
                             .focused($idFocus)
+                            .submitLabel(.go)
                             .onSubmit {
                                 Task {
                                     do {
@@ -87,10 +88,10 @@ struct SignInView: View {
                            height: geo.safeAreaInsets.top)
                     .padding(.top, -geo.safeAreaInsets.top)
             }
+            .onTapGesture {
+                idFocus = false
+            }
         }
-//        .onTapGesture {
-//            idFocus = false
-//        }
         .sheet(isPresented: $showSignUp) {
             SignUpSheet()
         }
