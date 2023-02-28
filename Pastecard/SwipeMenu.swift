@@ -7,9 +7,22 @@
 
 import SwiftUI
 
+struct menuCell: View {
+    let symbol: String
+    let label: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: symbol)
+                .font(Font.body.weight(.semibold))
+            Text(label)
+        }.foregroundColor(.primary)
+    }
+}
+
 struct SwipeMenu: View {
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var card: Pastecard
+    @Environment(\.dismiss) var dismiss
     
     @State private var showSVC = false
     @State private var showDeleteAlert = false
@@ -22,29 +35,17 @@ struct SwipeMenu: View {
                     self.dismiss()
                     CardView().refreshText()
                 } label: {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                            .font(Font.body.weight(.semibold))
-                        Text("Refresh")
-                    }.foregroundColor(.primary)
+                    menuCell(symbol: "arrow.clockwise", label: "Refresh")
                 }
                 ShareLink (
                     item: shareText
                 ) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(Font.body.weight(.semibold))
-                        Text("Share")
-                    }.foregroundColor(.primary)
+                    menuCell(symbol: "square.and.arrow.up", label: "Share")
                 }
                 Button {
                     showSVC = true
                 } label: {
-                    HStack {
-                        Image(systemName: "questionmark.circle")
-                            .font(Font.body.weight(.semibold))
-                        Text("Help")
-                    }.foregroundColor(.primary)
+                    menuCell(symbol: "questionmark.circle", label: "Help")
                 }
             }
             .headerProminence(.increased)
@@ -53,20 +54,13 @@ struct SwipeMenu: View {
                     self.dismiss()
                     card.signOut()
                 } label: {
-                    HStack {
-                        Image(systemName: "door.left.hand.open")
-                            .font(Font.body.weight(.semibold))
-                        Text("Sign Out")
-                    }.foregroundColor(.primary)
+                    menuCell(symbol: "door.left.hand.open", label: "Sign Out")
+
                 }
                 Button {
                     showDeleteAlert = true
                 } label: {
-                    HStack {
-                        Image(systemName: "trash")
-                            .font(Font.body.weight(.semibold))
-                        Text("Delete Account")
-                    }.foregroundColor(.primary)
+                    menuCell(symbol: "trash", label: "Delete Account")
                 }
             }
         }
@@ -78,7 +72,10 @@ struct SwipeMenu: View {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {
                 self.dismiss()
-                card.deleteAcct()
+                Task {
+                    do { try await card.deleteAcct() }
+                    catch { }
+                }
             }
         }, message: {
             Text("Do you really want to delete your account? This cannot be undone.")
