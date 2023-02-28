@@ -13,6 +13,7 @@ enum NetworkError: Error {
     case saveError
     case appendError
     case signInError
+    case deleteAcctError
 }
 
 class Pastecard: ObservableObject {
@@ -40,23 +41,18 @@ class Pastecard: ObservableObject {
         CardView().setText("Loading…")
     }
     
-    func deleteAcct() {
-        // GET request
+    func deleteAcct() async throws {
         let url = URL(string: "https://pastecard.net/api/ios-deleteacct.php?user=" + (self.uid.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil {return}
-            let responseString = String(data: data!, encoding: .utf8)
-            
-            if (responseString == "success") {
-                self.signOut()
-            } else {
-                // server error
-            }
+        let (data, response) = try await URLSession.shared.data(from: url!)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw NetworkError.deleteAcctError
         }
-        task.resume()
+        let responseString = String(decoding: data, as: UTF8.self)
+        if responseString == "success" {
+            self.signOut()
+        } else {
+            throw NetworkError.deleteAcctError
+        }
     }
     
     func loadLocal() -> String {
@@ -76,7 +72,6 @@ class Pastecard: ObservableObject {
         let (data, response) = try await URLSession.shared.data(from: url)
         let remoteText = String(decoding: data, as: UTF8.self)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            // returnText = loadLocal()
             throw NetworkError.loadError
         }
         
@@ -99,7 +94,7 @@ class Pastecard: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 5
+        request.timeoutInterval = 10.0
         let (_, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -118,7 +113,6 @@ class Pastecard: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
-        // request.timeoutInterval = 5
         let (_, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
