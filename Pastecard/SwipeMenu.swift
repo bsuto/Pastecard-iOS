@@ -15,6 +15,7 @@ struct menuCell: View {
         HStack {
             Image(systemName: symbol)
                 .font(Font.body.weight(.semibold))
+                .frame(width:20)
             Text(label)
         }.foregroundColor(.primary)
     }
@@ -54,7 +55,7 @@ struct SwipeMenu: View {
                     self.dismiss()
                     card.signOut()
                 } label: {
-                    menuCell(symbol: "door.left.hand.open", label: "Sign Out")
+                    menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out")
 
                 }
                 Button {
