@@ -87,7 +87,7 @@ class Pastecard: ObservableObject {
         UserDefaults.standard.set(text, forKey: "text")
     }
     
-    func saveRemote(_ text: String) async throws {
+    func saveRemote(_ text: String) async throws -> String {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-write.php")!
@@ -95,14 +95,15 @@ class Pastecard: ObservableObject {
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
         request.timeoutInterval = 10.0
-        let (_, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.saveError
         }
         
-        self.saveLocal(text)
-        await CardView().setText(text)
+        let returnText = String(decoding: data, as: UTF8.self).removingPercentEncoding
+        self.saveLocal(returnText!)
+        return returnText!
         // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     

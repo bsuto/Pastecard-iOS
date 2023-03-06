@@ -59,7 +59,7 @@ struct CardView: View {
                                 savedText = text
                                 Task {
                                     do {
-                                        try await card.saveRemote(savedText)
+                                        try await setText(card.saveRemote(savedText))
                                     } catch {
                                         saveFailure()
                                     }
