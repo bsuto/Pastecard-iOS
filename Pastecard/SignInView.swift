@@ -57,6 +57,11 @@ struct SignInView: View {
                         .disabled(userId.isEmpty)
                     }
                 }
+                .onTapGesture {
+                    if idFocus {
+                        idFocus = false
+                    }
+                }
                 Section() {
                     Text(errorMessage)
                         .padding(.top, -18)
@@ -87,9 +92,6 @@ struct SignInView: View {
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top)
                     .padding(.top, -geo.safeAreaInsets.top)
-            }
-            .onTapGesture {
-                idFocus = false
             }
         }
         .sheet(isPresented: $showSignUp) {
