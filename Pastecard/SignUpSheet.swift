@@ -52,7 +52,7 @@ struct SignUpSheet: View {
     func signUp() async {
         if invalidID { return }
         
-        let name = newUser.lowercased()
+        let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
         let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)!
         
         do {

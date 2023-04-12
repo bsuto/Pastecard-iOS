@@ -105,7 +105,7 @@ struct SignInView: View {
     func signIn() async throws {
         if userId.isEmpty { return }
         
-        let nameCheck = userId.lowercased()
+        let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
         let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
         
         let (data, response) = try await URLSession.shared.data(from: url!)
