@@ -16,14 +16,16 @@ enum NetworkError: Error {
     case deleteAcctError
 }
 
-class Pastecard: ObservableObject {
-    @Published var isSignedIn = false
+@MainActor class Pastecard: ObservableObject {
+    @Published var isSignedIn: Bool
     @Published var uid = ""
     
     init() {
         if let savedUser = UserDefaults.standard.string(forKey: "ID") {
             self.isSignedIn = true
             self.uid = savedUser
+        } else {
+            self.isSignedIn = false
         }
     }
     
@@ -36,8 +38,8 @@ class Pastecard: ObservableObject {
     func signOut() {
         self.isSignedIn = false
         self.uid = ""
-        UserDefaults.standard.set("", forKey: "ID")
-        UserDefaults.standard.set("", forKey: "text")
+        UserDefaults.standard.set(nil, forKey: "ID")
+        UserDefaults.standard.set(nil, forKey: "text")
         CardView().setText("Loading…")
     }
     
