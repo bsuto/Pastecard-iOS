@@ -31,6 +31,7 @@ struct CardView: View {
                     .frame(alignment: .topLeading)
                     .padding()
                     .focused($isFocused)
+                    .scrollDisabled(!isFocused)
                     .onChange(of: isFocused) { _ in
 //                        if locked {
 //                            isFocused = false
