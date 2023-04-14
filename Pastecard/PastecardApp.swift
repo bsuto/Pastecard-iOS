@@ -13,11 +13,16 @@ struct PastecardApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if card.isSignedIn {
-                CardView().environmentObject(card)
-            } else {
-                SignInView().environmentObject(card)
+            Group {
+                if card.isSignedIn {
+                    CardView()
+                        .environmentObject(card)
+                } else {
+                    SignInView()
+                        .environmentObject(card)
+                }
             }
+            .animation(.default, value: card.isSignedIn)
         }
     }
 }
