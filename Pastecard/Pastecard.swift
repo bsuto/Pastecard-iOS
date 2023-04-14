@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WidgetKit
 
 enum NetworkError: Error {
     case timeout
@@ -20,11 +21,10 @@ enum NetworkError: Error {
     @Published var isSignedIn: Bool
     @Published var uid = ""
     @Published var refreshCalled = false
+    let defaults = UserDefaults(suiteName: "group.net.pastecard")!
     
     init() {
-        // if let savedUser = UserDefaults.standard.string(forKey: "ID") {
-        if let savedUser = UserDefaults(suiteName:
-                                            "group.net.pastecard.Pastecard")!.string(forKey: "ID") {
+        if let savedUser = defaults.string(forKey: "ID") {
             self.isSignedIn = true
             self.uid = savedUser
         } else {
@@ -35,21 +35,15 @@ enum NetworkError: Error {
     func signIn(_ user: String) async {
         self.isSignedIn = true
         self.uid = user
-        // UserDefaults.standard.set(user, forKey: "ID")
-        UserDefaults(suiteName:
-                        "group.net.pastecard.Pastecard")!.set(user, forKey: "ID")
+        defaults.set(user, forKey: "ID")
     }
     
     func signOut() {
         self.isSignedIn = false
         self.uid = ""
-        // UserDefaults.standard.set(nil, forKey: "ID")
-        UserDefaults(suiteName:
-                        "group.net.pastecard.Pastecard")!.set(nil, forKey: "ID")
-        // UserDefaults.standard.set(nil, forKey: "text")
-        UserDefaults(suiteName:
-                        "group.net.pastecard.Pastecard")!.set(nil, forKey: "text")
-        CardView().setText("Loading…")
+        defaults.set(nil, forKey: "ID")
+        defaults.set(nil, forKey: "text")
+        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     
     func deleteAcct() async throws {
@@ -68,9 +62,7 @@ enum NetworkError: Error {
     
     func loadLocal() -> String {
         var returnText = ""
-        // if let localText = UserDefaults.standard.string(forKey: "text") {
-        if let localText = UserDefaults(suiteName:
-                                            "group.net.pastecard.Pastecard")!.string( forKey: "text") {
+        if let localText = defaults.string( forKey: "text") {
             if !localText.isEmpty {
                 returnText = localText
             }
@@ -93,13 +85,12 @@ enum NetworkError: Error {
         }
         
         self.saveLocal(returnText)
+        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
         return returnText
     }
     
     func saveLocal(_ text: String) {
-        // UserDefaults.standard.set(text, forKey: "text")
-        UserDefaults(suiteName:
-                        "group.net.pastecard.Pastecard")!.set(text, forKey: "text")
+        defaults.set(text, forKey: "text")
     }
     
     func saveRemote(_ text: String) async throws -> String {
@@ -118,8 +109,8 @@ enum NetworkError: Error {
         
         let returnText = String(decoding: data, as: UTF8.self).removingPercentEncoding
         self.saveLocal(returnText!)
+        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
         return returnText!
-        // WidgetCenter.shared.reloadTimelines(ofKind: "CardWidget")
     }
     
     func append(_ text: String) async throws {
@@ -135,6 +126,4 @@ enum NetworkError: Error {
             throw NetworkError.appendError
         }
     }
-    
-    // widgetLoad ?
 }
