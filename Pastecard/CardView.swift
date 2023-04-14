@@ -65,9 +65,9 @@ struct CardView: View {
                                         saveFailure()
                                     }
                                 }
+                                locked = true
                                 text = "Saving…"
                                 isFocused = false
-                                locked = true
                             }
                         }
                     }
@@ -91,11 +91,7 @@ struct CardView: View {
             loadText()
         }
         .onChange(of: card.refreshCalled) { _ in
-            if card.refreshCalled {
-                card.refreshCalled = false
-                setText("Loading…")
-                loadText()
-            }
+            refreshText()
         }
     }
     
@@ -110,13 +106,13 @@ struct CardView: View {
             setText(loadedText)
         }
     }
-
-    func enforceLimit() {
-        let charLimit = 1034
-        if isFocused && text.count > charLimit {
-            Task { @MainActor in
-                text = String(text.prefix(charLimit))
-            }
+    
+    func refreshText() {
+        if card.refreshCalled {
+            card.refreshCalled = false
+            locked = true
+            text = "Loading…"
+            loadText()
         }
     }
     
@@ -128,6 +124,15 @@ struct CardView: View {
     func saveFailure() {
         locked = false
         showFailAlert = true
+    }
+    
+    func enforceLimit() {
+        let charLimit = 1034
+        if isFocused && text.count > charLimit {
+            Task { @MainActor in
+                text = String(text.prefix(charLimit))
+            }
+        }
     }
 }
 
