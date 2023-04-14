@@ -88,11 +88,18 @@ struct CardView: View {
             }
         }
         .task {
-            refreshText()
+            loadText()
+        }
+        .onChange(of: card.refreshCalled) { _ in
+            if card.refreshCalled {
+                card.refreshCalled = false
+                setText("Loading…")
+                loadText()
+            }
         }
     }
     
-    func refreshText() {
+    func loadText() {
         Task {
             var loadedText: String
             do {
@@ -103,7 +110,7 @@ struct CardView: View {
             setText(loadedText)
         }
     }
-    
+
     func enforceLimit() {
         let charLimit = 1034
         if isFocused && text.count > charLimit {

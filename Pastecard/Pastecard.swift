@@ -19,6 +19,7 @@ enum NetworkError: Error {
 @MainActor class Pastecard: ObservableObject {
     @Published var isSignedIn: Bool
     @Published var uid = ""
+    @Published var refreshCalled = false
     
     init() {
         if let savedUser = UserDefaults.standard.string(forKey: "ID") {

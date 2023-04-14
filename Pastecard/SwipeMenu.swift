@@ -34,7 +34,7 @@ struct SwipeMenu: View {
             Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
                     self.dismiss()
-                    CardView().refreshText()
+                    card.refreshCalled = true
                 } label: {
                     menuCell(symbol: "arrow.clockwise", label: "Refresh")
                 }
