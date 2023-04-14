@@ -23,7 +23,13 @@ struct SignInView: View {
                     Text("Pastecard")
                         .font(Font.largeTitle.weight(.bold))
                         .frame(maxWidth: .infinity)
-                }.listRowBackground(Color.primary.opacity(0))
+                }
+                .listRowBackground(Color.primary.opacity(0))
+                .onTapGesture {
+                    if idFocus {
+                        idFocus = false
+                    }
+                }
                 Section(header: Text("Sign In")) {
                     HStack(spacing:0) {
                         Text("pastecard.net/")
@@ -42,24 +48,17 @@ struct SignInView: View {
                         Spacer()
                         Button {
                             Task {
-                                idFocus = false
                                 do {
                                     try await signIn()
                                 } catch {
                                     errorMessage = "Oops, something didn’t work. Please try again."
                                 }
                             }
-                            
                         } label: {
                             Image(systemName: "arrow.right.circle")
                         }
                         .accessibilityLabel("Sign in with \(userId)")
                         .disabled(userId.isEmpty)
-                    }
-                }
-                .onTapGesture {
-                    if idFocus {
-                        idFocus = false
                     }
                 }
                 Section() {
@@ -104,6 +103,7 @@ struct SignInView: View {
     
     func signIn() async throws {
         if userId.isEmpty { return }
+        idFocus = false
         
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
         let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
