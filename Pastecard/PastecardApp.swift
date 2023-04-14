@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct PastecardApp: App {
+    @StateObject var card = Pastecard()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if card.isSignedIn {
+                CardView().environmentObject(card)
+            } else {
+                SignInView().environmentObject(card)
+            }
         }
     }
 }
