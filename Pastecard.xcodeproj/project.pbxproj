@@ -24,6 +24,7 @@
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
 		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
+		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7AFC09BC290AC47C009CAC71 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastecardApp.swift; sourceTree = "<group>"; };
 		7AFC09C1290AC47C009CAC71 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 		7AFC09BE290AC47C009CAC71 /* Pastecard */ = {
 			isa = PBXGroup;
 			children = (
+				7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */,
 				7AFC09CD290ADFBB009CAC71 /* Info.plist */,
 				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
 				7AFC09C1290AC47C009CAC71 /* CardView.swift */,
@@ -286,6 +288,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
@@ -322,6 +325,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
