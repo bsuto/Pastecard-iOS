@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
-    @Environment(\.scenePhase) var scenePhase
     
     @State private var text = "Loading…"
     @State private var locked = true
@@ -93,12 +92,6 @@ struct CardView: View {
         }
         .onChange(of: card.refreshCalled) { _ in
             refreshText()
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .background && isFocused {
-                isFocused = false
-                text = cancelText
-            }
         }
     }
     
