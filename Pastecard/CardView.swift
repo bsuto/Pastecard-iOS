@@ -33,9 +33,9 @@ struct CardView: View {
                     .focused($isFocused)
                     .scrollDisabled(!isFocused)
                     .onChange(of: isFocused) { _ in
-//                        if locked {
-//                            isFocused = false
-//                        }
+                        if locked {
+                            isFocused = false
+                        }
                         if !locked && isFocused {
                             cancelText = text
                             let impact = UIImpactFeedbackGenerator(style: .light)
@@ -138,6 +138,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView()
+        CardView().environmentObject(Pastecard())
     }
 }
