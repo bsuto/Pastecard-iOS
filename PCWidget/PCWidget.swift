@@ -10,37 +10,22 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     let defaults = UserDefaults(suiteName: "group.net.pastecard")!
-    
-    func loadRemote() -> String {
-            let path = "https://pastecard.net/api/db/"
-            let user = defaults.string(forKey: "ID")
-            let textExtension = ".txt"
-            var remoteText = ""
-            
-            if user == nil {
-                remoteText = "⚠️\n\nPlease sign in first."
-                return remoteText
-            }
-            
-            if let cardURL = URL(string: path + user! + textExtension) {
-                do {
-                    let contents = try String(contentsOf: cardURL)
-                    remoteText = contents
-                } catch {
-                    remoteText = loadLocal()
-                }
-            } else {}
-            return remoteText
-        }
 
-    func loadLocal() -> String {
-        var returnText = ""
+    func loadFromLocal() -> String {
+        let user = defaults.string(forKey: "ID")
+        var text = ""
+        
+        if user == nil {
+            text = "⚠️\n\nPlease sign in first."
+            return text
+        }
+        
         if let localText = defaults.string( forKey: "text") {
             if !localText.isEmpty {
-                returnText = localText
+                text = localText
             }
         }
-        return returnText
+        return text
     }
     
     func placeholder(in context: Context) -> SimpleEntry {
@@ -48,13 +33,13 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), text: loadRemote())
+        let entry = SimpleEntry(date: Date(), text: loadFromLocal())
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-        let entry = SimpleEntry(date: Date(), text: loadRemote())
+        let entry = SimpleEntry(date: Date(), text: loadFromLocal())
         entries.append(entry)
 
         let timeline = Timeline(entries: entries, policy: .never)

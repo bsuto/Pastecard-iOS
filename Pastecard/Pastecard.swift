@@ -85,12 +85,12 @@ enum NetworkError: Error {
         }
         
         self.saveLocal(returnText)
-        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
         return returnText
     }
     
     func saveLocal(_ text: String) {
         defaults.set(text, forKey: "text")
+        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     
     func saveRemote(_ text: String) async throws -> String {
@@ -109,7 +109,6 @@ enum NetworkError: Error {
         
         let returnText = String(decoding: data, as: UTF8.self).removingPercentEncoding
         self.saveLocal(returnText!)
-        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
         return returnText!
     }
     
