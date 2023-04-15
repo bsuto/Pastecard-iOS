@@ -23,6 +23,7 @@ struct SignInView: View {
                     Text("Pastecard")
                         .font(Font.largeTitle.weight(.bold))
                         .frame(maxWidth: .infinity)
+                        .padding(.top, geo.safeAreaInsets.top)
                 }
                 .listRowBackground(Color.primary.opacity(0))
                 .onTapGesture {
@@ -93,6 +94,7 @@ struct SignInView: View {
                     }
                 }
             }
+            .scrollDisabled(true)
             .safeAreaInset(edge: .top) {
                 Color("TrademarkBlue")
                     .frame(width: geo.size.width,
