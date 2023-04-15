@@ -31,7 +31,7 @@ struct SwipeMenu: View {
     
     var body: some View {
         List {
-            Section(header: Text("Pastecard").padding(.top, 24)) {
+            Section(header: Text("Pastecard").padding(.top, 18)) {
                 Button {
                     self.dismiss()
                     card.refreshCalled = true

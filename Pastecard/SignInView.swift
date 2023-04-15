@@ -47,6 +47,11 @@ struct SignInView: View {
                                     }
                                 }
                             }
+                            .onChange(of: userId) { _ in
+                                if userId == "" {
+                                    errorMessage = ""
+                                }
+                            }
                         Spacer()
                         Button {
                             Task {
@@ -65,7 +70,7 @@ struct SignInView: View {
                 }
                 Section() {
                     Text(errorMessage)
-                        .padding(.top, -18)
+                        .padding(.top, -8)
                         .foregroundColor(.red)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .listRowBackground(Color.primary.opacity(0))
