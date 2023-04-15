@@ -36,6 +36,8 @@ struct SignInView: View {
                         TextField("ID", text: $userId)
                             .focused($idFocus)
                             .submitLabel(.go)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled(true)
                             .onSubmit {
                                 Task {
                                     do {

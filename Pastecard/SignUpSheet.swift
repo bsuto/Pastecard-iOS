@@ -23,6 +23,8 @@ struct SignUpSheet: View {
                 Text("pastecard.net/")
                 TextField("ID", text: $newUser)
                     .background(Color(UIColor.systemBackground))
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
                     .onChange(of: newUser) { newValue in
                         validate()
                     }
