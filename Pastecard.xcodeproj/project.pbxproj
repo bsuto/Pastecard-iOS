@@ -11,9 +11,9 @@
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
 		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
-		7AA23CA629EDA4A00085DAC5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA23CA429EDA4A00085DAC5 /* MainInterface.storyboard */; };
-		7AB7338B29EC7751005691F0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7338A29EC7751005691F0 /* ShareViewController.swift */; };
-		7AB7339229EC7751005691F0 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AB7338829EC7751005691F0 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
+		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */; };
 		7ADD85842999451F00A7292C /* Pastecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD85832999451F00A7292C /* Pastecard.swift */; };
 		7AEC326529E9F136000B30EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326429E9F136000B30EA /* WidgetKit.framework */; };
 		7AEC326729E9F136000B30EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326629E9F136000B30EA /* SwiftUI.framework */; };
@@ -28,11 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7AB7339029EC7751005691F0 /* PBXContainerItemProxy */ = {
+		7AD1E1AE29EF2FC7003262F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7AB7338729EC7751005691F0;
+			remoteGlobalIDString = 7AD1E1A529EF2FC6003262F3;
 			remoteInfo = PCShareExt;
 		};
 		7AEC327029E9F137000B30EA /* PBXContainerItemProxy */ = {
@@ -52,7 +52,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				7AEC327229E9F137000B30EA /* PCWidgetExtension.appex in Embed Foundation Extensions */,
-				7AB7339229EC7751005691F0 /* PCShareExt.appex in Embed Foundation Extensions */,
+				7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,11 +64,11 @@
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
-		7AA23CA529EDA4A00085DAC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		7AB7338829EC7751005691F0 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AB7338A29EC7751005691F0 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		7AB7338F29EC7751005691F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7AB7339629EC775A005691F0 /* PCShareExt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCShareExt.entitlements; sourceTree = "<group>"; };
+		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		7AD1E1AD29EF2FC7003262F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AD1E1B429EF349C003262F3 /* PCShareExt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCShareExt.entitlements; sourceTree = "<group>"; };
+		7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
 		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +88,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7AB7338529EC7751005691F0 /* Frameworks */ = {
+		7AD1E1A329EF2FC6003262F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -114,13 +114,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7AB7338929EC7751005691F0 /* PCShareExt */ = {
+		7AD1E1A729EF2FC7003262F3 /* PCShareExt */ = {
 			isa = PBXGroup;
 			children = (
-				7AA23CA429EDA4A00085DAC5 /* MainInterface.storyboard */,
-				7AB7339629EC775A005691F0 /* PCShareExt.entitlements */,
-				7AB7338A29EC7751005691F0 /* ShareViewController.swift */,
-				7AB7338F29EC7751005691F0 /* Info.plist */,
+				7AD1E1B429EF349C003262F3 /* PCShareExt.entitlements */,
+				7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */,
+				7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */,
+				7AD1E1AD29EF2FC7003262F3 /* Info.plist */,
 			);
 			path = PCShareExt;
 			sourceTree = "<group>";
@@ -151,7 +151,7 @@
 			children = (
 				7AFC09BE290AC47C009CAC71 /* Pastecard */,
 				7AEC326829E9F136000B30EA /* PCWidget */,
-				7AB7338929EC7751005691F0 /* PCShareExt */,
+				7AD1E1A729EF2FC7003262F3 /* PCShareExt */,
 				7AEC326329E9F136000B30EA /* Frameworks */,
 				7AFC09BD290AC47C009CAC71 /* Products */,
 			);
@@ -162,7 +162,7 @@
 			children = (
 				7AFC09BC290AC47C009CAC71 /* Pastecard.app */,
 				7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */,
-				7AB7338829EC7751005691F0 /* PCShareExt.appex */,
+				7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,13 +196,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7AB7338729EC7751005691F0 /* PCShareExt */ = {
+		7AD1E1A529EF2FC6003262F3 /* PCShareExt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AB7339529EC7751005691F0 /* Build configuration list for PBXNativeTarget "PCShareExt" */;
+			buildConfigurationList = 7AD1E1B129EF2FC7003262F3 /* Build configuration list for PBXNativeTarget "PCShareExt" */;
 			buildPhases = (
-				7AB7338429EC7751005691F0 /* Sources */,
-				7AB7338529EC7751005691F0 /* Frameworks */,
-				7AB7338629EC7751005691F0 /* Resources */,
+				7AD1E1A229EF2FC6003262F3 /* Sources */,
+				7AD1E1A329EF2FC6003262F3 /* Frameworks */,
+				7AD1E1A429EF2FC6003262F3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -210,7 +210,7 @@
 			);
 			name = PCShareExt;
 			productName = PCShareExt;
-			productReference = 7AB7338829EC7751005691F0 /* PCShareExt.appex */;
+			productReference = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		7AEC326129E9F136000B30EA /* PCWidgetExtension */ = {
@@ -243,7 +243,7 @@
 			);
 			dependencies = (
 				7AEC327129E9F137000B30EA /* PBXTargetDependency */,
-				7AB7339129EC7751005691F0 /* PBXTargetDependency */,
+				7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */,
 			);
 			name = Pastecard;
 			productName = Pastecard;
@@ -260,7 +260,7 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
-					7AB7338729EC7751005691F0 = {
+					7AD1E1A529EF2FC6003262F3 = {
 						CreatedOnToolsVersion = 14.3;
 					};
 					7AEC326129E9F136000B30EA = {
@@ -286,17 +286,16 @@
 			targets = (
 				7AFC09BB290AC47C009CAC71 /* Pastecard */,
 				7AEC326129E9F136000B30EA /* PCWidgetExtension */,
-				7AB7338729EC7751005691F0 /* PCShareExt */,
+				7AD1E1A529EF2FC6003262F3 /* PCShareExt */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7AB7338629EC7751005691F0 /* Resources */ = {
+		7AD1E1A429EF2FC6003262F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA23CA629EDA4A00085DAC5 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,11 +319,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7AB7338429EC7751005691F0 /* Sources */ = {
+		7AD1E1A229EF2FC6003262F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB7338B29EC7751005691F0 /* ShareViewController.swift in Sources */,
+				7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */,
+				7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,10 +354,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7AB7339129EC7751005691F0 /* PBXTargetDependency */ = {
+		7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7AB7338729EC7751005691F0 /* PCShareExt */;
-			targetProxy = 7AB7339029EC7751005691F0 /* PBXContainerItemProxy */;
+			target = 7AD1E1A529EF2FC6003262F3 /* PCShareExt */;
+			targetProxy = 7AD1E1AE29EF2FC7003262F3 /* PBXContainerItemProxy */;
 		};
 		7AEC327129E9F137000B30EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -366,19 +366,8 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		7AA23CA429EDA4A00085DAC5 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7AA23CA529EDA4A00085DAC5 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		7AB7339329EC7751005691F0 /* Debug */ = {
+		7AD1E1B229EF2FC7003262F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
@@ -405,7 +394,7 @@
 			};
 			name = Debug;
 		};
-		7AB7339429EC7751005691F0 /* Release */ = {
+		7AD1E1B329EF2FC7003262F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
@@ -459,7 +448,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -490,7 +479,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -687,11 +676,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7AB7339529EC7751005691F0 /* Build configuration list for PBXNativeTarget "PCShareExt" */ = {
+		7AD1E1B129EF2FC7003262F3 /* Build configuration list for PBXNativeTarget "PCShareExt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AB7339329EC7751005691F0 /* Debug */,
-				7AB7339429EC7751005691F0 /* Release */,
+				7AD1E1B229EF2FC7003262F3 /* Debug */,
+				7AD1E1B329EF2FC7003262F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
