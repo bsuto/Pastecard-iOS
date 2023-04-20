@@ -5,14 +5,12 @@
 //  Created by Brian Sutorius on 2/12/23.
 //
 
-import Foundation
 import WidgetKit
 
 enum NetworkError: Error {
     case timeout
     case loadError
     case saveError
-    case appendError
     case signInError
     case deleteAcctError
 }
@@ -62,7 +60,7 @@ enum NetworkError: Error {
     
     func loadLocal() -> String {
         var returnText = ""
-        if let localText = defaults.string( forKey: "text") {
+        if let localText = defaults.string(forKey: "text") {
             if !localText.isEmpty {
                 returnText = localText
             }
@@ -72,7 +70,8 @@ enum NetworkError: Error {
 
     func loadRemote() async throws -> String {
         var returnText = ""
-        let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt")!
+        let randomInt = String(Int.random(in: 1...1000))
+        let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt?" + randomInt)!
         
         let (data, response) = try await URLSession.shared.data(from: url)
         let remoteText = String(decoding: data, as: UTF8.self)
@@ -80,10 +79,7 @@ enum NetworkError: Error {
             throw NetworkError.loadError
         }
         
-        if !remoteText.isEmpty {
-            returnText = remoteText
-        }
-        
+        if !remoteText.isEmpty { returnText = remoteText }
         self.saveLocal(returnText)
         return returnText
     }
@@ -97,12 +93,12 @@ enum NetworkError: Error {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-write.php")!
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
         request.timeoutInterval = 10.0
         let (data, response) = try await URLSession.shared.data(for: request)
-        
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.saveError
         }
@@ -110,19 +106,5 @@ enum NetworkError: Error {
         let returnText = String(decoding: data, as: UTF8.self).removingPercentEncoding
         self.saveLocal(returnText!)
         return returnText!
-    }
-    
-    func append(_ text: String) async throws {
-        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let postData = ("user=" + self.uid + "&text=" + sendText)
-        let url = URL(string: "https://pastecard.net/api/ios-append.php")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = postData.data(using: String.Encoding.utf8)
-        let (_, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw NetworkError.appendError
-        }
     }
 }

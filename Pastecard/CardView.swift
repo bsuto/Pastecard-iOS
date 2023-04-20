@@ -88,7 +88,7 @@ struct CardView: View {
             }
         }
         .task {
-            loadText()
+            if !isFocused { loadText() }
         }
         .onChange(of: card.refreshCalled) { _ in
             refreshText()

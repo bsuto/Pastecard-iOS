@@ -20,7 +20,7 @@ struct Provider: TimelineProvider {
             return text
         }
         
-        if let localText = defaults.string( forKey: "text") {
+        if let localText = defaults.string(forKey: "text") {
             if !localText.isEmpty {
                 text = localText
             }
@@ -84,6 +84,6 @@ struct PCWidget: Widget {
 struct PCWidget_Previews: PreviewProvider {
     static var previews: some View {
         PCWidgetEntryView(entry: SimpleEntry(date: Date(), text: "Loading…"))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
