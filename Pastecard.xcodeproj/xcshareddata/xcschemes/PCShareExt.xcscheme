@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7AEC326129E9F136000B30EA"
-               BuildableName = "PCWidgetExtension.appex"
-               BlueprintName = "PCWidgetExtension"
+               BlueprintIdentifier = "7AD1E1A529EF2FC6003262F3"
+               BuildableName = "PCShareExt.appex"
+               BlueprintName = "PCShareExt"
                ReferencedContainer = "container:Pastecard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -66,23 +66,6 @@
             ReferencedContainer = "container:Pastecard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "_XCWidgetKind"
-            value = ""
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetDefaultView"
-            value = "timeline"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetFamily"
-            value = "medium"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -20,7 +20,7 @@
 		7AEC326A29E9F136000B30EA /* PCWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */; };
 		7AEC326C29E9F136000B30EA /* PCWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC326B29E9F136000B30EA /* PCWidget.swift */; };
 		7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC326D29E9F137000B30EA /* Assets.xcassets */; };
-		7AEC327229E9F137000B30EA /* PCWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AEC327229E9F137000B30EA /* PCWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AEC326229E9F136000B30EA /* PCWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */; };
 		7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09C1290AC47C009CAC71 /* CardView.swift */; };
 		7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFC09C3290AC47D009CAC71 /* Assets.xcassets */; };
@@ -51,7 +51,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7AEC327229E9F137000B30EA /* PCWidgetExtension.appex in Embed Foundation Extensions */,
+				7AEC327229E9F137000B30EA /* PCWidget.appex in Embed Foundation Extensions */,
 				7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -71,7 +71,7 @@
 		7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
 		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
-		7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AEC326229E9F136000B30EA /* PCWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEC326429E9F136000B30EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7AEC326629E9F136000B30EA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCWidgetBundle.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				7AFC09BC290AC47C009CAC71 /* Pastecard.app */,
-				7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */,
+				7AEC326229E9F136000B30EA /* PCWidget.appex */,
 				7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */,
 			);
 			name = Products;
@@ -213,9 +213,9 @@
 			productReference = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		7AEC326129E9F136000B30EA /* PCWidgetExtension */ = {
+		7AEC326129E9F136000B30EA /* PCWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidgetExtension" */;
+			buildConfigurationList = 7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidget" */;
 			buildPhases = (
 				7AEC325E29E9F136000B30EA /* Sources */,
 				7AEC325F29E9F136000B30EA /* Frameworks */,
@@ -225,9 +225,9 @@
 			);
 			dependencies = (
 			);
-			name = PCWidgetExtension;
+			name = PCWidget;
 			productName = PCWidgetExtension;
-			productReference = 7AEC326229E9F136000B30EA /* PCWidgetExtension.appex */;
+			productReference = 7AEC326229E9F136000B30EA /* PCWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		7AFC09BB290AC47C009CAC71 /* Pastecard */ = {
@@ -285,7 +285,7 @@
 			projectRoot = "";
 			targets = (
 				7AFC09BB290AC47C009CAC71 /* Pastecard */,
-				7AEC326129E9F136000B30EA /* PCWidgetExtension */,
+				7AEC326129E9F136000B30EA /* PCWidget */,
 				7AD1E1A529EF2FC6003262F3 /* PCShareExt */,
 			);
 		};
@@ -361,7 +361,7 @@
 		};
 		7AEC327129E9F137000B30EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7AEC326129E9F136000B30EA /* PCWidgetExtension */;
+			target = 7AEC326129E9F136000B30EA /* PCWidget */;
 			targetProxy = 7AEC327029E9F137000B30EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -685,7 +685,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidgetExtension" */ = {
+		7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AEC327429E9F137000B30EA /* Debug */,
