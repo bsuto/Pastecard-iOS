@@ -29,6 +29,14 @@ struct SignInView: View {
                 .onTapGesture {
                     if idFocus {
                         idFocus = false
+                    } else {
+                        if UIApplication.shared.supportsAlternateIcons {
+                            if UIApplication.shared.alternateIconName == "AltIcon" {
+                                UIApplication.shared.setAlternateIconName(nil)
+                            } else {
+                                UIApplication.shared.setAlternateIconName("AltIcon")
+                            }
+                        }
                     }
                 }
                 Section(header: Text("Sign In")) {
