@@ -30,13 +30,7 @@ struct SignInView: View {
                     if idFocus {
                         idFocus = false
                     } else {
-                        if UIApplication.shared.supportsAlternateIcons {
-                            if UIApplication.shared.alternateIconName == "AltIcon" {
-                                UIApplication.shared.setAlternateIconName(nil)
-                            } else {
-                                UIApplication.shared.setAlternateIconName("AltIcon")
-                            }
-                        }
+                        swapIcons()
                     }
                 }
                 Section(header: Text("Sign In")) {
@@ -134,6 +128,16 @@ struct SignInView: View {
             Task { await card.signIn(nameCheck) }
         } else {
             errorMessage = "Sorry, the computer can’t find that ID."
+        }
+    }
+    
+    func swapIcons() {
+        if UIApplication.shared.supportsAlternateIcons {
+            if UIApplication.shared.alternateIconName == "AltIcon" {
+                UIApplication.shared.setAlternateIconName(nil)
+            } else {
+                UIApplication.shared.setAlternateIconName("AltIcon")
+            }
         }
     }
 }
