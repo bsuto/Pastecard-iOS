@@ -4,18 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-<<<<<<< HEAD
 		<key>PCShareExt.xcscheme_^#shared#^_</key>
-=======
-		<key>CardWidgetExtension.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Pastecard Watch.xcscheme</key>
->>>>>>> main
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
@@ -54,41 +43,6 @@
 			<true/>
 		</dict>
 		<key>7AFC09BB290AC47C009CAC71</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>WidgetExtension.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>7A6D7C3021FB3CE40001A0A9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7A7BC63E235915D100205DDA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7ACE656D25A51EF800E13E50</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7ACE658D25A52B7A00E13E50</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7AF204241FE1ECC90086A9F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
