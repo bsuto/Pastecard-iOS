@@ -1,6 +1,5 @@
 # Pastecard for iPhone
 
-## Highlights
 * Home screen widgets that show your card text
 * Share extensions to append the current URL or selected text
 * All the warm feelings of a real native (SwiftUI!) app
