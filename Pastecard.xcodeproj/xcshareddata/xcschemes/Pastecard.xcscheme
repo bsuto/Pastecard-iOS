@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1230"
+   LastUpgradeVersion = "1420"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+               BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
                BuildableName = "Pastecard.app"
                BlueprintName = "Pastecard"
                ReferencedContainer = "container:Pastecard.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+            BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
             BuildableName = "Pastecard.app"
             BlueprintName = "Pastecard"
             ReferencedContainer = "container:Pastecard.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+            BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
             BuildableName = "Pastecard.app"
             BlueprintName = "Pastecard"
             ReferencedContainer = "container:Pastecard.xcodeproj">
@@ -74,5 +74,14 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
    </ArchiveAction>
 </Scheme>

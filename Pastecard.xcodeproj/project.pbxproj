@@ -3,10 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
+		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
+		7A3553E129F348C100B9879E /* AltIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3553E029F348C100B9879E /* AltIcon.png */; };
+		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
+		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
+		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
+		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
+		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */; };
+		7ADD85842999451F00A7292C /* Pastecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD85832999451F00A7292C /* Pastecard.swift */; };
+		7AEC326529E9F136000B30EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326429E9F136000B30EA /* WidgetKit.framework */; };
+		7AEC326729E9F136000B30EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326629E9F136000B30EA /* SwiftUI.framework */; };
+		7AEC326A29E9F136000B30EA /* PCWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */; };
+		7AEC326C29E9F136000B30EA /* PCWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC326B29E9F136000B30EA /* PCWidget.swift */; };
+		7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC326D29E9F137000B30EA /* Assets.xcassets */; };
+		7AEC327229E9F137000B30EA /* PCWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AEC326229E9F136000B30EA /* PCWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */; };
+		7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC09C1290AC47C009CAC71 /* CardView.swift */; };
+		7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFC09C3290AC47D009CAC71 /* Assets.xcassets */; };
+		7AFC09C7290AC47D009CAC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */; };
+=======
 		7A5B55C72365D8280006340B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */; };
 		7A5B55C82365D8280006340B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */; };
 		7A6D7C3421FB3CE40001A0A9 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */; };
@@ -26,22 +47,23 @@
 		7AF2042E1FE1ECC90086A9F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2042C1FE1ECC90086A9F2 /* Main.storyboard */; };
 		7AF204301FE1ECC90086A9F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */; };
 		7AF204331FE1ECC90086A9F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF204311FE1ECC90086A9F2 /* LaunchScreen.storyboard */; };
+>>>>>>> main
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7A6D7C3921FB3CE40001A0A9 /* PBXContainerItemProxy */ = {
+		7AD1E1AE29EF2FC7003262F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7AF2041D1FE1ECC90086A9F2 /* Project object */;
+			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7A6D7C3021FB3CE40001A0A9;
-			remoteInfo = ShareExtension;
+			remoteGlobalIDString = 7AD1E1A529EF2FC6003262F3;
+			remoteInfo = PCShareExt;
 		};
-		7A7BC647235915D100205DDA /* PBXContainerItemProxy */ = {
+		7AEC327029E9F137000B30EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7AF2041D1FE1ECC90086A9F2 /* Project object */;
+			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7A7BC63E235915D100205DDA;
-			remoteInfo = TextExtension;
+			remoteGlobalIDString = 7AEC326129E9F136000B30EA;
+			remoteInfo = PCWidgetExtension;
 		};
 		7ACE65CA25A52D6700E13E50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -53,32 +75,55 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7A0596F92024C3CE001125ED /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A6D7C3F21FB3CE40001A0A9 /* Embed App Extensions */ = {
+		7AEC327629E9F137000B30EA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+<<<<<<< HEAD
+				7AEC327229E9F137000B30EA /* PCWidget.appex in Embed Foundation Extensions */,
+				7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */,
+=======
 				7A6D7C3B21FB3CE40001A0A9 /* Add URL to Pastecard.appex in Embed App Extensions */,
 				7ACE65CC25A52D6700E13E50 /* CardWidgetExtension.appex in Embed App Extensions */,
 				7A7BC649235915D100205DDA /* TextExtension.appex in Embed App Extensions */,
+>>>>>>> main
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
+		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
+		7A3553E029F348C100B9879E /* AltIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AltIcon.png; sourceTree = "<group>"; };
+		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
+		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
+		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		7AD1E1AD29EF2FC7003262F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AD1E1B429EF349C003262F3 /* PCShareExt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCShareExt.entitlements; sourceTree = "<group>"; };
+		7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
+		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
+		7AEC326229E9F136000B30EA /* PCWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AEC326429E9F136000B30EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7AEC326629E9F136000B30EA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCWidgetBundle.swift; sourceTree = "<group>"; };
+		7AEC326B29E9F136000B30EA /* PCWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCWidget.swift; sourceTree = "<group>"; };
+		7AEC326D29E9F137000B30EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7AEC326F29E9F137000B30EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AEC327729E9F161000B30EA /* PCWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCWidgetExtension.entitlements; sourceTree = "<group>"; };
+		7AFC09BC290AC47C009CAC71 /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastecardApp.swift; sourceTree = "<group>"; };
+		7AFC09C1290AC47C009CAC71 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		7AFC09C3290AC47D009CAC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7AFC09CD290ADFBB009CAC71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+=======
 		7A6D7C3121FB3CE40001A0A9 /* Add URL to Pastecard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Add URL to Pastecard.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7A6D7C3621FB3CE40001A0A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -106,23 +151,29 @@
 		7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AF204321FE1ECC90086A9F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AF204341FE1ECC90086A9F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+>>>>>>> main
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7A6D7C2E21FB3CE40001A0A9 /* Frameworks */ = {
+		7AD1E1A329EF2FC6003262F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A7BC63C235915D100205DDA /* Frameworks */ = {
+		7AEC325F29E9F136000B30EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEC326729E9F136000B30EA /* SwiftUI.framework in Frameworks */,
+				7AEC326529E9F136000B30EA /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+<<<<<<< HEAD
+		7AFC09B9290AC47C009CAC71 /* Frameworks */ = {
+=======
 		7ACE65BE25A52D6200E13E50 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,6 +184,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AF204221FE1ECC90086A9F2 /* Frameworks */ = {
+>>>>>>> main
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -142,28 +194,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A6D7C3221FB3CE40001A0A9 /* ShareExtension */ = {
+		7AD1E1A729EF2FC7003262F3 /* PCShareExt */ = {
 			isa = PBXGroup;
 			children = (
-				7A6D7C4321FB493E0001A0A9 /* ShareExtension.entitlements */,
-				7A6D7C3321FB3CE40001A0A9 /* ShareViewController.swift */,
-				7A6D7C3521FB3CE40001A0A9 /* MainInterface.storyboard */,
-				7A6D7C3821FB3CE40001A0A9 /* Info.plist */,
+				7AD1E1B429EF349C003262F3 /* PCShareExt.entitlements */,
+				7AD1E1AD29EF2FC7003262F3 /* Info.plist */,
+				7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */,
+				7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */,
 			);
-			path = ShareExtension;
+			path = PCShareExt;
 			sourceTree = "<group>";
 		};
-		7A7BC640235915D100205DDA /* TextExtension */ = {
+		7AEC326329E9F136000B30EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7A7BC64F2359198200205DDA /* TextExtension.entitlements */,
-				7A7BC641235915D100205DDA /* ShareViewController.swift */,
-				7A7BC64D235915E000205DDA /* MainInterface.storyboard */,
-				7A7BC646235915D100205DDA /* Info.plist */,
+				7AEC326429E9F136000B30EA /* WidgetKit.framework */,
+				7AEC326629E9F136000B30EA /* SwiftUI.framework */,
 			);
-			path = TextExtension;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+		7AEC326829E9F136000B30EA /* PCWidget */ = {
+			isa = PBXGroup;
+			children = (
+				7AEC327729E9F161000B30EA /* PCWidgetExtension.entitlements */,
+				7AEC326F29E9F137000B30EA /* Info.plist */,
+				7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */,
+				7AEC326B29E9F136000B30EA /* PCWidget.swift */,
+				7AEC326D29E9F137000B30EA /* Assets.xcassets */,
+			);
+			path = PCWidget;
+			sourceTree = "<group>";
+		};
+		7AFC09B3290AC47C009CAC71 = {
+			isa = PBXGroup;
+			children = (
+				7AFC09BE290AC47C009CAC71 /* Pastecard */,
+				7AEC326829E9F136000B30EA /* PCWidget */,
+				7AD1E1A729EF2FC7003262F3 /* PCShareExt */,
+				7AEC326329E9F136000B30EA /* Frameworks */,
+				7AFC09BD290AC47C009CAC71 /* Products */,
+=======
 		7ACE65C425A52D6200E13E50 /* CardWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,82 +256,100 @@
 				7ACE65C425A52D6200E13E50 /* CardWidget */,
 				7AF204261FE1ECC90086A9F2 /* Products */,
 				7AF84C20201E2F0100E181B8 /* Frameworks */,
+>>>>>>> main
 			);
 			sourceTree = "<group>";
 		};
-		7AF204261FE1ECC90086A9F2 /* Products */ = {
+		7AFC09BD290AC47C009CAC71 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				7AFC09BC290AC47C009CAC71 /* Pastecard.app */,
+				7AEC326229E9F136000B30EA /* PCWidget.appex */,
+				7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */,
+=======
 				7AF204251FE1ECC90086A9F2 /* Pastecard.app */,
 				7A6D7C3121FB3CE40001A0A9 /* Add URL to Pastecard.appex */,
 				7A7BC63F235915D100205DDA /* TextExtension.appex */,
 				7ACE65C125A52D6200E13E50 /* CardWidgetExtension.appex */,
+>>>>>>> main
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7AF204271FE1ECC90086A9F2 /* Pastecard */ = {
+		7AFC09BE290AC47C009CAC71 /* Pastecard */ = {
 			isa = PBXGroup;
 			children = (
-				7A6D7C4221FB409F0001A0A9 /* Pastecard.entitlements */,
-				7AF204281FE1ECC90086A9F2 /* AppDelegate.swift */,
-				7AF2042A1FE1ECC90086A9F2 /* ViewController.swift */,
-				7AB395F01FE4258900079651 /* SignInController.swift */,
-				7AF2042C1FE1ECC90086A9F2 /* Main.storyboard */,
-				7AF2042F1FE1ECC90086A9F2 /* Assets.xcassets */,
-				7AF204311FE1ECC90086A9F2 /* LaunchScreen.storyboard */,
-				7AF204341FE1ECC90086A9F2 /* Info.plist */,
+				7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */,
+				7AFC09CD290ADFBB009CAC71 /* Info.plist */,
+				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
+				7ADD85832999451F00A7292C /* Pastecard.swift */,
+				7AFC09C1290AC47C009CAC71 /* CardView.swift */,
+				7A417C65296B14C6002E8B4D /* SwipeMenu.swift */,
+				7A417C67296B1CC4002E8B4D /* SignInView.swift */,
+				7A536FE4299D1266002A8E85 /* SignUpSheet.swift */,
+				7A152D06296DC84C00EF049D /* SafariViewController.swift */,
+				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
+				7A3553E029F348C100B9879E /* AltIcon.png */,
+				7AFC09C5290AC47D009CAC71 /* Preview Content */,
 			);
 			path = Pastecard;
 			sourceTree = "<group>";
 		};
-		7AF84C20201E2F0100E181B8 /* Frameworks */ = {
+		7AFC09C5290AC47D009CAC71 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				7AFC09C6290AC47D009CAC71 /* Preview Assets.xcassets */,
+=======
 				7A70F40F1FF2B23000F383AF /* README.md */,
 				7ACE656F25A51EF800E13E50 /* WidgetKit.framework */,
 				7ACE657125A51EF800E13E50 /* SwiftUI.framework */,
+>>>>>>> main
 			);
-			name = Frameworks;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A6D7C3021FB3CE40001A0A9 /* URLExtension */ = {
+		7AD1E1A529EF2FC6003262F3 /* PCShareExt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A6D7C3E21FB3CE40001A0A9 /* Build configuration list for PBXNativeTarget "URLExtension" */;
+			buildConfigurationList = 7AD1E1B129EF2FC7003262F3 /* Build configuration list for PBXNativeTarget "PCShareExt" */;
 			buildPhases = (
-				7A6D7C2D21FB3CE40001A0A9 /* Sources */,
-				7A6D7C2E21FB3CE40001A0A9 /* Frameworks */,
-				7A6D7C2F21FB3CE40001A0A9 /* Resources */,
+				7AD1E1A229EF2FC6003262F3 /* Sources */,
+				7AD1E1A329EF2FC6003262F3 /* Frameworks */,
+				7AD1E1A429EF2FC6003262F3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = URLExtension;
-			productName = ShareExtension;
-			productReference = 7A6D7C3121FB3CE40001A0A9 /* Add URL to Pastecard.appex */;
+			name = PCShareExt;
+			productName = PCShareExt;
+			productReference = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		7A7BC63E235915D100205DDA /* TextExtension */ = {
+		7AEC326129E9F136000B30EA /* PCWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A7BC64A235915D100205DDA /* Build configuration list for PBXNativeTarget "TextExtension" */;
+			buildConfigurationList = 7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidget" */;
 			buildPhases = (
-				7A7BC63B235915D100205DDA /* Sources */,
-				7A7BC63C235915D100205DDA /* Frameworks */,
-				7A7BC63D235915D100205DDA /* Resources */,
+				7AEC325E29E9F136000B30EA /* Sources */,
+				7AEC325F29E9F136000B30EA /* Frameworks */,
+				7AEC326029E9F136000B30EA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TextExtension;
-			productName = TextExtension;
-			productReference = 7A7BC63F235915D100205DDA /* TextExtension.appex */;
+			name = PCWidget;
+			productName = PCWidgetExtension;
+			productReference = 7AEC326229E9F136000B30EA /* PCWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+<<<<<<< HEAD
+		7AFC09BB290AC47C009CAC71 /* Pastecard */ = {
+=======
 		7ACE65C025A52D6200E13E50 /* CardWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7ACE65CD25A52D6700E13E50 /* Build configuration list for PBXNativeTarget "CardWidgetExtension" */;
@@ -278,51 +368,58 @@
 			productType = "com.apple.product-type.app-extension";
 		};
 		7AF204241FE1ECC90086A9F2 /* Pastecard */ = {
+>>>>>>> main
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AF204371FE1ECC90086A9F2 /* Build configuration list for PBXNativeTarget "Pastecard" */;
+			buildConfigurationList = 7AFC09CA290AC47D009CAC71 /* Build configuration list for PBXNativeTarget "Pastecard" */;
 			buildPhases = (
-				7AF204211FE1ECC90086A9F2 /* Sources */,
-				7AF204221FE1ECC90086A9F2 /* Frameworks */,
-				7AF204231FE1ECC90086A9F2 /* Resources */,
-				7A0596F92024C3CE001125ED /* Embed Watch Content */,
-				7A6D7C3F21FB3CE40001A0A9 /* Embed App Extensions */,
+				7AFC09B8290AC47C009CAC71 /* Sources */,
+				7AFC09B9290AC47C009CAC71 /* Frameworks */,
+				7AFC09BA290AC47C009CAC71 /* Resources */,
+				7AEC327629E9F137000B30EA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+<<<<<<< HEAD
+				7AEC327129E9F137000B30EA /* PBXTargetDependency */,
+				7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */,
+=======
 				7A6D7C3A21FB3CE40001A0A9 /* PBXTargetDependency */,
 				7A7BC648235915D100205DDA /* PBXTargetDependency */,
 				7ACE65CB25A52D6700E13E50 /* PBXTargetDependency */,
+>>>>>>> main
 			);
 			name = Pastecard;
 			productName = Pastecard;
-			productReference = 7AF204251FE1ECC90086A9F2 /* Pastecard.app */;
+			productReference = 7AFC09BC290AC47C009CAC71 /* Pastecard.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7AF2041D1FE1ECC90086A9F2 /* Project object */ = {
+		7AFC09B4290AC47C009CAC71 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+<<<<<<< HEAD
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1400;
+=======
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Brian Sutorius";
+>>>>>>> main
 				TargetAttributes = {
-					7A6D7C3021FB3CE40001A0A9 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1110;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
+					7AD1E1A529EF2FC6003262F3 = {
+						CreatedOnToolsVersion = 14.3;
 					};
-					7A7BC63E235915D100205DDA = {
-						CreatedOnToolsVersion = 11.1;
-						ProvisioningStyle = Automatic;
+					7AEC326129E9F136000B30EA = {
+						CreatedOnToolsVersion = 14.3;
 					};
+<<<<<<< HEAD
+					7AFC09BB290AC47C009CAC71 = {
+						CreatedOnToolsVersion = 14.0.1;
+=======
 					7ACE65C025A52D6200E13E50 = {
 						CreatedOnToolsVersion = 12.3;
 						ProvisioningStyle = Automatic;
@@ -339,49 +436,56 @@
 								enabled = 0;
 							};
 						};
+>>>>>>> main
 					};
 				};
 			};
-			buildConfigurationList = 7AF204201FE1ECC90086A9F2 /* Build configuration list for PBXProject "Pastecard" */;
-			compatibilityVersion = "Xcode 8.0";
+			buildConfigurationList = 7AFC09B7290AC47C009CAC71 /* Build configuration list for PBXProject "Pastecard" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 7AF2041C1FE1ECC90086A9F2;
-			productRefGroup = 7AF204261FE1ECC90086A9F2 /* Products */;
+			mainGroup = 7AFC09B3290AC47C009CAC71;
+			productRefGroup = 7AFC09BD290AC47C009CAC71 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+<<<<<<< HEAD
+				7AFC09BB290AC47C009CAC71 /* Pastecard */,
+				7AEC326129E9F136000B30EA /* PCWidget */,
+				7AD1E1A529EF2FC6003262F3 /* PCShareExt */,
+=======
 				7AF204241FE1ECC90086A9F2 /* Pastecard */,
 				7A6D7C3021FB3CE40001A0A9 /* URLExtension */,
 				7A7BC63E235915D100205DDA /* TextExtension */,
 				7ACE65C025A52D6200E13E50 /* CardWidgetExtension */,
+>>>>>>> main
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7A6D7C2F21FB3CE40001A0A9 /* Resources */ = {
+		7AD1E1A429EF2FC6003262F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A5B55C72365D8280006340B /* Assets.xcassets in Resources */,
-				7A6D7C3721FB3CE40001A0A9 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A7BC63D235915D100205DDA /* Resources */ = {
+		7AEC326029E9F136000B30EA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A5B55C82365D8280006340B /* Assets.xcassets in Resources */,
-				7A9B515623591BA800589FBD /* MainInterface.storyboard in Resources */,
+				7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+<<<<<<< HEAD
+		7AFC09BA290AC47C009CAC71 /* Resources */ = {
+=======
 		7ACE65BF25A52D6200E13E50 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,34 +495,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AF204231FE1ECC90086A9F2 /* Resources */ = {
+>>>>>>> main
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AF204331FE1ECC90086A9F2 /* LaunchScreen.storyboard in Resources */,
-				7AF204301FE1ECC90086A9F2 /* Assets.xcassets in Resources */,
-				7AF2042E1FE1ECC90086A9F2 /* Main.storyboard in Resources */,
+				7AFC09C7290AC47D009CAC71 /* Preview Assets.xcassets in Resources */,
+				7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */,
+				7A3553E129F348C100B9879E /* AltIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7A6D7C2D21FB3CE40001A0A9 /* Sources */ = {
+		7AD1E1A229EF2FC6003262F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6D7C3421FB3CE40001A0A9 /* ShareViewController.swift in Sources */,
+				7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */,
+				7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A7BC63B235915D100205DDA /* Sources */ = {
+		7AEC325E29E9F136000B30EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A7BC642235915D100205DDA /* ShareViewController.swift in Sources */,
+				7AEC326C29E9F136000B30EA /* PCWidget.swift in Sources */,
+				7AEC326A29E9F136000B30EA /* PCWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+<<<<<<< HEAD
+		7AFC09B8290AC47C009CAC71 /* Sources */ = {
+=======
 		7ACE65BD25A52D6200E13E50 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,27 +538,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AF204211FE1ECC90086A9F2 /* Sources */ = {
+>>>>>>> main
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB395F11FE4258900079651 /* SignInController.swift in Sources */,
-				7AF2042B1FE1ECC90086A9F2 /* ViewController.swift in Sources */,
-				7AF204291FE1ECC90086A9F2 /* AppDelegate.swift in Sources */,
+				7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */,
+				7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */,
+				7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */,
+				7ADD85842999451F00A7292C /* Pastecard.swift in Sources */,
+				7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */,
+				7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */,
+				7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7A6D7C3A21FB3CE40001A0A9 /* PBXTargetDependency */ = {
+		7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A6D7C3021FB3CE40001A0A9 /* URLExtension */;
-			targetProxy = 7A6D7C3921FB3CE40001A0A9 /* PBXContainerItemProxy */;
+			target = 7AD1E1A529EF2FC6003262F3 /* PCShareExt */;
+			targetProxy = 7AD1E1AE29EF2FC7003262F3 /* PBXContainerItemProxy */;
 		};
-		7A7BC648235915D100205DDA /* PBXTargetDependency */ = {
+		7AEC327129E9F137000B30EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A7BC63E235915D100205DDA /* TextExtension */;
-			targetProxy = 7A7BC647235915D100205DDA /* PBXContainerItemProxy */;
+			target = 7AEC326129E9F136000B30EA /* PCWidget */;
+			targetProxy = 7AEC327029E9F137000B30EA /* PBXContainerItemProxy */;
 		};
 		7ACE65CB25A52D6700E13E50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -457,131 +572,118 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		7A6D7C3521FB3CE40001A0A9 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7A6D7C3621FB3CE40001A0A9 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		7A7BC64D235915E000205DDA /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7A7BC64E235915E000205DDA /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		7AF2042C1FE1ECC90086A9F2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7AF2042D1FE1ECC90086A9F2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7AF204311FE1ECC90086A9F2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7AF204321FE1ECC90086A9F2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		7A6D7C3C21FB3CE40001A0A9 /* Debug */ = {
+		7AD1E1B229EF2FC7003262F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.URLExtension;
-				PRODUCT_NAME = "Add URL to Pastecard";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCShareExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		7A6D7C3D21FB3CE40001A0A9 /* Release */ = {
+		7AD1E1B329EF2FC7003262F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.URLExtension;
-				PRODUCT_NAME = "Add URL to Pastecard";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCShareExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
-		7A7BC64B235915D100205DDA /* Debug */ = {
+		7AEC327429E9F137000B30EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = TextExtension/TextExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
-				INFOPLIST_FILE = TextExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.TextExtension;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		7A7BC64C235915D100205DDA /* Release */ = {
+		7AEC327529E9F137000B30EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = TextExtension/TextExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
-				INFOPLIST_FILE = TextExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.TextExtension;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -636,16 +738,16 @@
 			};
 			name = Release;
 		};
-		7AF204351FE1ECC90086A9F2 /* Debug */ = {
+		7AFC09C8290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -668,7 +770,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -687,8 +788,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -696,16 +798,16 @@
 			};
 			name = Debug;
 		};
-		7AF204361FE1ECC90086A9F2 /* Release */ = {
+		7AFC09C9290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -728,7 +830,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -741,56 +842,111 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		7AF204381FE1ECC90086A9F2 /* Debug */ = {
+		7AFC09CB290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+<<<<<<< HEAD
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+=======
+>>>>>>> main
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
+<<<<<<< HEAD
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
+=======
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
+>>>>>>> main
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		7AF204391FE1ECC90086A9F2 /* Release */ = {
+		7AFC09CC290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+<<<<<<< HEAD
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+=======
+>>>>>>> main
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
+<<<<<<< HEAD
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
+=======
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
+>>>>>>> main
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -799,24 +955,27 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A6D7C3E21FB3CE40001A0A9 /* Build configuration list for PBXNativeTarget "URLExtension" */ = {
+		7AD1E1B129EF2FC7003262F3 /* Build configuration list for PBXNativeTarget "PCShareExt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A6D7C3C21FB3CE40001A0A9 /* Debug */,
-				7A6D7C3D21FB3CE40001A0A9 /* Release */,
+				7AD1E1B229EF2FC7003262F3 /* Debug */,
+				7AD1E1B329EF2FC7003262F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A7BC64A235915D100205DDA /* Build configuration list for PBXNativeTarget "TextExtension" */ = {
+		7AEC327329E9F137000B30EA /* Build configuration list for PBXNativeTarget "PCWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A7BC64B235915D100205DDA /* Debug */,
-				7A7BC64C235915D100205DDA /* Release */,
+				7AEC327429E9F137000B30EA /* Debug */,
+				7AEC327529E9F137000B30EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+<<<<<<< HEAD
+		7AFC09B7290AC47C009CAC71 /* Build configuration list for PBXProject "Pastecard" */ = {
+=======
 		7ACE65CD25A52D6700E13E50 /* Build configuration list for PBXNativeTarget "CardWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -827,24 +986,25 @@
 			defaultConfigurationName = Release;
 		};
 		7AF204201FE1ECC90086A9F2 /* Build configuration list for PBXProject "Pastecard" */ = {
+>>>>>>> main
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AF204351FE1ECC90086A9F2 /* Debug */,
-				7AF204361FE1ECC90086A9F2 /* Release */,
+				7AFC09C8290AC47D009CAC71 /* Debug */,
+				7AFC09C9290AC47D009CAC71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AF204371FE1ECC90086A9F2 /* Build configuration list for PBXNativeTarget "Pastecard" */ = {
+		7AFC09CA290AC47D009CAC71 /* Build configuration list for PBXNativeTarget "Pastecard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AF204381FE1ECC90086A9F2 /* Debug */,
-				7AF204391FE1ECC90086A9F2 /* Release */,
+				7AFC09CB290AC47D009CAC71 /* Debug */,
+				7AFC09CC290AC47D009CAC71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7AF2041D1FE1ECC90086A9F2 /* Project object */;
+	rootObject = 7AFC09B4290AC47C009CAC71 /* Project object */;
 }

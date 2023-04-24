@@ -4,6 +4,9 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+<<<<<<< HEAD
+		<key>PCShareExt.xcscheme_^#shared#^_</key>
+=======
 		<key>CardWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
@@ -12,34 +15,48 @@
 			<integer>3</integer>
 		</dict>
 		<key>Pastecard Watch.xcscheme</key>
+>>>>>>> main
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
-		<key>Pastecard.xcscheme</key>
+		<key>PCShareExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
+		</dict>
+		<key>PCWidget.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pastecard.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>ShareExtension.xcscheme_^#shared#^_</key>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7A0F563A29EED17D00B50F7D</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>primary</key>
+			<true/>
 		</dict>
-		<key>TextExtension.xcscheme_^#shared#^_</key>
+		<key>7AD1E1A529EF2FC6003262F3</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>primary</key>
+			<true/>
 		</dict>
-		<key>URLExtension.xcscheme_^#shared#^_</key>
+		<key>7AEC326129E9F136000B30EA</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7AFC09BB290AC47C009CAC71</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 		<key>WidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>

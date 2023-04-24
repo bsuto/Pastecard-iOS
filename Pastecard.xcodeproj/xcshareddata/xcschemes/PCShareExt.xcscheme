@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1230"
+   LastUpgradeVersion = "1430"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7ACE65C025A52D6200E13E50"
-               BuildableName = "CardWidgetExtension.appex"
-               BlueprintName = "CardWidgetExtension"
+               BlueprintIdentifier = "7AD1E1A529EF2FC6003262F3"
+               BuildableName = "PCShareExt.appex"
+               BlueprintName = "PCShareExt"
                ReferencedContainer = "container:Pastecard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,7 +29,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+               BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
                BuildableName = "Pastecard.app"
                BlueprintName = "Pastecard"
                ReferencedContainer = "container:Pastecard.xcodeproj">
@@ -41,9 +41,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -61,29 +60,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+            BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
             BuildableName = "Pastecard.app"
             BlueprintName = "Pastecard"
             ReferencedContainer = "container:Pastecard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "_XCWidgetKind"
-            value = ""
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetDefaultView"
-            value = "timeline"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetFamily"
-            value = "medium"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -97,7 +79,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7AF204241FE1ECC90086A9F2"
+            BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
             BuildableName = "Pastecard.app"
             BlueprintName = "Pastecard"
             ReferencedContainer = "container:Pastecard.xcodeproj">
