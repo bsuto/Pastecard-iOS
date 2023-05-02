@@ -65,6 +65,7 @@ struct SwipeMenu: View {
                 }
             }
         }
+        .scrollDisabled(true)
         .presentationDetents([.medium])
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/")!)
