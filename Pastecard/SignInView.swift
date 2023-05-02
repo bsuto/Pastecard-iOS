@@ -18,6 +18,7 @@ struct SignInView: View {
     @State private var showSVC = false
     @State private var errorMessage = ""
     @FocusState private var idFocus: Bool
+    let impact = UIImpactFeedbackGenerator(style: .light)
     
     var body: some View {
         GeometryReader { geo in
@@ -56,6 +57,9 @@ struct SignInView: View {
                                     errorMessage = ""
                                 }
                             }
+                            .onChange(of: idFocus) { _ in
+                                if idFocus { impact.impactOccurred() }
+                            }
                         Spacer()
                         Button {
                             Task {
@@ -81,6 +85,7 @@ struct SignInView: View {
                 }
                 Section(header: Text("Create a Pastecard")) {
                     Button {
+                        impact.impactOccurred()
                         idFocus = false
                         showSignUp = true
                     } label: {
