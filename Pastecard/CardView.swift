@@ -26,7 +26,7 @@ struct CardView: View {
             VStack(spacing: -geo.safeAreaInsets.top) {
                 Color("TrademarkBlue")
                     .frame(width: geo.size.width,
-                           height: geo.safeAreaInsets.top)
+                           height: geo.safeAreaInsets.top + 44)
                     .ignoresSafeArea(edges: .top)
                 TextEditor(text: $text)
                     .font(Font.body)
