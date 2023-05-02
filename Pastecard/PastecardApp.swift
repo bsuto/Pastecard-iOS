@@ -9,7 +9,9 @@ import SwiftUI
 
 @main
 struct PastecardApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var card = Pastecard()
+    private let actionService = ActionService.shared
     
     var body: some Scene {
         WindowGroup {
@@ -17,9 +19,11 @@ struct PastecardApp: App {
                 if card.isSignedIn {
                     CardView()
                         .environmentObject(card)
+                        .environmentObject(actionService)
                 } else {
                     SignInView()
                         .environmentObject(card)
+                        .environmentObject(actionService)
                 }
             }
             .animation(.default, value: card.isSignedIn)

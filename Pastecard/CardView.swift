@@ -10,6 +10,8 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
+    @EnvironmentObject var actionService: ActionService
+    @Environment(\.scenePhase) var scenePhase
     
     @State private var text = "Loading…"
     @State private var locked = true
@@ -93,6 +95,14 @@ struct CardView: View {
         .onChange(of: card.refreshCalled) { _ in
             refreshText()
         }
+        .onChange(of: scenePhase) { newValue in
+          switch newValue {
+          case .active:
+            performActionIfNeeded()
+          default:
+            break
+          }
+        }
     }
     
     func loadText() {
@@ -133,6 +143,23 @@ struct CardView: View {
                 text = String(text.prefix(charLimit))
             }
         }
+    }
+    
+    func performActionIfNeeded() {
+      guard let action = actionService.action else { return }
+
+      switch action {
+      case .swapIcon:
+          if UIApplication.shared.supportsAlternateIcons {
+              if UIApplication.shared.alternateIconName == "AltIcon" {
+                  UIApplication.shared.setAlternateIconName(nil)
+              } else {
+                  UIApplication.shared.setAlternateIconName("AltIcon")
+              }
+          }
+      }
+
+      actionService.action = nil
     }
 }
 

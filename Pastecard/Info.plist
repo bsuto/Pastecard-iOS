@@ -4,6 +4,17 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+    <key>UIApplicationShortcutItems</key>
+    <array>
+      <dict>
+        <key>UIApplicationShortcutItemType</key>
+        <string>swapIcon</string>
+        <key>UIApplicationShortcutItemIconType</key>
+        <string>UIApplicationShortcutIconTypeShuffle</string>
+        <key>UIApplicationShortcutItemTitle</key>
+        <string>Swap Icon</string>
+      </dict>
+    </array>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>

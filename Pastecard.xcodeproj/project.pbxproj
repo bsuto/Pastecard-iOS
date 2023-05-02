@@ -16,6 +16,7 @@
 		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */; };
 		7ADD85842999451F00A7292C /* Pastecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD85832999451F00A7292C /* Pastecard.swift */; };
+		7AE7F75C2A0164EF007194F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */; };
 		7AEC326529E9F136000B30EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326429E9F136000B30EA /* WidgetKit.framework */; };
 		7AEC326729E9F136000B30EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEC326629E9F136000B30EA /* SwiftUI.framework */; };
 		7AEC326A29E9F136000B30EA /* PCWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */; };
@@ -72,6 +73,7 @@
 		7AD1E1B429EF349C003262F3 /* PCShareExt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PCShareExt.entitlements; sourceTree = "<group>"; };
 		7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		7ADD85832999451F00A7292C /* Pastecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pastecard.swift; sourceTree = "<group>"; };
+		7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7AEC326229E9F136000B30EA /* PCWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEC326429E9F136000B30EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -175,6 +177,7 @@
 				7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */,
 				7AFC09CD290ADFBB009CAC71 /* Info.plist */,
 				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
+				7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */,
 				7ADD85832999451F00A7292C /* Pastecard.swift */,
 				7AFC09C1290AC47C009CAC71 /* CardView.swift */,
 				7A417C65296B14C6002E8B4D /* SwipeMenu.swift */,
@@ -345,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AE7F75C2A0164EF007194F5 /* AppDelegate.swift in Sources */,
 				7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */,
 				7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */,
 				7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */,
