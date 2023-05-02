@@ -10,6 +10,9 @@ import SwiftUI
 
 struct SignInView: View {
     @EnvironmentObject var card: Pastecard
+    @EnvironmentObject var actionService: ActionService
+    @Environment(\.scenePhase) var scenePhase
+    
     @State private var userId = ""
     @State private var showSignUp = false
     @State private var showSVC = false
@@ -102,6 +105,14 @@ struct SignInView: View {
                     .padding(.top, -geo.safeAreaInsets.top)
             }
         }
+        .onChange(of: scenePhase) { newValue in
+          switch newValue {
+          case .active:
+            performActionIfNeeded()
+          default:
+            break
+          }
+        }
         .sheet(isPresented: $showSignUp) {
             SignUpSheet()
         }
@@ -127,6 +138,23 @@ struct SignInView: View {
         } else {
             errorMessage = "Sorry, the computer can’t find that ID."
         }
+    }
+    
+    func performActionIfNeeded() {
+      guard let action = actionService.action else { return }
+
+      switch action {
+      case .swapIcon:
+          if UIApplication.shared.supportsAlternateIcons {
+              if UIApplication.shared.alternateIconName == "AltIcon" {
+                  UIApplication.shared.setAlternateIconName(nil)
+              } else {
+                  UIApplication.shared.setAlternateIconName("AltIcon")
+              }
+          }
+      }
+
+      actionService.action = nil
     }
 }
 
