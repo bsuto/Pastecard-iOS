@@ -9,10 +9,10 @@
       <dict>
         <key>UIApplicationShortcutItemType</key>
         <string>swapIcon</string>
-        <key>UIApplicationShortcutItemIconType</key>
-        <string>UIApplicationShortcutIconTypeShuffle</string>
+        <key>UIApplicationShortcutItemIconSymbolName</key>
+        <string>square.dashed.inset.filled</string>
         <key>UIApplicationShortcutItemTitle</key>
-        <string>Swap Icon</string>
+        <string>Swap App Icon</string>
       </dict>
     </array>
 	<key>CFBundleIcons</key>
