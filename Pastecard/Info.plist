@@ -2,30 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-    <key>UIApplicationShortcutItems</key>
-    <array>
-      <dict>
-        <key>UIApplicationShortcutItemType</key>
-        <string>swapIcon</string>
-        <key>UIApplicationShortcutItemIconSymbolName</key>
-        <string>square.dashed.inset.filled</string>
-        <key>UIApplicationShortcutItemTitle</key>
-        <string>Swap App Icon</string>
-      </dict>
-    </array>
 	<key>CFBundleIcons</key>
 	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>AppIcon</string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
-		</dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
 			<key>AltIcon</key>
@@ -38,7 +16,29 @@
 				<false/>
 			</dict>
 		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
 	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>square.dashed.inset.filled</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Swap App Icon</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>swapIcon</string>
+		</dict>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

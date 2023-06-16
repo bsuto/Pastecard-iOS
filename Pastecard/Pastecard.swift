@@ -13,6 +13,7 @@ enum NetworkError: Error {
     case saveError
     case signInError
     case deleteAcctError
+    case appendError
 }
 
 @MainActor class Pastecard: ObservableObject {
