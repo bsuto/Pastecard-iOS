@@ -10,18 +10,18 @@ import AppIntents
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Get contents of Pastecard"
     static var description =
-    IntentDescription("Returns the contents of your Pastecard.")
+    IntentDescription("Returns the text on your Pastecard.")
     static var openAppWhenRun = false
     
-    func perform() async throws -> some IntentResult & ReturnsValue<String> {
+    private func loadText() async throws -> String {
         let defaults = UserDefaults(suiteName: "group.net.pastecard")!
         let user = defaults.string(forKey: "ID")
         
         if user == nil {
-            return .result(value: "Please sign in first.")
+            return "Please sign in first."
         }
         
-        var returnText = ""
+        var returnText: String = ""
         let randomInt = String(Int.random(in: 1...1000))
         let url = URL(string: "https://pastecard.net/api/db/" + user! + ".txt?" + randomInt)!
         
@@ -30,37 +30,33 @@ struct GetText: AppIntent {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             if let localText = defaults.string(forKey: "text") {
                 if !localText.isEmpty {
-                    return .result(value: localText)
+                    return localText
                 } else {
-                    returnText = localText
+                    return "Sorry, there was a problem loading your Pastecard."
                 }
             }
             throw NetworkError.loadError
         }
         
         if !remoteText.isEmpty { returnText = remoteText }
-        return .result(value: returnText)
+        return returnText
+    }
+    
+    func perform() async throws -> some ProvidesDialog & IntentResult {
+        let dialogMessage = try await loadText()
+        let dialog = IntentDialog(stringLiteral: dialogMessage)
+        return .result(value: dialogMessage, dialog: dialog)
     }
 }
 
 struct AppendText: AppIntent {
     static var title: LocalizedStringResource = "Add to Pastecard"
     static var description =
-    IntentDescription("Append the supplied text to the end of your Pastecard.")
+    IntentDescription("Append some text to the end of your Pastecard.")
     static var openAppWhenRun = false
     
     @Parameter(title: "Text")
     var text: String?
-    
-    func perform() async throws -> some ProvidesDialog {
-        guard let providedText = text else {
-            throw $text.needsValueError("What would you like to add to your Pastecard?")
-        }
-        
-        let dialogMessage = try await append(providedText)
-        let dialog = IntentDialog(stringLiteral: dialogMessage)
-        return .result(dialog: dialog)
-    }
     
     private func append(_ newText: String) async throws -> String {
         let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID")
@@ -84,5 +80,15 @@ struct AppendText: AppIntent {
             
             return "Saved!"
         }
+    }
+    
+    func perform() async throws -> some ProvidesDialog {
+        guard let providedText = text else {
+            throw $text.needsValueError("What would you like to add to your Pastecard?")
+        }
+        
+        let dialogMessage = try await append(providedText)
+        let dialog = IntentDialog(stringLiteral: dialogMessage)
+        return .result(dialog: dialog)
     }
 }
