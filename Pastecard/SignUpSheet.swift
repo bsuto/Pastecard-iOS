@@ -39,10 +39,10 @@ struct SignUpSheet: View {
                 .accessibilityLabel("Create account")
                 .disabled(invalidID)
             }
-            .padding()
+            .padding(12)
             .background(Color(UIColor.systemBackground))
             .cornerRadius(12)
-            .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             Text(errorMessage)
                 .foregroundColor(.red)
             Spacer()
