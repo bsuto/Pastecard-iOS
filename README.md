@@ -2,7 +2,8 @@
 
 * Home screen widgets that show your card text
 * Share extensions to append the current URL or selected text
-* All the warm feelings of a real native (SwiftUI!) app
+* Available and extensible through Siri and Shortcuts
+* All the warm feelings of a native SwiftUI app
 
 ## A few notes
 * iOS 16 or later required
