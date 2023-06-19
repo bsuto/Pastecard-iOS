@@ -18,7 +18,7 @@ struct SignUpSheet: View {
         VStack {
             Text("Create a Pastecard")
                 .padding(.top, 24)
-                .font(.headline)
+                .font(.title3)
             HStack(spacing:0) {
                 Text("pastecard.net/")
                 TextField("ID", text: $newUser)
@@ -40,6 +40,9 @@ struct SignUpSheet: View {
                 .disabled(invalidID)
             }
             .padding()
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(12)
+            .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
             Text(errorMessage)
                 .foregroundColor(.red)
             Spacer()
