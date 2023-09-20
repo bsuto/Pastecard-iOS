@@ -21,6 +21,7 @@ enum NetworkError: Error {
     @Published var uid = ""
     @Published var refreshCalled = false
     let defaults = UserDefaults(suiteName: "group.net.pastecard")!
+    let session = URLSession(configuration: .ephemeral)
     
     init() {
         if let savedUser = defaults.string(forKey: "ID") {
@@ -47,7 +48,7 @@ enum NetworkError: Error {
     
     func deleteAcct() async throws {
         let url = URL(string: "https://pastecard.net/api/ios-deleteacct.php?user=" + (self.uid.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        let (data, response) = try await URLSession.shared.data(from: url!)
+        let (data, response) = try await session.data(from: url!)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.deleteAcctError
         }
@@ -74,7 +75,7 @@ enum NetworkError: Error {
         let randomInt = String(Int.random(in: 1...1000))
         let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt?" + randomInt)!
         
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await session.data(from: url)
         let remoteText = String(decoding: data, as: UTF8.self)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.loadError
@@ -99,7 +100,7 @@ enum NetworkError: Error {
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
         request.timeoutInterval = 10.0
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.saveError
         }

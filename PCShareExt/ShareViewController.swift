@@ -80,12 +80,13 @@ class ShareViewController: UIViewController {
         else {
             let postData = ("user=" + uid! + "&text=" + sendText)
             let url = URL(string: "https://pastecard.net/api/ios-append.php")!
+            let session = URLSession(configuration: .ephemeral)
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = postData.data(using: String.Encoding.utf8)
             request.timeoutInterval = 5.0
             
-            let (_, response) = try await URLSession.shared.data(for: request)
+            let (_, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 throw NetworkError.appendError
             }
