@@ -24,10 +24,16 @@ struct SignInView: View {
         GeometryReader { geo in
             List {
                 HStack(alignment: .center) {
-                    Text("Pastecard")
-                        .font(Font.largeTitle.weight(.bold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, geo.safeAreaInsets.top + 44)
+                    if #available(iOS 17.0, *) {
+                        Text("Pastecard")
+                            .font(Font.largeTitle.weight(.bold))
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Text("Pastecard")
+                            .font(Font.largeTitle.weight(.bold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, geo.safeAreaInsets.top + 44)
+                    }
                 }
                 .listRowBackground(Color.primary.opacity(0))
                 .onTapGesture {
@@ -123,6 +129,7 @@ struct SignInView: View {
         }
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/#tos")!)
+                .ignoresSafeArea()
         }
     }
     
