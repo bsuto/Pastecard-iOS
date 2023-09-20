@@ -41,8 +41,8 @@ enum NetworkError: Error {
     func signOut() {
         self.isSignedIn = false
         self.uid = ""
-        defaults.set(nil, forKey: "ID")
-        defaults.set(nil, forKey: "text")
+        defaults.removeObject(forKey: "ID")
+        defaults.removeObject(forKey: "text")
         WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     

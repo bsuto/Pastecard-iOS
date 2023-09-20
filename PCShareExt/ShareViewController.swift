@@ -70,15 +70,9 @@ class ShareViewController: UIViewController {
     }
     
     private func append(_ text: String) async throws {
-        let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID")
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        
-        if uid == nil {
-            self.hideView()
-            return
-        }
-        else {
-            let postData = ("user=" + uid! + "&text=" + sendText)
+        if let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID") {
+            let postData = ("user=" + uid + "&text=" + sendText)
             let url = URL(string: "https://pastecard.net/api/ios-append.php")!
             let session = URLSession(configuration: .ephemeral)
             var request = URLRequest(url: url)
@@ -95,6 +89,9 @@ class ShareViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) {
                 self.hideView()
             }
+        } else {
+            self.hideView()
+            return
         }
     }
     
