@@ -65,7 +65,7 @@ struct PCWidgetEntryView : View {
                     .font(.body)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-            .background(Color(UIColor.systemBackground))
+            .widgetBackground(backgroundView: Color(UIColor.systemBackground))
         }
 }
 
@@ -78,6 +78,19 @@ struct PCWidget: Widget {
         }
         .configurationDisplayName("Pastecard")
         .description("Shows as much of your card as will fit.")
+        .contentMarginsDisabled()
+    }
+}
+
+extension View {
+    func widgetBackground(backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
     }
 }
 
