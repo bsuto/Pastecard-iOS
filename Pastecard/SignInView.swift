@@ -84,9 +84,9 @@ struct SignInView: View {
                 }
                 Section() {
                     Text(errorMessage)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.top, -8)
                         .foregroundColor(.red)
-                        .frame(maxWidth: .infinity, alignment: .center)
                         .listRowBackground(Color.primary.opacity(0))
                 }
                 Section(header: Text("Create a Pastecard")) {

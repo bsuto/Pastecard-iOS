@@ -36,14 +36,16 @@ struct SignUpSheet: View {
                 } label: {
                     Image(systemName: "arrow.right.circle")
                 }
-                .accessibilityLabel("Create account")
-                .disabled(invalidID)
+                    .accessibilityLabel("Create account")
+                    .disabled(invalidID)
             }
             .padding(12)
             .background(Color(UIColor.systemBackground))
             .cornerRadius(12)
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             Text(errorMessage)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
                 .foregroundColor(.red)
             Spacer()
         }
