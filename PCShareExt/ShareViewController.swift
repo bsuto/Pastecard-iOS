@@ -18,8 +18,12 @@ class ShareViewController: UIViewController {
         view.backgroundColor = .clear
         self.modalPresentationStyle = .fullScreen
         
-        showView()
-        shareText()
+        if (UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID") != nil) {
+            showView()
+            shareText()
+        } else {
+            extensionContext?.cancelRequest(withError: NSError())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,31 +75,23 @@ class ShareViewController: UIViewController {
     
     private func append(_ text: String) async throws {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        if let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID") {
-            let postData = ("user=" + uid + "&text=" + sendText)
-            let url = URL(string: "https://pastecard.net/api/ios-append.php")!
-            let session = URLSession(configuration: .ephemeral)
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.httpBody = postData.data(using: String.Encoding.utf8)
-            request.timeoutInterval = 5.0
-            
-            let (_, response) = try await session.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw NetworkError.appendError
-            }
-            
-            // pause a moment so the Saving message is readable
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) {
-                self.hideView()
-            }
-        } else {
-            self.hideView()
-            return
+        let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID")!
+        let postData = ("user=" + uid + "&text=" + sendText)
+        let url = URL(string: "https://pastecard.net/api/ios-append.php")!
+        let session = URLSession(configuration: .ephemeral)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = postData.data(using: String.Encoding.utf8)
+        request.timeoutInterval = 5.0
+        
+        let (_, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.appendError
         }
-    }
-    
-    private func hideView() {
-        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        
+        // pause a moment so the Saving message is readable
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) {
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        }
     }
 }
