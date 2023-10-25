@@ -117,12 +117,12 @@ struct SignInView: View {
             }
         }
         .onChange(of: scenePhase) { newValue in
-          switch newValue {
-          case .active:
-            performActionIfNeeded()
-          default:
-            break
-          }
+            switch newValue {
+            case .active:
+                performActionIfNeeded()
+            default:
+                break
+            }
         }
         .sheet(isPresented: $showSignUp) {
             SignUpSheet()
@@ -153,20 +153,20 @@ struct SignInView: View {
     }
     
     func performActionIfNeeded() {
-      guard let action = actionService.action else { return }
-
-      switch action {
-      case .swapIcon:
-          if UIApplication.shared.supportsAlternateIcons {
-              if UIApplication.shared.alternateIconName == "AltIcon" {
-                  UIApplication.shared.setAlternateIconName(nil)
-              } else {
-                  UIApplication.shared.setAlternateIconName("AltIcon")
-              }
-          }
-      }
-
-      actionService.action = nil
+        guard let action = actionService.action else { return }
+        
+        switch action {
+        case .swapIcon:
+            if UIApplication.shared.supportsAlternateIcons {
+                if UIApplication.shared.alternateIconName == "AltIcon" {
+                    UIApplication.shared.setAlternateIconName(nil)
+                } else {
+                    UIApplication.shared.setAlternateIconName("AltIcon")
+                }
+            }
+        }
+        
+        actionService.action = nil
     }
 }
 

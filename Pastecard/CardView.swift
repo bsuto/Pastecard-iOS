@@ -92,16 +92,17 @@ struct CardView: View {
         .task {
             if !isFocused { loadText() }
         }
+        .onChange(of: scenePhase) { newValue in
+            switch newValue {
+            case .active:
+                performActionIfNeeded()
+                if !isFocused { card.refreshCalled = true }
+            default:
+                break
+            }
+        }
         .onChange(of: card.refreshCalled) { _ in
             refreshText()
-        }
-        .onChange(of: scenePhase) { newValue in
-          switch newValue {
-          case .active:
-            performActionIfNeeded()
-          default:
-            break
-          }
         }
     }
     
@@ -146,20 +147,20 @@ struct CardView: View {
     }
     
     func performActionIfNeeded() {
-      guard let action = actionService.action else { return }
-
-      switch action {
-      case .swapIcon:
-          if UIApplication.shared.supportsAlternateIcons {
-              if UIApplication.shared.alternateIconName == "AltIcon" {
-                  UIApplication.shared.setAlternateIconName(nil)
-              } else {
-                  UIApplication.shared.setAlternateIconName("AltIcon")
-              }
-          }
-      }
-
-      actionService.action = nil
+        guard let action = actionService.action else { return }
+        
+        switch action {
+        case .swapIcon:
+            if UIApplication.shared.supportsAlternateIcons {
+                if UIApplication.shared.alternateIconName == "AltIcon" {
+                    UIApplication.shared.setAlternateIconName(nil)
+                } else {
+                    UIApplication.shared.setAlternateIconName("AltIcon")
+                }
+            }
+        }
+        
+        actionService.action = nil
     }
 }
 
