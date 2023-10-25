@@ -89,14 +89,12 @@ struct CardView: View {
                     })
             }
         }
-        .task {
-            if !isFocused { loadText() }
-        }
+        .task { loadText() }
         .onChange(of: scenePhase) { newValue in
             switch newValue {
             case .active:
                 performActionIfNeeded()
-                if !isFocused { card.refreshCalled = true }
+                card.refreshCalled = true
             default:
                 break
             }
@@ -107,6 +105,7 @@ struct CardView: View {
     }
     
     func loadText() {
+        if isFocused { return }
         Task {
             var loadedText: String
             do {
@@ -119,6 +118,7 @@ struct CardView: View {
     }
     
     func refreshText() {
+        if isFocused { return }
         if card.refreshCalled {
             card.refreshCalled = false
             locked = true
