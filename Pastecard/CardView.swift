@@ -89,7 +89,7 @@ struct CardView: View {
                     })
             }
         }
-        .task { loadText() }
+        .onAppear() { loadText() }
         .onChange(of: scenePhase) { newValue in
             switch newValue {
             case .active:
@@ -99,8 +99,8 @@ struct CardView: View {
                 break
             }
         }
-        .onChange(of: card.refreshCalled) { _ in
-            refreshText()
+        .onChange(of: card.refreshCalled) { newValue in
+            if newValue { refreshText() }
         }
     }
     
@@ -119,12 +119,10 @@ struct CardView: View {
     
     func refreshText() {
         if isFocused { return }
-        if card.refreshCalled {
-            card.refreshCalled = false
-            locked = true
-            text = "Loading…"
-            loadText()
-        }
+        card.refreshCalled = false
+        locked = true
+        text = "Loading…"
+        loadText()
     }
     
     func setText(_ returnText: String) {
