@@ -12,6 +12,7 @@
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
 		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
+		7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A5A5FED2B6371A800BD1150 /* Colors.xcassets */; };
 		7A7BC8D42A3D0B8200BAB585 /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27FED92A37F0050063CF02 /* AppIntents.swift */; };
 		7A7BC8D52A3D0B8200BAB585 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A142E582A38D10C00090E98 /* Shortcuts.swift */; };
 		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
@@ -79,6 +80,7 @@
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
+		7A5A5FED2B6371A800BD1150 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7AD1E1AD29EF2FC7003262F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				7AD1E1AD29EF2FC7003262F3 /* Info.plist */,
 				7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */,
 				7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */,
+				7A5A5FED2B6371A800BD1150 /* Colors.xcassets */,
 			);
 			path = PCShareExt;
 			sourceTree = "<group>";
@@ -277,7 +280,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					7AD1E1A529EF2FC6003262F3 = {
 						CreatedOnToolsVersion = 14.3;
@@ -315,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -583,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

@@ -11,8 +11,8 @@ struct SwiftUIView: View {
     var body: some View {
         VStack(spacing:0) {
             Rectangle()
-                .fill(Color(UIColor(red: 0.00, green: 0.25, blue: 0.50, alpha: 1.00))) // TrademarkBlue
-                .frame(maxWidth: .infinity, maxHeight:18)
+                .fill(Color("TrademarkBlue"))
+                .frame(maxWidth: .infinity, maxHeight: 18)
             Text("Saving…")
                 .font(.title2)
                 .padding(.top, 16)
