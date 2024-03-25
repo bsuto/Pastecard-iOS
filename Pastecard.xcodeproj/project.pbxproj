@@ -10,8 +10,19 @@
 		7A0401212BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */; };
 		7A0401222BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */; };
 		7A0401232BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */; };
+		7A0D665B2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66572BB1BEDF00DDF038 /* AltIcon@3x.png */; };
+		7A0D665C2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66572BB1BEDF00DDF038 /* AltIcon@3x.png */; };
+		7A0D665D2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66572BB1BEDF00DDF038 /* AltIcon@3x.png */; };
+		7A0D665E2BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66582BB1BEDF00DDF038 /* AltIcon@2x.png */; };
+		7A0D665F2BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66582BB1BEDF00DDF038 /* AltIcon@2x.png */; };
+		7A0D66602BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66582BB1BEDF00DDF038 /* AltIcon@2x.png */; };
+		7A0D66612BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66592BB1BEDF00DDF038 /* AppIcon@3x.png */; };
+		7A0D66622BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66592BB1BEDF00DDF038 /* AppIcon@3x.png */; };
+		7A0D66632BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D66592BB1BEDF00DDF038 /* AppIcon@3x.png */; };
+		7A0D66642BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D665A2BB1BEDF00DDF038 /* AppIcon@2x.png */; };
+		7A0D66652BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D665A2BB1BEDF00DDF038 /* AppIcon@2x.png */; };
+		7A0D66662BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0D665A2BB1BEDF00DDF038 /* AppIcon@2x.png */; };
 		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
-		7A3553E129F348C100B9879E /* AltIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3553E029F348C100B9879E /* AltIcon.png */; };
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
 		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
@@ -77,10 +88,13 @@
 
 /* Begin PBXFileReference section */
 		7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7A0D66572BB1BEDF00DDF038 /* AltIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltIcon@3x.png"; sourceTree = "<group>"; };
+		7A0D66582BB1BEDF00DDF038 /* AltIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltIcon@2x.png"; sourceTree = "<group>"; };
+		7A0D66592BB1BEDF00DDF038 /* AppIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@3x.png"; sourceTree = "<group>"; };
+		7A0D665A2BB1BEDF00DDF038 /* AppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@2x.png"; sourceTree = "<group>"; };
 		7A142E582A38D10C00090E98 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		7A27FED92A37F0050063CF02 /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
-		7A3553E029F348C100B9879E /* AltIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AltIcon.png; sourceTree = "<group>"; };
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
@@ -205,7 +219,10 @@
 				7A27FED92A37F0050063CF02 /* AppIntents.swift */,
 				7A142E582A38D10C00090E98 /* Shortcuts.swift */,
 				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
-				7A3553E029F348C100B9879E /* AltIcon.png */,
+				7A0D66582BB1BEDF00DDF038 /* AltIcon@2x.png */,
+				7A0D66572BB1BEDF00DDF038 /* AltIcon@3x.png */,
+				7A0D665A2BB1BEDF00DDF038 /* AppIcon@2x.png */,
+				7A0D66592BB1BEDF00DDF038 /* AppIcon@3x.png */,
 				7AFC09C5290AC47D009CAC71 /* Preview Content */,
 			);
 			path = Pastecard;
@@ -324,7 +341,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401232BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
+				7A0D66662BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */,
+				7A0D66602BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */,
+				7A0D66632BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */,
 				7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */,
+				7A0D665D2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +354,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401222BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
+				7A0D66652BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */,
+				7A0D665F2BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */,
+				7A0D66622BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */,
 				7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */,
+				7A0D665C2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,10 +366,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0D66642BB1BEDF00DDF038 /* AppIcon@2x.png in Resources */,
 				7AFC09C7290AC47D009CAC71 /* Preview Assets.xcassets in Resources */,
 				7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */,
+				7A0D66612BB1BEDF00DDF038 /* AppIcon@3x.png in Resources */,
+				7A0D665B2BB1BEDF00DDF038 /* AltIcon@3x.png in Resources */,
+				7A0D665E2BB1BEDF00DDF038 /* AltIcon@2x.png in Resources */,
 				7A0401212BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
-				7A3553E129F348C100B9879E /* AltIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +435,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
@@ -419,7 +447,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -437,7 +465,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
@@ -449,7 +477,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -470,7 +498,7 @@
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
@@ -482,7 +510,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -504,7 +532,7 @@
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
@@ -516,7 +544,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -658,7 +686,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
@@ -676,7 +704,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -698,7 +726,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
@@ -716,7 +744,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
