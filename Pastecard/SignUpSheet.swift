@@ -35,6 +35,7 @@ struct SignUpSheet: View {
                     Task { await signUp() }
                 } label: {
                     Image(systemName: "arrow.right.circle")
+                        .foregroundColor(invalidID ? Color(UIColor.placeholderText): Color(UIColor.link))
                 }
                     .accessibilityLabel("Create account")
                     .disabled(invalidID)

@@ -24,7 +24,7 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: -geo.safeAreaInsets.top) {
-                Color("TrademarkBlue")
+                Color("AccentColor")
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top + 44)
                     .ignoresSafeArea(edges: .top)
@@ -56,6 +56,7 @@ struct CardView: View {
                                 text = cancelText
                                 isFocused = false
                             }
+                            .foregroundColor(Color(UIColor.link))
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
@@ -71,6 +72,7 @@ struct CardView: View {
                                 text = "Saving…"
                                 isFocused = false
                             }
+                            .foregroundColor(Color(UIColor.link))
                         }
                     }
                     .sheet(isPresented: $showMenu) {

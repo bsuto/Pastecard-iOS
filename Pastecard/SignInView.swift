@@ -77,6 +77,7 @@ struct SignInView: View {
                             }
                         } label: {
                             Image(systemName: "arrow.right.circle")
+                                .foregroundColor(userId.isEmpty ? Color(UIColor.placeholderText): Color(UIColor.link))
                         }
                         .accessibilityLabel("Sign in with \(userId)")
                         .disabled(userId.isEmpty)
@@ -97,6 +98,7 @@ struct SignInView: View {
                     } label: {
                         Text("Sign Up")
                     }
+                    .foregroundColor(Color(UIColor.link))
                     Button {
                         idFocus = false
                         showSVC = true
@@ -110,7 +112,7 @@ struct SignInView: View {
             }
             .scrollDisabled(true)
             .safeAreaInset(edge: .top) {
-                Color("TrademarkBlue")
+                Color("AccentColor")
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top + 44)
                     .padding(.top, -geo.safeAreaInsets.top)
