@@ -17,7 +17,7 @@ struct SignUpSheet: View {
     var body: some View {
         VStack {
             Text("Create a Pastecard")
-                .padding(.top, 24)
+                .padding(.top, 48)
                 .font(.title3)
             HStack(spacing:0) {
                 Text("pastecard.net/")
@@ -53,7 +53,7 @@ struct SignUpSheet: View {
         .background(Color(UIColor.secondarySystemBackground))
         .frame(maxHeight: .infinity, alignment: .top)
         .edgesIgnoringSafeArea(.bottom)
-        .presentationDetents([.fraction(0.2)])
+        .presentationDetents([.fraction(0.33)])
         .onAppear{newFocus = true}
     }
     

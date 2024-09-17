@@ -31,7 +31,7 @@ struct SwipeMenu: View {
     
     var body: some View {
         List {
-            Section(header: Text("Pastecard").padding(.top, 18)) {
+            Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
                     self.dismiss()
                     card.refreshCalled = true
@@ -66,7 +66,7 @@ struct SwipeMenu: View {
             }
         }
         .scrollDisabled(true)
-        .presentationDetents([.medium])
+        .presentationDetents([.medium, .fraction(0.67), .fraction(0.9)])
         .sheet(isPresented: $showSVC) {
             SafariViewController(url: URL(string: "https://pastecard.net/help/")!)
                 .ignoresSafeArea()
