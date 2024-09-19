@@ -60,6 +60,7 @@ struct PCWidgetEntryView : View {
                 Rectangle()
                     .fill(Color("AccentColor"))
                     .frame(height:18)
+                    .widgetAccentable()
                 Text(entry.text)
                     .padding(12)
                     .font(.body)
