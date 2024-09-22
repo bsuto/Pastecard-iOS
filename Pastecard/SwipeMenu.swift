@@ -68,7 +68,7 @@ struct SwipeMenu: View {
         .scrollDisabled(true)
         .presentationDetents([.medium, .fraction(0.67), .fraction(0.9)])
         .sheet(isPresented: $showSVC) {
-            SafariViewController(url: URL(string: "https://pastecard.net/help/")!)
+            SafariViewController(url: URL(string: "https://pastecard.net/help/#app")!)
                 .ignoresSafeArea()
         }
         .alert("Are you sure?", isPresented: $showDeleteAlert, actions: {

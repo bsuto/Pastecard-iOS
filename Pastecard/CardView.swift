@@ -20,6 +20,8 @@ struct CardView: View {
     @State private var showMenu = false
     @State private var showFailAlert = false
     @FocusState private var isFocused: Bool
+    @State private var showEmptyState = false
+    @State private var animateTip = false
     
     var body: some View {
         GeometryReader { geo in
@@ -42,6 +44,10 @@ struct CardView: View {
                             cancelText = text
                             let impact = UIImpactFeedbackGenerator(style: .light)
                             impact.impactOccurred()
+                            showEmptyState = false
+                        }
+                        if !isFocused && text == "" {
+                            showEmptyState = true
                         }
                     }
                     .onReceive(Just(text)) { _ in enforceLimit() }
@@ -89,6 +95,19 @@ struct CardView: View {
                     }, message: {
                         Text("There was a problem saving to the cloud.")
                     })
+                Image("SwipeUp")
+                    .resizable()
+                    .frame(width: 48.0, height: 48.0)
+                    .padding(.bottom)
+                    .foregroundColor(Color(UIColor.placeholderText))
+                    .opacity(showEmptyState ? 1 : 0)
+                    .offset(y: animateTip ? -80 : 0)
+                    .onTapGesture {
+                        if #available(iOS 17.0, *) {
+                            withAnimation(.easeInOut(duration: 0.5)) { animateTip = true } completion: { withAnimation { animateTip = false }
+                            }
+                        }
+                    }
             }
         }
         .onAppear() { loadText() }
@@ -130,6 +149,8 @@ struct CardView: View {
     func setText(_ returnText: String) {
         locked = false
         text = returnText
+        if returnText == "" { showEmptyState = true }
+        else { showEmptyState = false }
     }
     
     func saveFailure() {
