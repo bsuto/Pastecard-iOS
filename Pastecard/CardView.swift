@@ -17,7 +17,8 @@ struct CardView: View {
     @State private var editingText = ""
     @State private var isEditing = false
     @State private var showMenu = false
-    @State private var showFailAlert = false
+    @State private var showSaveAlert = false
+    @State private var showLoadAlert = false
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
@@ -32,6 +33,8 @@ struct CardView: View {
             switch card.loadingState {
             case .loading:
                 return "Loading…"
+            case .saving:
+                return "Saving…"
             case .idle, .loaded, .error:
                 return card.currentText
             }
@@ -51,7 +54,6 @@ struct CardView: View {
                     .frame(alignment: .topLeading)
                     .padding()
                     .focused($isFocused)
-                    .disabled(!isEditing)
                     .scrollDisabled(!isFocused)
                     .onChange(of: isFocused) { _, newValue in
                         handleFocusChange(newValue)
@@ -83,7 +85,7 @@ struct CardView: View {
                     .sheet(isPresented: $showMenu) {
                         SwipeMenu(shareText: card.currentText)
                     }
-                    .alert("Error", isPresented: $showFailAlert, actions: {
+                    .alert("Error", isPresented: $showSaveAlert, actions: {
                         Button("Cancel", role: .cancel) {
                             cancelEditing()
                         }
@@ -92,6 +94,22 @@ struct CardView: View {
                         }
                     }, message: {
                         Text("There was a problem saving to the cloud.")
+                    })
+                    .alert("Error", isPresented: $showLoadAlert, actions: {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Try Again") {
+                            Task {
+                                do {
+                                    try await card.refresh()
+                                } catch {
+                                    showLoadAlert = true
+                                    throw NetworkError.loadError
+                                }
+                            }
+                            updateEmptyState()
+                        }
+                    }, message: {
+                        Text("There was a problem loading from the cloud.")
                     })
                 
                 Image("SwipeUp")
@@ -117,16 +135,27 @@ struct CardView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
             Task {
-                await card.refresh()
+                do {
+                    try await card.refresh()
+                } catch {
+                    showLoadAlert = true
+                    throw NetworkError.loadError
+                }
             }
+            updateEmptyState()
         }
     }
     
-    // MARK: - Private Methods
-    
     private func loadTextIfOld() async {
-        if Date().timeIntervalSince(card.lastRefreshTime) > 30 { // 5 minutes
-            await card.refresh()
+        if Date().timeIntervalSince(card.lastRefreshTime) > 30 { // 30 seconds
+            Task {
+                do {
+                    try await card.refresh()
+                } catch {
+                    showLoadAlert = true
+                    throw NetworkError.loadError
+                }
+            }
         }
         updateEmptyState()
     }
@@ -173,7 +202,7 @@ struct CardView: View {
                 // Re-enter editing mode with the text they were trying to save
                 isEditing = true
                 editingText = textToSave
-                showFailAlert = true
+                showSaveAlert = true
             }
         }
     }
@@ -237,7 +266,6 @@ struct CardView: View {
     }
 }
 
-// MARK: - Notification Extensions
 extension Notification.Name {
     static let refreshRequested = Notification.Name("refreshRequested")
 }

@@ -107,7 +107,11 @@ struct SwipeMenu: View {
         isRefreshing = true
         
         Task {
-            await card.refresh()
+            do {
+                try await card.refresh()
+            } catch {
+                throw NetworkError.signInError
+            }
             await MainActor.run {
                 isRefreshing = false
                 dismiss()

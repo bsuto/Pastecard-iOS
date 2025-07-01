@@ -148,7 +148,13 @@ struct SignInView: View {
         }
         let responseString = String(data: data, encoding: .utf8)
         if responseString == "success" {
-            Task { await card.signIn(nameCheck) }
+            Task {
+                do {
+                    try await card.signIn(nameCheck)
+                } catch {
+                    throw NetworkError.signInError
+                }
+            }
         } else {
             errorMessage = "Sorry, the computer can’t find that ID."
         }

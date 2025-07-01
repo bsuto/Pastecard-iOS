@@ -19,6 +19,7 @@ enum NetworkError: Error {
 enum LoadingState {
     case idle
     case loading
+    case saving
     case loaded
     case error(Error)
 }
@@ -43,11 +44,16 @@ enum LoadingState {
         }
     }
     
-    func signIn(_ user: String) async {
+    func signIn(_ user: String) async throws {
         self.isSignedIn = true
         self.uid = user
         defaults.set(user, forKey: "ID")
-        await refresh()
+        
+        do {
+            try await refresh()
+        } catch {
+            throw NetworkError.signInError
+        }
     }
     
     func signOut() {
@@ -60,7 +66,7 @@ enum LoadingState {
         WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     
-    func refresh() async {
+    func refresh() async throws {
         guard isSignedIn else { return }
         
         loadingState = .loading
@@ -72,6 +78,7 @@ enum LoadingState {
         } catch {
             currentText = loadLocal()
             loadingState = .error(error)
+            throw NetworkError.loadError
         }
     }
     
@@ -118,7 +125,7 @@ enum LoadingState {
     func save(_ text: String) async throws {
         guard isSignedIn else { return }
         
-        loadingState = .loading
+        loadingState = .saving
         do {
             let savedText = try await saveRemote(text)
             currentText = savedText

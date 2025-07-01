@@ -67,7 +67,7 @@ struct SignUpSheet: View {
             let (data, _) = try await URLSession.shared.data(from: url)
             let responseString = String(data: data, encoding: .utf8)
             if responseString == "success" {
-                await card.signIn(name)
+                try await card.signIn(name)
             } else if responseString == "taken" {
                 errorMessage = "Sorry, that ID is not available."
             } else {
