@@ -58,12 +58,12 @@ struct SignInView: View {
                                     }
                                 }
                             }
-                            .onChange(of: userId) { _ in
+                            .onChange(of: userId) { _, newValue in
                                 if userId == "" {
                                     errorMessage = ""
                                 }
                             }
-                            .onChange(of: idFocus) { _ in
+                            .onChange(of: idFocus) { _, newValue in
                                 if idFocus { impact.impactOccurred() }
                             }
                         Spacer()
@@ -118,10 +118,10 @@ struct SignInView: View {
                     .padding(.top, -geo.safeAreaInsets.top)
             }
         }
-        .onChange(of: scenePhase) { newValue in
+        .onChange(of: scenePhase) { _, newValue in
             switch newValue {
             case .active:
-                performActionIfNeeded()
+                performActionIfCalled()
             default:
                 break
             }
@@ -154,7 +154,7 @@ struct SignInView: View {
         }
     }
     
-    func performActionIfNeeded() {
+    func performActionIfCalled() {
         guard let action = actionService.action else { return }
         
         switch action {

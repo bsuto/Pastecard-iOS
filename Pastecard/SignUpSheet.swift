@@ -25,7 +25,7 @@ struct SignUpSheet: View {
                     .background(Color(UIColor.systemBackground))
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
-                    .onChange(of: newUser) { newValue in
+                    .onChange(of: newUser) { _, newValue in
                         validate()
                     }
                     .onSubmit { Task { await signUp() } }

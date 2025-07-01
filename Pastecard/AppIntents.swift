@@ -9,8 +9,7 @@ import AppIntents
 
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Pastecard text"
-    static var description =
-    IntentDescription("Returns the text on your Pastecard.")
+    static var description = IntentDescription("Returns the text on your Pastecard.")
     static var openAppWhenRun = false
     
     private func loadText() async throws -> String {

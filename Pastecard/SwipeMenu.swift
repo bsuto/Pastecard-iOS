@@ -24,20 +24,35 @@ struct menuCell: View {
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     @Environment(\.dismiss) var dismiss
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var showSVC = false
     @State private var showDeleteAlert = false
+    @State private var isRefreshing = false
     var shareText: String
     
     var body: some View {
         List {
             Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
-                    self.dismiss()
-                    card.refreshCalled = true
+                    refreshCard()
                 } label: {
-                    menuCell(symbol: "arrow.clockwise", label: "Refresh")
+                    HStack {
+                        if isRefreshing {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                                .frame(width: 20)
+                        } else {
+                            Image(systemName: "arrow.clockwise")
+                                .font(Font.body.weight(.semibold))
+                                .frame(width: 20)
+                        }
+                        Text("Refresh")
+                    }
+                    .foregroundColor(isRefreshing ? .secondary : .primary)
                 }
+                .disabled(isRefreshing)
+
                 ShareLink (
                     item: shareText
                 ) {
@@ -50,6 +65,7 @@ struct SwipeMenu: View {
                 }
             }
             .headerProminence(.increased)
+            
             Section(header: Text("pastecard.net/\(card.uid)")) {
                 Button {
                     self.dismiss()
@@ -83,6 +99,20 @@ struct SwipeMenu: View {
         }, message: {
             Text("Do you really want to delete your account? This cannot be undone.")
         })
+    }
+    
+    private func refreshCard() {
+        guard networkMonitor.isConnected else { return }
+        
+        isRefreshing = true
+        
+        Task {
+            await card.refresh()
+            await MainActor.run {
+                isRefreshing = false
+                dismiss()
+            }
+        }
     }
 }
 

@@ -16,10 +16,20 @@ enum NetworkError: Error {
     case appendError
 }
 
+enum LoadingState {
+    case idle
+    case loading
+    case loaded
+    case error(Error)
+}
+
 @MainActor class Pastecard: ObservableObject {
     @Published var isSignedIn: Bool
     @Published var uid = ""
-    @Published var refreshCalled = false
+    @Published var currentText = ""
+    @Published var loadingState: LoadingState = .idle
+    @Published var lastRefreshTime = Date()
+    
     let defaults = UserDefaults(suiteName: "group.net.pastecard")!
     let session = URLSession(configuration: .ephemeral)
     
@@ -27,6 +37,7 @@ enum NetworkError: Error {
         if let savedUser = defaults.string(forKey: "ID") {
             self.isSignedIn = true
             self.uid = savedUser
+            self.currentText = loadLocal()
         } else {
             self.isSignedIn = false
         }
@@ -36,14 +47,32 @@ enum NetworkError: Error {
         self.isSignedIn = true
         self.uid = user
         defaults.set(user, forKey: "ID")
+        await refresh()
     }
     
     func signOut() {
         self.isSignedIn = false
         self.uid = ""
+        self.currentText = ""
+        self.loadingState = .idle
         defaults.removeObject(forKey: "ID")
         defaults.removeObject(forKey: "text")
         WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
+    }
+    
+    func refresh() async {
+        guard isSignedIn else { return }
+        
+        loadingState = .loading
+        do {
+            let text = try await loadRemote()
+            currentText = text
+            loadingState = .loaded
+            lastRefreshTime = Date()
+        } catch {
+            currentText = loadLocal()
+            loadingState = .error(error)
+        }
     }
     
     func deleteAcct() async throws {
@@ -60,7 +89,7 @@ enum NetworkError: Error {
         }
     }
     
-    func loadLocal() -> String {
+    private func loadLocal() -> String {
         var returnText = ""
         if let localText = defaults.string(forKey: "text") {
             if !localText.isEmpty {
@@ -70,7 +99,7 @@ enum NetworkError: Error {
         return returnText
     }
 
-    func loadRemote() async throws -> String {
+    private func loadRemote() async throws -> String {
         var returnText = ""
         let randomInt = String(Int.random(in: 1...1000))
         let url = URL(string: "https://pastecard.net/api/db/" + self.uid + ".txt?" + randomInt)!
@@ -86,12 +115,26 @@ enum NetworkError: Error {
         return returnText
     }
     
-    func saveLocal(_ text: String) {
+    func save(_ text: String) async throws {
+        guard isSignedIn else { return }
+        
+        loadingState = .loading
+        do {
+            let savedText = try await saveRemote(text)
+            currentText = savedText
+            loadingState = .loaded
+        } catch {
+            loadingState = .error(error)
+            throw error
+        }
+    }
+    
+    private func saveLocal(_ text: String) {
         defaults.set(text, forKey: "text")
         WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     
-    func saveRemote(_ text: String) async throws -> String {
+    private func saveRemote(_ text: String) async throws -> String {
         let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let postData = ("user=" + self.uid + "&text=" + sendText)
         let url = URL(string: "https://pastecard.net/api/ios-write.php")!
@@ -99,7 +142,7 @@ enum NetworkError: Error {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 10.0
+        request.timeoutInterval = 5.0
         let (data, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.saveError
