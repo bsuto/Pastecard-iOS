@@ -23,6 +23,7 @@ struct CardView: View {
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
+    @State private var lastRefreshed = Date()
     
     // Debounced loading to prevent excessive refreshes
     @State private var loadTask: Task<Void, Never>?
@@ -148,7 +149,7 @@ struct CardView: View {
     }
     
     private func loadTextIfOld() async {
-        if Date().timeIntervalSince(card.lastRefreshTime) > 30 { // 30 seconds
+        if Date().timeIntervalSince(lastRefreshed) > 30 { // 30 seconds
             Task {
                 do {
                     try await card.refresh()
@@ -158,6 +159,7 @@ struct CardView: View {
                 }
             }
         }
+        lastRefreshed = Date()
         updateEmptyState()
     }
     
@@ -222,7 +224,9 @@ struct CardView: View {
     private func handleScenePhaseChange(_ newPhase: ScenePhase) {
         switch newPhase {
         case .active:
+            // Handle Swap Icon call
             performActionIfCalled()
+           
             // Debounced refresh when coming back to foreground
             loadTask?.cancel()
             loadTask = Task {

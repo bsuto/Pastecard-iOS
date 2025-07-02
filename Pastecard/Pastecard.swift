@@ -13,7 +13,6 @@ import PastecardCore
     @Published var uid = ""
     @Published var currentText = ""
     @Published var loadingState: LoadingState = .idle
-    @Published var lastRefreshTime = Date()
     
     private let core = PastecardCore.shared
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
@@ -56,7 +55,6 @@ import PastecardCore
             let text = try await core.loadRemote()
             currentText = text
             loadingState = .loaded
-            lastRefreshTime = Date()
         } catch {
             currentText = core.loadLocal()
             loadingState = .error(error)
