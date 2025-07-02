@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PastecardCore
 
 struct menuCell: View {
     let symbol: String
@@ -92,7 +93,7 @@ struct SwipeMenu: View {
             Button("Delete", role: .destructive) {
                 self.dismiss()
                 Task {
-                    do { try await card.deleteAcct() }
+                    do { try await card.delete() }
                     catch { }
                 }
             }

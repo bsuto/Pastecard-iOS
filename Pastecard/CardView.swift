@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import PastecardCore
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard

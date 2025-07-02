@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import PastecardCore
 
 struct SignInView: View {
     @EnvironmentObject var card: Pastecard
@@ -24,16 +25,9 @@ struct SignInView: View {
         GeometryReader { geo in
             List {
                 HStack(alignment: .center) {
-                    if #available(iOS 17.0, *) {
-                        Text("Pastecard")
-                            .font(Font.largeTitle.weight(.bold))
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        Text("Pastecard")
-                            .font(Font.largeTitle.weight(.bold))
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, geo.safeAreaInsets.top + 44)
-                    }
+                    Text("Pastecard")
+                    .font(Font.largeTitle.weight(.bold))
+                    .frame(maxWidth: .infinity)
                 }
                 .listRowBackground(Color.primary.opacity(0))
                 .onTapGesture {
