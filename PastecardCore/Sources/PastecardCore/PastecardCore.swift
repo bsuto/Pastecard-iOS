@@ -8,7 +8,7 @@
 import Foundation
 import WidgetKit
 
-public enum NetworkError: Error {
+public enum NetworkError: Error, Sendable {
     case timeout
     case loadError
     case saveError
@@ -17,7 +17,7 @@ public enum NetworkError: Error {
     case appendError
 }
 
-public enum LoadingState: Equatable {
+public enum LoadingState: Equatable, Sendable {
     case idle
     case loading
     case saving
@@ -36,9 +36,8 @@ public enum LoadingState: Equatable {
     }
 }
 
-@MainActor
 @available(iOS 17.0, *)
-public class PastecardCore {
+public final class PastecardCore: @unchecked Sendable {
     public static let shared = PastecardCore()
     
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
@@ -73,7 +72,10 @@ public class PastecardCore {
         let randomInt = String(Int.random(in: 1...1000))
         let url = URL(string: "https://pastecard.net/api/db/" + uid + ".txt?" + randomInt)!
         
-        let (data, response) = try await session.data(from: url)
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 10.0
+        
+        let (data, response) = try await session.data(for: request)
         let remoteText = String(decoding: data, as: UTF8.self)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.loadError
@@ -101,7 +103,7 @@ public class PastecardCore {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 5.0
+        request.timeoutInterval = 15.0
         
         let (data, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -125,7 +127,7 @@ public class PastecardCore {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 5.0
+        request.timeoutInterval = 15.0
         
         let (_, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -139,7 +141,9 @@ public class PastecardCore {
         }
         
         let url = URL(string: "https://pastecard.net/api/ios-deleteacct.php?user=" + (uid.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        let (data, response) = try await session.data(from: url!)
+        var request = URLRequest(url: url!)
+        
+        let (data, response) = try await session.data(for: request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.deleteAcctError
         }

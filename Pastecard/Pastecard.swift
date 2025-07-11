@@ -73,7 +73,7 @@ import PastecardCore
             loadingState = .loaded
         } catch {
             loadingState = .error(error)
-            throw error
+            throw NetworkError.saveError
         }
     }
     
