@@ -7,41 +7,34 @@
 
 import WidgetKit
 import SwiftUI
+import PastecardCore
 
-struct Provider: TimelineProvider {
-    let defaults = UserDefaults(suiteName: "group.net.pastecard")!
-
+@MainActor
+struct Provider: @preconcurrency TimelineProvider {
+    private let core = PastecardCore.shared
+    
     func loadFromLocal() -> String {
-        let user = defaults.string(forKey: "ID")
-        var text = ""
-        
-        if user == nil {
-            text = "⚠️\n\nPlease sign in first."
-            return text
+        if !core.isSignedIn {
+            return "⚠️\n\nPlease sign in first."
         }
         
-        if let localText = defaults.string(forKey: "text") {
-            if !localText.isEmpty {
-                text = localText
-            }
-        }
-        return text
+        return core.loadLocal()
     }
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), text: "Loading…")
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let entry = SimpleEntry(date: Date(), text: loadFromLocal())
         completion(entry)
     }
-
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
         let entry = SimpleEntry(date: Date(), text: loadFromLocal())
         entries.append(entry)
-
+        
         let timeline = Timeline(entries: entries, policy: .never)
         completion(timeline)
     }
@@ -54,25 +47,25 @@ struct SimpleEntry: TimelineEntry {
 
 struct PCWidgetEntryView : View {
     var entry: Provider.Entry
-
+    
     var body: some View {
-            VStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color("AccentColor"))
-                    .frame(height:18)
-                    .widgetAccentable()
-                Text(entry.text)
-                    .padding(12)
-                    .font(.body)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            }
-            .widgetBackground(backgroundView: Color(UIColor.systemBackground))
+        VStack(spacing: 0) {
+            Rectangle()
+                .fill(Color("AccentColor"))
+                .frame(height:18)
+                .widgetAccentable()
+            Text(entry.text)
+                .padding(12)
+                .font(.body)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+        .widgetBackground(backgroundView: Color(UIColor.systemBackground))
+    }
 }
 
 struct PCWidget: Widget {
     let kind: String = "PCWidget"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             PCWidgetEntryView(entry: entry)
@@ -85,19 +78,16 @@ struct PCWidget: Widget {
 
 extension View {
     func widgetBackground(backgroundView: some View) -> some View {
-        if #available(iOSApplicationExtension 17.0, *) {
-            return containerBackground(for: .widget) {
-                backgroundView
-            }
-        } else {
-            return background(backgroundView)
+        return containerBackground(for: .widget) {
+            backgroundView
         }
+        
     }
 }
 
 struct PCWidget_Previews: PreviewProvider {
     static var previews: some View {
-        PCWidgetEntryView(entry: SimpleEntry(date: Date(), text: "Loading…"))
+        PCWidgetEntryView(entry: SimpleEntry(date: Date(), text: "Eggs, milk, bread"))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

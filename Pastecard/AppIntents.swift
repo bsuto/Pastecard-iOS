@@ -6,6 +6,7 @@
 //
 
 import AppIntents
+import PastecardCore
 
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Pastecard text"
@@ -13,28 +14,20 @@ struct GetText: AppIntent {
     IntentDescription("Returns the text on your Pastecard.")
     static var openAppWhenRun = false
     
+    private let core = PastecardCore.shared
+    
     private func loadText() async throws -> String {
-        let defaults = UserDefaults(suiteName: "group.net.pastecard")!
-        let user = defaults.string(forKey: "ID")
-        var returnText = ""
-        
-        if user == nil {
+        if !core.isSignedIn {
             return "Please sign in first."
         }
-        else if let localText = defaults.string(forKey: "text") {
-            if !localText.isEmpty {
-                returnText = localText
-            } else {
-                let randomInt = String(Int.random(in: 1...1000))
-                let url = URL(string: "https://pastecard.net/api/db/" + user! + ".txt?" + randomInt)!
-                let (data, response) = try await URLSession.shared.data(from: url)
-                let remoteText = String(decoding: data, as: UTF8.self)
-                guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw NetworkError.loadError }
-                if !remoteText.isEmpty { returnText = remoteText }
-            }
-        }
         
-        return returnText
+        let localText = core.loadLocal()
+        if !localText.isEmpty {
+            return localText
+        } else {
+            // If local is empty, try to load from remote
+            return try await core.loadRemote()
+        }
     }
     
     func perform() async throws -> some ReturnsValue<String> & ProvidesDialog {
@@ -54,30 +47,17 @@ struct AppendText: AppIntent {
     var text: String?
     static var parameterSummary: some ParameterSummary {
         Summary("Add \(\.$text) to your Pastecard")
-      }
+    }
+    
+    private let core = PastecardCore.shared
     
     private func append(_ newText: String) async throws -> String {
-        let user = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID")
-        let sendText = newText.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        
-        if user == nil {
+        if !core.isSignedIn {
             return "Please sign in first."
         }
-        else {
-            let postData = ("user=" + user! + "&text=" + sendText)
-            let url = URL(string: "https://pastecard.net/api/ios-append.php")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.httpBody = postData.data(using: String.Encoding.utf8)
-            request.timeoutInterval = 5.0
-            
-            let (_, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw NetworkError.appendError
-            }
-            
-            return "Saved!"
-        }
+        
+        try await core.append(newText)
+        return "Saved!"
     }
     
     func perform() async throws -> some ProvidesDialog {

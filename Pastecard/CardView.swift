@@ -7,21 +7,38 @@
 
 import Combine
 import SwiftUI
+import PastecardCore
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
     @EnvironmentObject var actionService: ActionService
     @Environment(\.scenePhase) var scenePhase
+    @StateObject private var networkMonitor = NetworkMonitor()
     
-    @State private var text = "Loading…"
-    @State private var locked = true
-    @State private var savedText = ""
-    @State private var cancelText = ""
+    @State private var editingText = ""
+    @State private var isEditing = false
     @State private var showMenu = false
-    @State private var showFailAlert = false
+    @State private var showSaveAlert = false
+    @State private var showLoadAlert = false
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
+    @State private var loadTask: Task<Void, Never>?
+    
+    var displayText: String {
+        if isEditing {
+            return editingText
+        } else {
+            switch card.loadingState {
+            case .loading:
+                return "Loading…"
+            case .saving:
+                return "Saving…"
+            case .idle, .loaded, .error:
+                return card.currentText
+            }
+        }
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -30,71 +47,70 @@ struct CardView: View {
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top + 44)
                     .ignoresSafeArea(edges: .top)
-                TextEditor(text: $text)
+                
+                TextEditor(text: isEditing ? $editingText : .constant(displayText))
                     .font(Font.body)
                     .frame(alignment: .topLeading)
                     .padding()
                     .focused($isFocused)
                     .scrollDisabled(!isFocused)
-                    .onChange(of: isFocused) { _ in
-                        if locked {
-                            isFocused = false
-                        }
-                        if !locked && isFocused {
-                            cancelText = text
-                            let impact = UIImpactFeedbackGenerator(style: .light)
-                            impact.impactOccurred()
-                            showEmptyState = false
-                        }
-                        if !isFocused && text == "" {
-                            showEmptyState = true
-                        }
+                    .onChange(of: isFocused) { _, newValue in
+                        handleFocusChange(newValue)
                     }
-                    .onReceive(Just(text)) { _ in enforceLimit() }
-                    .gesture(DragGesture(minimumDistance: 44, coordinateSpace: .local).onEnded({ value in
-                        if value.translation.height < 0 {
-                            showMenu = true
+                    .onReceive(Just(editingText)) { _ in
+                        if isEditing { enforceLimit() }
+                    }
+                    .gesture(DragGesture(minimumDistance: 44, coordinateSpace: .local)
+                        .onEnded { value in
+                            if value.translation.height < 0 {
+                                showMenu = true
+                            }
                         }
-                    }))
+                    )
                     .toolbar {
                         ToolbarItem(placement: .keyboard) {
                             Button("Cancel") {
-                                text = cancelText
-                                isFocused = false
+                                cancelEditing()
                             }
                             .foregroundColor(Color(UIColor.link))
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
-                                savedText = text
-                                Task {
-                                    do {
-                                        try await setText(card.saveRemote(savedText))
-                                    } catch {
-                                        saveFailure()
-                                    }
-                                }
-                                locked = true
-                                text = "Saving…"
-                                isFocused = false
+                                saveText()
                             }
                             .foregroundColor(Color(UIColor.link))
                         }
                     }
                     .sheet(isPresented: $showMenu) {
-                        SwipeMenu(shareText: text)
+                        SwipeMenu(shareText: card.currentText)
                     }
-                    .alert("Error", isPresented: $showFailAlert, actions: {
+                    .alert("Error", isPresented: $showSaveAlert, actions: {
                         Button("Cancel", role: .cancel) {
-                            text = cancelText
+                            cancelEditing()
                         }
                         Button("Try Again") {
-                            text = savedText
-                            isFocused = true
+                            saveText()
                         }
                     }, message: {
                         Text("There was a problem saving to the cloud.")
                     })
+                    .alert("Error", isPresented: $showLoadAlert, actions: {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Try Again") {
+                            Task {
+                                do {
+                                    try await card.refresh()
+                                } catch {
+                                    showLoadAlert = true
+                                    throw NetworkError.loadError
+                                }
+                            }
+                            updateEmptyState()
+                        }
+                    }, message: {
+                        Text("There was a problem loading from the cloud.")
+                    })
+                
                 Image("SwipeUp")
                     .resizable()
                     .frame(width: 48.0, height: 48.0)
@@ -103,71 +119,128 @@ struct CardView: View {
                     .opacity(showEmptyState ? 1 : 0)
                     .offset(y: animateTip ? -80 : 0)
                     .onTapGesture {
-                        if #available(iOS 17.0, *) {
-                            withAnimation(.easeInOut(duration: 0.5)) { animateTip = true } completion: { withAnimation { animateTip = false }
-                            }
-                        }
+                        animateSwipeUpTip()
                     }
             }
         }
-        .onAppear() { loadText() }
-        .onChange(of: scenePhase) { newValue in
-            switch newValue {
-            case .active:
-                performActionIfNeeded()
-                card.refreshCalled = true
-            default:
-                break
+        .task {
+            if Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
+                refresh()
             }
         }
-        .onChange(of: card.refreshCalled) { newValue in
-            if newValue { refreshText() }
+        .onChange(of: scenePhase) { _, newPhase in
+            handleScenePhaseChange(newPhase)
+        }
+        .onChange(of: card.currentText) { _, _ in
+            updateEmptyState()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
+            refresh()
         }
     }
     
-    func loadText() {
-        if isFocused { return }
+    private func refresh() {
         Task {
-            var loadedText: String
             do {
-                loadedText = try await card.loadRemote()
+                try await card.refresh()
             } catch {
-                loadedText = card.loadLocal()
+                showLoadAlert = true
+                throw NetworkError.loadError
             }
-            setText(loadedText)
+        }
+        card.lastRefreshed = Date()
+    }
+    
+    private func handleFocusChange(_ focused: Bool) {
+        if focused && !isEditing {
+            startEditing()
+        } else if !focused && isEditing {
+            // User tapped away without saving - this is just canceling
+            cancelEditing()
         }
     }
     
-    func refreshText() {
-        if isFocused { return }
-        card.refreshCalled = false
-        locked = true
-        text = "Loading…"
-        loadText()
+    private func startEditing() {
+        isEditing = true
+        editingText = card.currentText
+        isFocused = true
+        showEmptyState = false
+        
+        let impact = UIImpactFeedbackGenerator(style: .light)
+        impact.impactOccurred()
     }
     
-    func setText(_ returnText: String) {
-        locked = false
-        text = returnText
-        if returnText == "" { showEmptyState = true }
-        else { showEmptyState = false }
+    private func cancelEditing() {
+        isEditing = false
+        editingText = ""
+        isFocused = false
+        updateEmptyState()
     }
     
-    func saveFailure() {
-        locked = false
-        showFailAlert = true
+    private func saveText() {
+        guard isEditing else { return }
+        guard networkMonitor.isConnected else { return }
+        
+        let textToSave = editingText
+        isEditing = false
+        isFocused = false
+        
+        Task {
+            do {
+                try await card.save(textToSave)
+            } catch {
+                // Re-enter editing mode with the text they were trying to save
+                isEditing = true
+                editingText = textToSave
+                showSaveAlert = true
+            }
+        }
     }
     
-    func enforceLimit() {
+    private func updateEmptyState() {
+        showEmptyState = !isEditing && card.currentText.isEmpty
+    }
+    
+    private func enforceLimit() {
         let charLimit = 1034
-        if isFocused && text.count > charLimit {
-            Task { @MainActor in
-                text = String(text.prefix(charLimit))
+        if editingText.count > charLimit {
+            editingText = String(editingText.prefix(charLimit))
+        }
+    }
+    
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            // Handle Swap Icon call
+            performActionIfCalled()
+            
+            // Debounced refresh task when coming back to foreground
+            loadTask?.cancel()
+            loadTask = Task {
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                if !Task.isCancelled && Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
+                    refresh()
+                }
+            }
+        case .background:
+            // Cancel any pending loads when going to background
+            loadTask?.cancel()
+        default:
+            break
+        }
+    }
+    
+    private func animateSwipeUpTip() {
+        withAnimation(.easeInOut(duration: 0.5)) {
+            animateTip = true
+        } completion: {
+            withAnimation {
+                animateTip = false
             }
         }
     }
     
-    func performActionIfNeeded() {
+    private func performActionIfCalled() {
         guard let action = actionService.action else { return }
         
         switch action {
@@ -183,6 +256,10 @@ struct CardView: View {
         
         actionService.action = nil
     }
+}
+
+extension Notification.Name {
+    static let refreshRequested = Notification.Name("refreshRequested")
 }
 
 struct CardView_Previews: PreviewProvider {

@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-
-enum NetworkError: Error {
-    case appendError
-}
+import PastecardCore
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
+    private let core = PastecardCore.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
         self.modalPresentationStyle = .fullScreen
         
-        if (UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID") != nil) {
+        if core.isSignedIn {
             showView()
             shareText()
         } else {
@@ -40,7 +39,7 @@ class ShareViewController: UIViewController {
                 attachment.loadItem(forTypeIdentifier: textType, options: nil, completionHandler: { (data, error) in
                     if let sharedText = data as! String? {
                         Task {
-                            do { try await self.append(sharedText) }
+                            do { try await self.core.append(sharedText) }
                             catch { return }
                         }
                     }
@@ -49,7 +48,7 @@ class ShareViewController: UIViewController {
                 attachment.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { (data, error) in
                     if let sharedURL = data as! URL? {
                         Task {
-                            do { try await self.append(sharedURL.absoluteString) }
+                            do { try await self.core.append(sharedURL.absoluteString) }
                             catch { return }
                         }
                     }
@@ -71,23 +70,6 @@ class ShareViewController: UIViewController {
             controller.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-    
-    private func append(_ text: String) async throws {
-        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        let uid = UserDefaults(suiteName: "group.net.pastecard")!.string(forKey: "ID")!
-        let postData = ("user=" + uid + "&text=" + sendText)
-        let url = URL(string: "https://pastecard.net/api/ios-append.php")!
-        let session = URLSession(configuration: .ephemeral)
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 5.0
-        
-        let (_, response) = try await session.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw NetworkError.appendError
-        }
         
         // pause a moment so the Saving message is readable
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) {

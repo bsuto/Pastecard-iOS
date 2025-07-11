@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PastecardCore
 
 struct menuCell: View {
     let symbol: String
@@ -24,6 +25,7 @@ struct menuCell: View {
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     @Environment(\.dismiss) var dismiss
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var showSVC = false
     @State private var showDeleteAlert = false
@@ -33,11 +35,17 @@ struct SwipeMenu: View {
         List {
             Section(header: Text("Pastecard").padding(.top, 24)) {
                 Button {
-                    self.dismiss()
-                    card.refreshCalled = true
+                    refreshCard()
                 } label: {
-                    menuCell(symbol: "arrow.clockwise", label: "Refresh")
+                    HStack {
+                        Image(systemName: "arrow.clockwise")
+                            .font(Font.body.weight(.semibold))
+                            .frame(width: 20)
+                        Text("Refresh")
+                    }
+                    .foregroundColor(.primary)
                 }
+                
                 ShareLink (
                     item: shareText
                 ) {
@@ -50,13 +58,14 @@ struct SwipeMenu: View {
                 }
             }
             .headerProminence(.increased)
+            
             Section(header: Text("pastecard.net/\(card.uid)")) {
                 Button {
                     self.dismiss()
                     card.signOut()
                 } label: {
                     menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out")
-
+                    
                 }
                 Button {
                     showDeleteAlert = true
@@ -76,13 +85,28 @@ struct SwipeMenu: View {
             Button("Delete", role: .destructive) {
                 self.dismiss()
                 Task {
-                    do { try await card.deleteAcct() }
+                    do { try await card.delete() }
                     catch { }
                 }
             }
         }, message: {
             Text("Do you really want to delete your account? This cannot be undone.")
         })
+    }
+    
+    private func refreshCard() {
+        guard networkMonitor.isConnected else { return }
+        
+        Task {
+            do {
+                try await card.refresh()
+            } catch {
+                throw NetworkError.signInError
+            }
+            await MainActor.run {
+                dismiss()
+            }
+        }
     }
 }
 

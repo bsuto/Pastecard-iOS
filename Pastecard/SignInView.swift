@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import PastecardCore
 
 struct SignInView: View {
     @EnvironmentObject var card: Pastecard
@@ -24,16 +25,9 @@ struct SignInView: View {
         GeometryReader { geo in
             List {
                 HStack(alignment: .center) {
-                    if #available(iOS 17.0, *) {
-                        Text("Pastecard")
-                            .font(Font.largeTitle.weight(.bold))
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        Text("Pastecard")
-                            .font(Font.largeTitle.weight(.bold))
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, geo.safeAreaInsets.top + 44)
-                    }
+                    Text("Pastecard")
+                    .font(Font.largeTitle.weight(.bold))
+                    .frame(maxWidth: .infinity)
                 }
                 .listRowBackground(Color.primary.opacity(0))
                 .onTapGesture {
@@ -58,12 +52,12 @@ struct SignInView: View {
                                     }
                                 }
                             }
-                            .onChange(of: userId) { _ in
+                            .onChange(of: userId) { _, newValue in
                                 if userId == "" {
                                     errorMessage = ""
                                 }
                             }
-                            .onChange(of: idFocus) { _ in
+                            .onChange(of: idFocus) { _, newValue in
                                 if idFocus { impact.impactOccurred() }
                             }
                         Spacer()
@@ -118,10 +112,10 @@ struct SignInView: View {
                     .padding(.top, -geo.safeAreaInsets.top)
             }
         }
-        .onChange(of: scenePhase) { newValue in
+        .onChange(of: scenePhase) { _, newValue in
             switch newValue {
             case .active:
-                performActionIfNeeded()
+                performActionIfCalled()
             default:
                 break
             }
@@ -142,19 +136,28 @@ struct SignInView: View {
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
         let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
         
-        let (data, response) = try await URLSession.shared.data(from: url!)
+        var request = URLRequest(url: url!)
+        request.timeoutInterval = 10.0
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.signInError
         }
         let responseString = String(data: data, encoding: .utf8)
         if responseString == "success" {
-            Task { await card.signIn(nameCheck) }
+            Task {
+                do {
+                    try await card.signIn(nameCheck)
+                } catch {
+                    throw NetworkError.signInError
+                }
+            }
         } else {
             errorMessage = "Sorry, the computer can’t find that ID."
         }
     }
     
-    func performActionIfNeeded() {
+    func performActionIfCalled() {
         guard let action = actionService.action else { return }
         
         switch action {

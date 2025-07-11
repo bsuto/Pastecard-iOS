@@ -25,7 +25,7 @@ struct SignUpSheet: View {
                     .background(Color(UIColor.systemBackground))
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
-                    .onChange(of: newUser) { newValue in
+                    .onChange(of: newUser) { _, newValue in
                         validate()
                     }
                     .onSubmit { Task { await signUp() } }
@@ -61,13 +61,16 @@ struct SignUpSheet: View {
         if invalidID { return }
         
         let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
-        let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)!
+        let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+        
+        var request = URLRequest(url: url!)
+        request.timeoutInterval = 10.0
         
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await URLSession.shared.data(for: request)
             let responseString = String(data: data, encoding: .utf8)
             if responseString == "success" {
-                await card.signIn(name)
+                try await card.signIn(name)
             } else if responseString == "taken" {
                 errorMessage = "Sorry, that ID is not available."
             } else {

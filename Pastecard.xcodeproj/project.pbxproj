@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,10 +13,14 @@
 		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
+		7A46838A2E14445D00514B82 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4683892E14445600514B82 /* NetworkMonitor.swift */; };
+		7A46838C2E14549100514B82 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A46838B2E14549100514B82 /* Shortcuts.swift */; };
 		7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A536FE4299D1266002A8E85 /* SignUpSheet.swift */; };
 		7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A5A5FED2B6371A800BD1150 /* Colors.xcassets */; };
 		7A7BC8D42A3D0B8200BAB585 /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27FED92A37F0050063CF02 /* AppIntents.swift */; };
-		7A7BC8D52A3D0B8200BAB585 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A142E582A38D10C00090E98 /* Shortcuts.swift */; };
+		7AA9B5F22E156C440002B7B3 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA9B5F12E156C440002B7B3 /* PastecardCore */; };
+		7AA9B5F42E156C4D0002B7B3 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA9B5F32E156C4D0002B7B3 /* PastecardCore */; };
+		7AA9B5F62E156C520002B7B3 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA9B5F52E156C520002B7B3 /* PastecardCore */; };
 		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
 		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AD1E1BC29EF3EFD003262F3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIView.swift */; };
@@ -76,11 +80,12 @@
 
 /* Begin PBXFileReference section */
 		7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		7A142E582A38D10C00090E98 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		7A27FED92A37F0050063CF02 /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		7A4683892E14445600514B82 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		7A46838B2E14549100514B82 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
 		7A5A5FED2B6371A800BD1150 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +97,6 @@
 		7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pastecard.entitlements; sourceTree = "<group>"; };
 		7AEC326229E9F136000B30EA /* PCWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AEC326429E9F136000B30EA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		7AEC326629E9F136000B30EA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		7AEC326929E9F136000B30EA /* PCWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCWidgetBundle.swift; sourceTree = "<group>"; };
 		7AEC326B29E9F136000B30EA /* PCWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCWidget.swift; sourceTree = "<group>"; };
 		7AEC326D29E9F137000B30EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA9B5F62E156C520002B7B3 /* PastecardCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA9B5F42E156C4D0002B7B3 /* PastecardCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA9B5F22E156C440002B7B3 /* PastecardCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +153,6 @@
 		7AEC326329E9F136000B30EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7AEC326429E9F136000B30EA /* WidgetKit.framework */,
-				7AEC326629E9F136000B30EA /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,13 +199,14 @@
 				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
 				7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */,
 				7ADD85832999451F00A7292C /* Pastecard.swift */,
+				7A4683892E14445600514B82 /* NetworkMonitor.swift */,
 				7AFC09C1290AC47C009CAC71 /* CardView.swift */,
 				7A417C65296B14C6002E8B4D /* SwipeMenu.swift */,
 				7A417C67296B1CC4002E8B4D /* SignInView.swift */,
 				7A536FE4299D1266002A8E85 /* SignUpSheet.swift */,
 				7A152D06296DC84C00EF049D /* SafariViewController.swift */,
+				7A46838B2E14549100514B82 /* Shortcuts.swift */,
 				7A27FED92A37F0050063CF02 /* AppIntents.swift */,
-				7A142E582A38D10C00090E98 /* Shortcuts.swift */,
 				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
 				7AFC09C5290AC47D009CAC71 /* Preview Content */,
 			);
@@ -282,7 +287,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					7AD1E1A529EF2FC6003262F3 = {
 						CreatedOnToolsVersion = 14.3;
@@ -304,6 +309,9 @@
 				Base,
 			);
 			mainGroup = 7AFC09B3290AC47C009CAC71;
+			packageReferences = (
+				7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */,
+			);
 			productRefGroup = 7AFC09BD290AC47C009CAC71 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -369,7 +377,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A46838A2E14445D00514B82 /* NetworkMonitor.swift in Sources */,
 				7AE7F75C2A0164EF007194F5 /* AppDelegate.swift in Sources */,
+				7A46838C2E14549100514B82 /* Shortcuts.swift in Sources */,
 				7AFC09C2290AC47C009CAC71 /* CardView.swift in Sources */,
 				7AFC09C0290AC47C009CAC71 /* PastecardApp.swift in Sources */,
 				7A536FE5299D1266002A8E85 /* SignUpSheet.swift in Sources */,
@@ -378,7 +388,6 @@
 				7A7BC8D42A3D0B8200BAB585 /* AppIntents.swift in Sources */,
 				7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */,
 				7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */,
-				7A7BC8D52A3D0B8200BAB585 /* Shortcuts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,19 +412,18 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				CURRENT_PROJECT_VERSION = 15;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -434,19 +442,18 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				CURRENT_PROJECT_VERSION = 15;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -468,19 +475,18 @@
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				CURRENT_PROJECT_VERSION = 15;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -503,19 +509,18 @@
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				CURRENT_PROJECT_VERSION = 15;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -565,6 +570,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -582,7 +588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -627,6 +633,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -638,7 +645,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -657,9 +664,8 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
@@ -671,11 +677,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -697,9 +704,8 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
-				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pastecard/Info.plist;
@@ -711,11 +717,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -768,6 +775,31 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = PastecardCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7AA9B5F12E156C440002B7B3 /* PastecardCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */;
+			productName = PastecardCore;
+		};
+		7AA9B5F32E156C4D0002B7B3 /* PastecardCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */;
+			productName = PastecardCore;
+		};
+		7AA9B5F52E156C520002B7B3 /* PastecardCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */;
+			productName = PastecardCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AFC09B4290AC47C009CAC71 /* Project object */;
 }
