@@ -9,7 +9,8 @@ import WidgetKit
 import SwiftUI
 import PastecardCore
 
-struct Provider: TimelineProvider {
+@MainActor
+struct Provider: @preconcurrency TimelineProvider {
     private let core = PastecardCore.shared
     
     func loadFromLocal() -> String {
@@ -86,7 +87,7 @@ extension View {
 
 struct PCWidget_Previews: PreviewProvider {
     static var previews: some View {
-        PCWidgetEntryView(entry: SimpleEntry(date: Date(), text: "Loading…"))
+        PCWidgetEntryView(entry: SimpleEntry(date: Date(), text: "Eggs, milk, bread"))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

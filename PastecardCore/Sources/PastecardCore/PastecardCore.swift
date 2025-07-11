@@ -36,9 +36,10 @@ public enum LoadingState: Equatable {
     }
 }
 
+@MainActor
 @available(iOS 17.0, *)
 public class PastecardCore {
-    @MainActor public static let shared = PastecardCore()
+    public static let shared = PastecardCore()
     
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
     private let session = URLSession(configuration: .ephemeral)

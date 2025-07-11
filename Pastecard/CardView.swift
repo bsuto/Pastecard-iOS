@@ -23,9 +23,6 @@ struct CardView: View {
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
-    @State private var lastRefreshed = Date()
-    
-    // Debounced loading to prevent excessive refreshes
     @State private var loadTask: Task<Void, Never>?
     
     var displayText: String {
@@ -126,8 +123,10 @@ struct CardView: View {
                     }
             }
         }
-        .task { // Initial load when view appears
-            await loadTextIfOld()
+        .task {
+            if Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
+                refresh()
+            }
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
@@ -136,31 +135,20 @@ struct CardView: View {
             updateEmptyState()
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
-            Task {
-                do {
-                    try await card.refresh()
-                } catch {
-                    showLoadAlert = true
-                    throw NetworkError.loadError
-                }
-            }
-            updateEmptyState()
+            refresh()
         }
     }
     
-    private func loadTextIfOld() async {
-        if Date().timeIntervalSince(lastRefreshed) > 30 { // 30 seconds
-            Task {
-                do {
-                    try await card.refresh()
-                } catch {
-                    showLoadAlert = true
-                    throw NetworkError.loadError
-                }
+    private func refresh() {
+        Task {
+            do {
+                try await card.refresh()
+            } catch {
+                showLoadAlert = true
+                throw NetworkError.loadError
             }
         }
-        lastRefreshed = Date()
-        updateEmptyState()
+        card.lastRefreshed = Date()
     }
     
     private func handleFocusChange(_ focused: Bool) {
@@ -200,7 +188,6 @@ struct CardView: View {
         Task {
             do {
                 try await card.save(textToSave)
-                updateEmptyState()
             } catch {
                 // Re-enter editing mode with the text they were trying to save
                 isEditing = true
@@ -226,13 +213,13 @@ struct CardView: View {
         case .active:
             // Handle Swap Icon call
             performActionIfCalled()
-           
-            // Debounced refresh when coming back to foreground
+            
+            // Debounced refresh task when coming back to foreground
             loadTask?.cancel()
             loadTask = Task {
                 try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                if !Task.isCancelled {
-                    await loadTextIfOld()
+                if !Task.isCancelled && Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
+                    refresh()
                 }
             }
         case .background:

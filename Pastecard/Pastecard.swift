@@ -13,6 +13,7 @@ import PastecardCore
     @Published var uid = ""
     @Published var currentText = ""
     @Published var loadingState: LoadingState = .idle
+    @Published var lastRefreshed = Date.distantPast
     
     private let core = PastecardCore.shared
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!

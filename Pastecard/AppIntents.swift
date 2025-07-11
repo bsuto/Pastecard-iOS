@@ -17,11 +17,11 @@ struct GetText: AppIntent {
     private let core = PastecardCore.shared
     
     private func loadText() async throws -> String {
-        if !core.isSignedIn {
+        if await !core.isSignedIn {
             return "Please sign in first."
         }
         
-        let localText = core.loadLocal()
+        let localText = await core.loadLocal()
         if !localText.isEmpty {
             return localText
         } else {
@@ -52,7 +52,7 @@ struct AppendText: AppIntent {
     private let core = PastecardCore.shared
     
     private func append(_ newText: String) async throws -> String {
-        if !core.isSignedIn {
+        if await !core.isSignedIn {
             return "Please sign in first."
         }
         
