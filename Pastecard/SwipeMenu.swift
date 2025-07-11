@@ -29,7 +29,6 @@ struct SwipeMenu: View {
     
     @State private var showSVC = false
     @State private var showDeleteAlert = false
-    @State private var isRefreshing = false
     var shareText: String
     
     var body: some View {
@@ -39,21 +38,14 @@ struct SwipeMenu: View {
                     refreshCard()
                 } label: {
                     HStack {
-                        if isRefreshing {
-                            ProgressView()
-                                .scaleEffect(0.8)
-                                .frame(width: 20)
-                        } else {
-                            Image(systemName: "arrow.clockwise")
-                                .font(Font.body.weight(.semibold))
-                                .frame(width: 20)
-                        }
+                        Image(systemName: "arrow.clockwise")
+                            .font(Font.body.weight(.semibold))
+                            .frame(width: 20)
                         Text("Refresh")
                     }
-                    .foregroundColor(isRefreshing ? .secondary : .primary)
+                    .foregroundColor(.primary)
                 }
-                .disabled(isRefreshing)
-
+                
                 ShareLink (
                     item: shareText
                 ) {
@@ -73,7 +65,7 @@ struct SwipeMenu: View {
                     card.signOut()
                 } label: {
                     menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out")
-
+                    
                 }
                 Button {
                     showDeleteAlert = true
@@ -105,8 +97,6 @@ struct SwipeMenu: View {
     private func refreshCard() {
         guard networkMonitor.isConnected else { return }
         
-        isRefreshing = true
-        
         Task {
             do {
                 try await card.refresh()
@@ -114,7 +104,6 @@ struct SwipeMenu: View {
                 throw NetworkError.signInError
             }
             await MainActor.run {
-                isRefreshing = false
                 dismiss()
             }
         }
