@@ -134,9 +134,9 @@ struct SignInView: View {
         idFocus = false
         
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
-        let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)!
+        let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url!)
         request.timeoutInterval = 10.0
         
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -153,7 +153,7 @@ struct SignInView: View {
                 }
             }
         } else {
-            errorMessage = "Sorry, the computer can't find that ID."
+            errorMessage = "Sorry, the computer can’t find that ID."
         }
     }
     
