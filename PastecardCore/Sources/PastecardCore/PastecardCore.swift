@@ -36,6 +36,13 @@ public enum LoadingState: Equatable, Sendable {
     }
 }
 
+struct PCJSON: Decodable {
+    let username: String
+    let cardText: String
+    let lastUpdate: String
+    let message: String?
+}
+
 @available(iOS 17.0, *)
 public final class PastecardCore: @unchecked Sendable {
     public static let shared = PastecardCore()
@@ -69,19 +76,20 @@ public final class PastecardCore: @unchecked Sendable {
         }
         
         var returnText = ""
-        let randomInt = String(Int.random(in: 1...1000))
-        let url = URL(string: "https://pastecard.net/api/db/" + uid + ".txt?" + randomInt)!
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid)!
         
         var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 10.0
         
         let (data, response) = try await session.data(for: request)
-        let remoteText = String(decoding: data, as: UTF8.self)
+        let remoteText = try! JSONDecoder().decode(PCJSON.self, from: data)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.loadError
         }
         
-        if !remoteText.isEmpty { returnText = remoteText }
+        if !remoteText.cardText.isEmpty { returnText = remoteText.cardText }
         saveLocal(returnText)
         return returnText
     }
@@ -96,13 +104,14 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let postData = ("user=" + uid + "&text=" + sendText)
-        let url = URL(string: "https://pastecard.net/api/ios-write.php")!
+        let parameters: [String: String] = ["text": text ]
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/write")!
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = postData.data(using: String.Encoding.utf8)
+        request.httpMethod = "PUT"
+        request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 15.0
         
         let (data, response) = try await session.data(for: request)
@@ -110,9 +119,9 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.saveError
         }
         
-        let returnText = String(decoding: data, as: UTF8.self).removingPercentEncoding
-        saveLocal(returnText!)
-        return returnText!
+        let returnText = try! JSONDecoder().decode(PCJSON.self, from: data)
+        saveLocal(returnText.cardText)
+        return returnText.cardText
     }
     
     public func append(_ text: String) async throws {
@@ -120,14 +129,14 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let sendText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
-        let postData = ("user=" + uid + "&text=" + sendText)
-        let url = URL(string: "https://pastecard.net/api/ios-append.php")!
+        let parameters: [String: String] = ["text": text ]
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/append")!
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = postData.data(using: String.Encoding.utf8)
-        request.timeoutInterval = 15.0
+        request.httpMethod = "PUT"
+        request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let (_, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
