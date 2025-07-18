@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PastecardCore
 
 struct SignUpSheet: View {
     @EnvironmentObject var card: Pastecard
@@ -28,11 +29,11 @@ struct SignUpSheet: View {
                     .onChange(of: newUser) { _, newValue in
                         validate()
                     }
-                    .onSubmit { Task { await signUp() } }
+                    .onSubmit { Task { try await signUp() } }
                     .focused($newFocus)
                 Spacer()
                 Button {
-                    Task { await signUp() }
+                    Task { try await signUp() }
                 } label: {
                     Image(systemName: "arrow.right.circle")
                         .foregroundColor(invalidID ? Color(UIColor.placeholderText): Color(UIColor.link))
@@ -57,27 +58,33 @@ struct SignUpSheet: View {
         .onAppear{newFocus = true}
     }
     
-    func signUp() async {
+    func signUp() async throws {
         if invalidID { return }
         
         let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
-        let url = URL(string: "https://pastecard.net/api/ios-signup.php?user=" + (name.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+        let initialText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it and save your changes to the cloud.\n\nAccess your card from anywhere at pastecard.net/" + name
+        let parameters: [String: String] = ["cardText": initialText, "createdFrom": "ios" ]
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + name)!
         
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 10.0
         
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let responseString = String(data: data, encoding: .utf8)
-            if responseString == "success" {
+        let (_, response) = try await URLSession(configuration: .ephemeral).data(for: request)
+        if let httpResponse = response as? HTTPURLResponse {
+            let statusCode = httpResponse.statusCode
+            if statusCode == 201 {
                 try await card.signIn(name)
-            } else if responseString == "taken" {
+            } else if statusCode == 409 || statusCode == 403 {
                 errorMessage = "Sorry, that ID is not available."
+                throw NetworkError.signInError
             } else {
                 errorMessage = "Oops, something didn’t work. Please try again."
+                throw NetworkError.signInError
             }
-        } catch {
-            errorMessage = "Oops, something didn’t work. Please try again."
         }
     }
     

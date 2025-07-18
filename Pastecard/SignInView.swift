@@ -134,26 +134,30 @@ struct SignInView: View {
         idFocus = false
         
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
-        let url = URL(string: "https://pastecard.net/api/ios-signin.php?user=" + (nameCheck.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + nameCheck)!
         
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 10.0
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw NetworkError.signInError
-        }
-        let responseString = String(data: data, encoding: .utf8)
-        if responseString == "success" {
-            Task {
-                do {
-                    try await card.signIn(nameCheck)
-                } catch {
-                    throw NetworkError.signInError
+        let (_, response) = try await URLSession(configuration: .ephemeral).data(for: request)
+        if let httpResponse = response as? HTTPURLResponse {
+            let statusCode = httpResponse.statusCode
+            if statusCode == 200 {
+                Task {
+                    do {
+                        try await card.signIn(nameCheck)
+                    } catch {
+                        throw NetworkError.signInError
+                    }
                 }
+            } else if statusCode == 404 {
+                errorMessage = "Sorry, the computer can’t find that ID."
+            } else {
+                errorMessage = "Oops, something didn’t work. Please try again."
             }
-        } else {
-            errorMessage = "Sorry, the computer can’t find that ID."
         }
     }
     
