@@ -76,7 +76,7 @@ public final class PastecardCore: @unchecked Sendable {
         }
         
         var returnText = ""
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid)!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -106,7 +106,7 @@ public final class PastecardCore: @unchecked Sendable {
         }
         
         let parameters: [String: String] = ["text": text ]
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/write")!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/write")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
@@ -131,7 +131,7 @@ public final class PastecardCore: @unchecked Sendable {
         }
         
         let parameters: [String: String] = ["text": text ]
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/append")!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/append")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
@@ -150,7 +150,7 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/trash")!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/trash")!
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"

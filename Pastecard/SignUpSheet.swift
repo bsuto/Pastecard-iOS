@@ -64,7 +64,7 @@ struct SignUpSheet: View {
         let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
         let initialText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it and save your changes to the cloud.\n\nAccess your card from anywhere at pastecard.net/" + name
         let parameters: [String: String] = ["cardText": initialText, "createdFrom": "ios" ]
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + name)!
+        let url = URL(string: "https://pastecard.net/api/users/" + name)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

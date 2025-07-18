@@ -134,7 +134,7 @@ struct SignInView: View {
         idFocus = false
         
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
-        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + nameCheck)!
+        let url = URL(string: "https://pastecard.net/api/users/" + nameCheck)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
