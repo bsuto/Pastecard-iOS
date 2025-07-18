@@ -36,7 +36,7 @@ public enum LoadingState: Equatable, Sendable {
     }
 }
 
-struct PCJSON: Decodable {
+public struct PCJSON: Decodable {
     let username: String
     let cardText: String
     let lastUpdate: String
@@ -79,6 +79,7 @@ public final class PastecardCore: @unchecked Sendable {
         let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid)!
         
         var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 10.0
@@ -149,17 +150,14 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let url = URL(string: "https://pastecard.net/api/ios-deleteacct.php?user=" + (uid.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed))!)
-        var request = URLRequest(url: url!)
+        let url = URL(string: "https://pastecard.bsuto.workers.dev/api/users/" + uid + "/trash")!
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
         
-        let (data, response) = try await session.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw NetworkError.deleteAcctError
-        }
-        
-        let responseString = String(decoding: data, as: UTF8.self)
-        if responseString != "success" {
-            throw NetworkError.deleteAcctError
+        let (_, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NetworkError.appendError
         }
     }
 }
