@@ -106,7 +106,7 @@ struct SignInView: View {
             }
             .scrollDisabled(true)
             .safeAreaInset(edge: .top) {
-                Color("AccentColor")
+                Color("TrademarkBlue")
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top + 44)
                     .padding(.top, -geo.safeAreaInsets.top)
@@ -138,8 +138,6 @@ struct SignInView: View {
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.timeoutInterval = 10.0
         
         let (_, response) = try await URLSession(configuration: .ephemeral).data(for: request)

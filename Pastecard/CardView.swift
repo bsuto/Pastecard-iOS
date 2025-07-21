@@ -43,7 +43,7 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: -geo.safeAreaInsets.top) {
-                Color("AccentColor")
+                Color("TrademarkBlue")
                     .frame(width: geo.size.width,
                            height: geo.safeAreaInsets.top + 44)
                     .ignoresSafeArea(edges: .top)
@@ -72,13 +72,13 @@ struct CardView: View {
                             Button("Cancel") {
                                 cancelEditing()
                             }
-                            .foregroundColor(Color(UIColor.link))
+                            .foregroundColor(Color("AccentColor"))
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
                                 saveText()
                             }
-                            .foregroundColor(Color(UIColor.link))
+                            .foregroundColor(Color("AccentColor"))
                         }
                     }
                     .sheet(isPresented: $showMenu) {

@@ -95,6 +95,7 @@ struct SwipeMenu: View {
     }
     
     private func refreshCard() {
+        dismiss()
         guard networkMonitor.isConnected else { return }
         
         Task {
@@ -102,9 +103,6 @@ struct SwipeMenu: View {
                 try await card.refresh()
             } catch {
                 throw NetworkError.signInError
-            }
-            await MainActor.run {
-                dismiss()
             }
         }
     }
