@@ -127,6 +127,7 @@ struct CardView: View {
             if Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
                 refresh()
             }
+            updateEmptyState()
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
@@ -223,7 +224,7 @@ struct CardView: View {
                 }
             }
         case .background:
-            // Cancel any pending loads when going to background
+            // Cancel pending load tasks when going to background
             loadTask?.cancel()
         default:
             break
