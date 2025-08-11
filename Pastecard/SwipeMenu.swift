@@ -43,8 +43,9 @@ struct SwipeMenu: View {
                             .frame(width: 20)
                         Text("Refresh")
                     }
-                    .foregroundColor(.primary)
+                    .foregroundColor(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
                 }
+                .disabled(!networkMonitor.isConnected)
                 
                 ShareLink (
                     item: shareText
@@ -96,8 +97,6 @@ struct SwipeMenu: View {
     
     private func refreshCard() {
         dismiss()
-        guard networkMonitor.isConnected else { return }
-        
         Task {
             do {
                 try await card.refresh()

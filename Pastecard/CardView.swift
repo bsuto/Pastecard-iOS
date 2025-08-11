@@ -5,7 +5,6 @@
 //  Created by Brian Sutorius on 1/1/23.
 //
 
-import Combine
 import SwiftUI
 import PastecardCore
 
@@ -23,6 +22,7 @@ struct CardView: View {
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
+    @State private var lastBackgroundTime: Date?
     @State private var loadTask: Task<Void, Never>?
     
     var displayText: String {
@@ -57,7 +57,7 @@ struct CardView: View {
                     .onChange(of: isFocused) { _, newValue in
                         handleFocusChange(newValue)
                     }
-                    .onReceive(Just(editingText)) { _ in
+                    .onChange(of: editingText) { _, _ in
                         if isEditing { enforceLimit() }
                     }
                     .gesture(DragGesture(minimumDistance: 44, coordinateSpace: .local)
@@ -78,7 +78,8 @@ struct CardView: View {
                             Button("Save") {
                                 saveText()
                             }
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
+                            .disabled(!networkMonitor.isConnected)
                         }
                     }
                     .sheet(isPresented: $showMenu) {
@@ -124,10 +125,9 @@ struct CardView: View {
             }
         }
         .task {
-            if Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
+            if Date().timeIntervalSince(card.lastRefreshed) > 60 { // 60 seconds
                 refresh()
             }
-            updateEmptyState()
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
@@ -144,19 +144,22 @@ struct CardView: View {
         Task {
             do {
                 try await card.refresh()
+                await MainActor.run {
+                    updateEmptyState()
+                    card.lastRefreshed = Date()
+                }
             } catch {
                 showLoadAlert = true
                 throw NetworkError.loadError
             }
         }
-        card.lastRefreshed = Date()
     }
     
     private func handleFocusChange(_ focused: Bool) {
         if focused && !isEditing {
             startEditing()
         } else if !focused && isEditing {
-            // User tapped away without saving - this is just canceling
+            // User tapped away without saving, i.e. cancel
             cancelEditing()
         }
     }
@@ -180,7 +183,6 @@ struct CardView: View {
     
     private func saveText() {
         guard isEditing else { return }
-        guard networkMonitor.isConnected else { return }
         
         let textToSave = editingText
         isEditing = false
@@ -212,20 +214,35 @@ struct CardView: View {
     private func handleScenePhaseChange(_ newPhase: ScenePhase) {
         switch newPhase {
         case .active:
-            // Handle Swap Icon call
-            performActionIfCalled()
+            performActionIfCalled() // Handle Swap Icon call
+            
+            let shouldRefresh: Bool
+            if let backgroundTime = lastBackgroundTime {
+                shouldRefresh = Date().timeIntervalSince(backgroundTime) > 5 // 5 seconds minimum
+            } else {
+                shouldRefresh = Date().timeIntervalSince(card.lastRefreshed) > 60 // 60 seconds
+            }
             
             // Debounced refresh task when coming back to foreground
-            loadTask?.cancel()
-            loadTask = Task {
-                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                if !Task.isCancelled && Date().timeIntervalSince(card.lastRefreshed) > 30 { // 30 seconds
-                    refresh()
+            if shouldRefresh {
+                loadTask?.cancel()
+                loadTask = Task {
+                    try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                    if !Task.isCancelled {
+                        refresh()
+                    }
+                    await MainActor.run {
+                        updateEmptyState()
+                    }
                 }
             }
+            lastBackgroundTime = nil
         case .background:
             // Cancel pending load tasks when going to background
+            lastBackgroundTime = Date()
             loadTask?.cancel()
+        case .inactive:
+            break // Don't treat inactive as background time
         default:
             break
         }
