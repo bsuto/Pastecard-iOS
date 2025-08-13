@@ -23,6 +23,7 @@ struct CardView: View {
     @State private var showEmptyState = false
     @State private var animateTip = false
     @State private var lastBackgroundTime: Date?
+    @State private var hasPerformedInitialLoad = false
     @State private var loadTask: Task<Void, Never>?
     
     var displayText: String {
@@ -125,7 +126,8 @@ struct CardView: View {
             }
         }
         .task {
-            if Date().timeIntervalSince(card.lastRefreshed) > 60 { // 60 seconds
+            if !hasPerformedInitialLoad && Date().timeIntervalSince(card.lastRefreshed) > 60 { // 60 seconds
+                hasPerformedInitialLoad = true
                 refresh()
             }
         }
@@ -216,23 +218,25 @@ struct CardView: View {
         case .active:
             performActionIfCalled() // Handle Swap Icon call
             
-            let shouldRefresh: Bool
-            if let backgroundTime = lastBackgroundTime {
-                shouldRefresh = Date().timeIntervalSince(backgroundTime) > 5 // 5 seconds minimum
-            } else {
-                shouldRefresh = Date().timeIntervalSince(card.lastRefreshed) > 60 // 60 seconds
-            }
-            
-            // Debounced refresh task when coming back to foreground
-            if shouldRefresh {
-                loadTask?.cancel()
-                loadTask = Task {
-                    try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                    if !Task.isCancelled {
-                        refresh()
-                    }
-                    await MainActor.run {
-                        updateEmptyState()
+            if !hasPerformedInitialLoad {
+                let shouldRefresh: Bool
+                if let backgroundTime = lastBackgroundTime {
+                    shouldRefresh = Date().timeIntervalSince(backgroundTime) > 5 // 5 seconds minimum
+                } else {
+                    shouldRefresh = Date().timeIntervalSince(card.lastRefreshed) > 60 // 60 seconds
+                }
+                
+                // Debounced refresh task when coming back to foreground
+                if shouldRefresh {
+                    loadTask?.cancel()
+                    loadTask = Task {
+                        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                        if !Task.isCancelled {
+                            refresh()
+                        }
+                        await MainActor.run {
+                            updateEmptyState()
+                        }
                     }
                 }
             }

@@ -20,6 +20,7 @@ struct SignUpSheet: View {
             Text("Create a Pastecard")
                 .padding(.top, 48)
                 .font(.title3)
+                .fontWeight(.semibold)
             HStack(spacing:0) {
                 Text("pastecard.net/")
                 TextField("ID", text: $newUser)
