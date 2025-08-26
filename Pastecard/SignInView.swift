@@ -114,7 +114,7 @@ struct SignInView: View {
         .onChange(of: scenePhase) { _, newValue in
             switch newValue {
             case .active:
-                performActionIfCalled()
+                swapIconAction()
             default:
                 break
             }
@@ -158,7 +158,7 @@ struct SignInView: View {
         }
     }
     
-    func performActionIfCalled() {
+    func swapIconAction() {
         guard let action = actionService.action else { return }
         
         switch action {

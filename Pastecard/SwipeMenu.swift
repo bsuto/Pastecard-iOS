@@ -11,6 +11,7 @@ import PastecardCore
 struct menuCell: View {
     let symbol: String
     let label: String
+    let fColor: Color
     
     var body: some View {
         HStack {
@@ -18,7 +19,8 @@ struct menuCell: View {
                 .font(Font.body.weight(.semibold))
                 .frame(width:20)
             Text(label)
-        }.foregroundColor(.primary)
+        }
+        .foregroundStyle(fColor)
     }
 }
 
@@ -37,25 +39,19 @@ struct SwipeMenu: View {
                 Button {
                     refreshCard()
                 } label: {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                            .font(Font.body.weight(.semibold))
-                            .frame(width: 20)
-                        Text("Refresh")
-                    }
-                    .foregroundColor(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
+                    menuCell(symbol: "arrow.clockwise", label: "Refresh", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
                 }
                 .disabled(!networkMonitor.isConnected)
                 
                 ShareLink (
                     item: shareText
                 ) {
-                    menuCell(symbol: "square.and.arrow.up", label: "Share")
+                    menuCell(symbol: "square.and.arrow.up", label: "Share", fColor: .primary)
                 }
                 Button {
                     showSVC = true
                 } label: {
-                    menuCell(symbol: "questionmark.circle", label: "Help")
+                    menuCell(symbol: "questionmark.circle", label: "Help", fColor: .primary)
                 }
             }
             .headerProminence(.increased)
@@ -65,14 +61,14 @@ struct SwipeMenu: View {
                     self.dismiss()
                     card.signOut()
                 } label: {
-                    menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out")
-                    
+                    menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out", fColor: .primary)
                 }
                 Button {
                     showDeleteAlert = true
                 } label: {
-                    menuCell(symbol: "trash", label: "Delete Account")
+                    menuCell(symbol: "trash", label: "Delete Account", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
                 }
+                .disabled(!networkMonitor.isConnected)
             }
         }
         .scrollDisabled(true)
@@ -86,8 +82,9 @@ struct SwipeMenu: View {
             Button("Delete", role: .destructive) {
                 self.dismiss()
                 Task {
-                    do { try await card.delete() }
-                    catch { }
+                    do {
+                        try await card.delete()
+                    } catch { }
                 }
             }
         }, message: {

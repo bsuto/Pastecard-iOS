@@ -22,9 +22,12 @@ struct CardView: View {
     @FocusState private var isFocused: Bool
     @State private var showEmptyState = false
     @State private var animateTip = false
+    
+    // Keep track of when to refresh
     @State private var lastBackgroundTime: Date?
-    @State private var hasPerformedInitialLoad = false
+    @State private var hasBeenActiveOnce = false
     @State private var loadTask: Task<Void, Never>?
+    @AppStorage("lastRefreshedDate") private var lastRefreshedDate: Double = 0
     
     var displayText: String {
         if isEditing {
@@ -73,12 +76,14 @@ struct CardView: View {
                             Button("Cancel") {
                                 cancelEditing()
                             }
+                            .fontWeight(.semibold)
                             .foregroundColor(Color("AccentColor"))
                         }
                         ToolbarItem(placement: .keyboard) {
                             Button("Save") {
                                 saveText()
                             }
+                            .fontWeight(.semibold)
                             .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
                             .disabled(!networkMonitor.isConnected)
                         }
@@ -99,15 +104,7 @@ struct CardView: View {
                     .alert("Error", isPresented: $showLoadAlert, actions: {
                         Button("Cancel", role: .cancel) {}
                         Button("Try Again") {
-                            Task {
-                                do {
-                                    try await card.refresh()
-                                } catch {
-                                    showLoadAlert = true
-                                    throw NetworkError.loadError
-                                }
-                            }
-                            updateEmptyState()
+                            refresh()
                         }
                     }, message: {
                         Text("There was a problem loading from the cloud.")
@@ -125,46 +122,15 @@ struct CardView: View {
                     }
             }
         }
-        .task {
-            if !hasPerformedInitialLoad && Date().timeIntervalSince(card.lastRefreshed) > 60 { // 60 seconds
-                hasPerformedInitialLoad = true
-                refresh()
-            }
-        }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
-        }
-        .onChange(of: card.currentText) { _, _ in
-            updateEmptyState()
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
             refresh()
         }
     }
     
-    private func refresh() {
-        Task {
-            do {
-                try await card.refresh()
-                await MainActor.run {
-                    updateEmptyState()
-                    card.lastRefreshed = Date()
-                }
-            } catch {
-                showLoadAlert = true
-                throw NetworkError.loadError
-            }
-        }
-    }
-    
-    private func handleFocusChange(_ focused: Bool) {
-        if focused && !isEditing {
-            startEditing()
-        } else if !focused && isEditing {
-            // User tapped away without saving, i.e. cancel
-            cancelEditing()
-        }
-    }
+    // MARK: Edit & Save functions
     
     private func startEditing() {
         isEditing = true
@@ -181,6 +147,22 @@ struct CardView: View {
         editingText = ""
         isFocused = false
         updateEmptyState()
+    }
+    
+    private func handleFocusChange(_ focused: Bool) {
+        if focused && !isEditing {
+            startEditing()
+        } else if !focused && isEditing {
+            // User tapped away without saving, i.e. cancel
+            cancelEditing()
+        }
+    }
+    
+    private func enforceLimit() {
+        let charLimit = 1034
+        if editingText.count > charLimit {
+            editingText = String(editingText.prefix(charLimit))
+        }
     }
     
     private func saveText() {
@@ -202,54 +184,10 @@ struct CardView: View {
         }
     }
     
+    // MARK: Icon helpers
+    
     private func updateEmptyState() {
         showEmptyState = !isEditing && card.currentText.isEmpty
-    }
-    
-    private func enforceLimit() {
-        let charLimit = 1034
-        if editingText.count > charLimit {
-            editingText = String(editingText.prefix(charLimit))
-        }
-    }
-    
-    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
-        switch newPhase {
-        case .active:
-            performActionIfCalled() // Handle Swap Icon call
-            
-            if !hasPerformedInitialLoad {
-                let shouldRefresh: Bool
-                if let backgroundTime = lastBackgroundTime {
-                    shouldRefresh = Date().timeIntervalSince(backgroundTime) > 5 // 5 seconds minimum
-                } else {
-                    shouldRefresh = Date().timeIntervalSince(card.lastRefreshed) > 60 // 60 seconds
-                }
-                
-                // Debounced refresh task when coming back to foreground
-                if shouldRefresh {
-                    loadTask?.cancel()
-                    loadTask = Task {
-                        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                        if !Task.isCancelled {
-                            refresh()
-                        }
-                        await MainActor.run {
-                            updateEmptyState()
-                        }
-                    }
-                }
-            }
-            lastBackgroundTime = nil
-        case .background:
-            // Cancel pending load tasks when going to background
-            lastBackgroundTime = Date()
-            loadTask?.cancel()
-        case .inactive:
-            break // Don't treat inactive as background time
-        default:
-            break
-        }
     }
     
     private func animateSwipeUpTip() {
@@ -262,7 +200,7 @@ struct CardView: View {
         }
     }
     
-    private func performActionIfCalled() {
+    private func swapIconAction() {
         guard let action = actionService.action else { return }
         
         switch action {
@@ -277,6 +215,86 @@ struct CardView: View {
         }
         
         actionService.action = nil
+    }
+    
+    // MARK: Refresh functions
+    
+    private func refresh() {
+        Task {
+            do {
+                try await card.refresh()
+                await MainActor.run {
+                    updateEmptyState()
+                    let now = Date()
+                    card.lastRefreshed = now
+                    lastRefreshedDate = now.timeIntervalSince1970
+                }
+            } catch {
+                showLoadAlert = true
+                throw NetworkError.loadError
+            }
+        }
+    }
+    
+    private func refreshIfNeeded() {
+        let last = Date(timeIntervalSince1970: lastRefreshedDate)
+        let elapsed = Date().timeIntervalSince(last)
+        guard elapsed > 60 else { return } // 60 seconds
+        
+        loadTask?.cancel()
+        loadTask = Task {
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second debounce
+            
+            if !Task.isCancelled {
+                await MainActor.run {
+                    refresh()
+                }
+            }
+        }
+    }
+    
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            swapIconAction()
+            
+            // Cold launch
+            if !hasBeenActiveOnce {
+                hasBeenActiveOnce = true
+                refreshIfNeeded()
+                lastBackgroundTime = nil
+                return
+            }
+
+            // Refresh if in background 60 seconds
+            if let bgTime = lastBackgroundTime,
+               Date().timeIntervalSince(bgTime) > 60 {
+                refreshIfNeeded()
+            }
+            
+            lastBackgroundTime = nil
+            
+        case .background:
+            loadTask?.cancel()
+            
+            // Only set background time if still in background after 5 seconds
+            if !isEditing {
+                loadTask = Task {
+                    try? await Task.sleep(nanoseconds: 5_000_000_000)
+                    if !Task.isCancelled {
+                        await MainActor.run {
+                            if scenePhase == .background {
+                                lastBackgroundTime = Date()
+                            }
+                        }
+                    }
+                }
+            }
+        case .inactive:
+            break // Don't treat inactive as background time
+        default:
+            break
+        }
     }
 }
 
