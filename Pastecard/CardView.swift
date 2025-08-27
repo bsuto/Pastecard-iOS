@@ -71,23 +71,26 @@ struct CardView: View {
                             }
                         }
                     )
-                    .toolbar {
-                        ToolbarItem(placement: .keyboard) {
+                    .keyboardToolbar(content: {
+                        HStack {
                             Button("Cancel") {
                                 cancelEditing()
                             }
-                            .fontWeight(.semibold)
+                            .font(.headline)
                             .foregroundColor(Color("AccentColor"))
-                        }
-                        ToolbarItem(placement: .keyboard) {
+                            .padding(.horizontal)
+                            
+                            Spacer()
+                            
                             Button("Save") {
                                 saveText()
                             }
-                            .fontWeight(.semibold)
+                            .font(.headline)
                             .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
                             .disabled(!networkMonitor.isConnected)
+                            .padding(.horizontal)
                         }
-                    }
+                    })
                     .sheet(isPresented: $showMenu) {
                         SwipeMenu(shareText: card.currentText)
                     }
@@ -113,7 +116,7 @@ struct CardView: View {
                 Image("SwipeUp")
                     .resizable()
                     .frame(width: 48.0, height: 48.0)
-                    .padding(.bottom)
+                    .padding(.bottom, showEmptyState ? nil : 0)
                     .foregroundColor(Color(UIColor.placeholderText))
                     .opacity(showEmptyState ? 1 : 0)
                     .offset(y: animateTip ? -80 : 0)
@@ -175,6 +178,7 @@ struct CardView: View {
         Task {
             do {
                 try await card.save(textToSave)
+                await MainActor.run { updateEmptyState() }
             } catch {
                 // Re-enter editing mode with the text they were trying to save
                 isEditing = true
@@ -300,6 +304,43 @@ struct CardView: View {
 
 extension Notification.Name {
     static let refreshRequested = Notification.Name("refreshRequested")
+}
+
+// MARK: - Keyboard Toolbar Modifier
+
+private struct KeyboardToolbarModifier<Toolbar: View>: ViewModifier {
+    @State private var isKeyboardShown = false
+    private let toolbar: Toolbar
+    
+    init(@ViewBuilder toolbar: () -> Toolbar) {
+        self.toolbar = toolbar()
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .safeAreaInset(edge: .bottom) {
+                if isKeyboardShown {
+                    toolbar
+                        .frame(height: 46)
+                        .background(.bar)
+                        .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color(UIColor.systemFill)), alignment: .top)
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                withAnimation(.easeIn(duration: 0.2)) {
+                    isKeyboardShown = true
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                isKeyboardShown = false
+            }
+    }
+}
+
+extension View {
+    func keyboardToolbar<Content: View>(@ViewBuilder content: @escaping () -> Content) -> some View {
+        modifier(KeyboardToolbarModifier(toolbar: content))
+    }
 }
 
 struct CardView_Previews: PreviewProvider {
