@@ -26,6 +26,7 @@ struct menuCell: View {
 
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
+    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @Environment(\.dismiss) var dismiss
     @StateObject private var networkMonitor = NetworkMonitor()
     
@@ -41,6 +42,7 @@ struct SwipeMenu: View {
                 } label: {
                     menuCell(symbol: "arrow.clockwise", label: "Refresh", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
                 }
+                .frame(height: textHeight)
                 .disabled(!networkMonitor.isConnected)
                 
                 ShareLink (
@@ -48,11 +50,14 @@ struct SwipeMenu: View {
                 ) {
                     menuCell(symbol: "square.and.arrow.up", label: "Share", fColor: .primary)
                 }
+                .frame(height: textHeight)
+                
                 Button {
                     showSVC = true
                 } label: {
                     menuCell(symbol: "questionmark.circle", label: "Help", fColor: .primary)
                 }
+                .frame(height: textHeight)
             }
             .headerProminence(.increased)
             
@@ -63,19 +68,37 @@ struct SwipeMenu: View {
                 } label: {
                     menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out", fColor: .primary)
                 }
+                .frame(height: textHeight)
+                
                 Button {
                     showDeleteAlert = true
                 } label: {
                     menuCell(symbol: "trash", label: "Delete Account", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
                 }
+                .frame(height: textHeight)
                 .disabled(!networkMonitor.isConnected)
             }
         }
         .scrollDisabled(true)
         .presentationDetents([.medium, .fraction(0.67), .fraction(0.9)])
         .sheet(isPresented: $showSVC) {
-            SafariViewController(url: URL(string: "https://pastecard.net/help/#app")!)
-                .ignoresSafeArea()
+            if networkMonitor.isConnected {
+                SafariViewController(url: URL(string: "https://pastecard.net/help/#app")!)
+                    .ignoresSafeArea()
+            } else {
+                VStack(spacing: 0) {
+                    HStack {
+                        Button("Done") {
+                            showSVC = false
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    .background(.bar)
+                    .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(UIColor.systemFill)), alignment: .bottom)
+                    HTMLView(fileName: "help", anchor: "app")
+                }
+            }
         }
         .alert("Are you sure?", isPresented: $showDeleteAlert, actions: {
             Button("Cancel", role: .cancel) {}

@@ -10,6 +10,7 @@ import PastecardCore
 
 struct SignUpSheet: View {
     @EnvironmentObject var card: Pastecard
+    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @State private var newUser = ""
     @State private var invalidID = true
     @State private var errorMessage = ""
@@ -21,8 +22,9 @@ struct SignUpSheet: View {
                 .padding(.top, 48)
                 .font(.title3)
                 .fontWeight(.semibold)
-            HStack(spacing:0) {
+            HStack(spacing: 0) {
                 Text("pastecard.net/")
+                    .minimumScaleFactor(0.5)
                 TextField("ID", text: $newUser)
                     .background(Color(UIColor.systemBackground))
                     .textInputAutocapitalization(.never)
@@ -37,11 +39,12 @@ struct SignUpSheet: View {
                     Task { try await signUp() }
                 } label: {
                     Image(systemName: "arrow.right.circle")
-                        .foregroundColor(invalidID ? Color(UIColor.placeholderText): Color(UIColor.link))
+                        .foregroundColor(invalidID ? Color(UIColor.placeholderText): Color("AccentColor"))
                 }
-                    .accessibilityLabel("Create account")
-                    .disabled(invalidID)
+                .accessibilityLabel("Create account")
+                .disabled(invalidID)
             }
+            .frame(height: textHeight)
             .padding(12)
             .background(Color(UIColor.systemBackground))
             .cornerRadius(12)

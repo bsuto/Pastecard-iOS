@@ -10,8 +10,10 @@ import PastecardCore
 
 struct SignInView: View {
     @EnvironmentObject var card: Pastecard
+    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @EnvironmentObject var actionService: ActionService
     @Environment(\.scenePhase) var scenePhase
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var userId = ""
     @State private var showSignUp = false
@@ -25,8 +27,8 @@ struct SignInView: View {
             List {
                 HStack(alignment: .center) {
                     Text("Pastecard")
-                    .font(Font.largeTitle.weight(.bold))
-                    .frame(maxWidth: .infinity)
+                        .font(Font.largeTitle.weight(.bold))
+                        .frame(maxWidth: .infinity)
                 }
                 .listRowBackground(Color.primary.opacity(0))
                 .onTapGesture {
@@ -35,8 +37,9 @@ struct SignInView: View {
                     }
                 }
                 Section(header: Text("Sign In")) {
-                    HStack(spacing:0) {
+                    HStack(spacing: 0) {
                         Text("pastecard.net/")
+                            .minimumScaleFactor(0.5)
                         TextField("ID", text: $userId)
                             .focused($idFocus)
                             .submitLabel(.go)
@@ -59,7 +62,9 @@ struct SignInView: View {
                             .onChange(of: idFocus) { _, newValue in
                                 if idFocus { impact.impactOccurred() }
                             }
+                        
                         Spacer()
+                        
                         Button {
                             Task {
                                 do {
@@ -70,11 +75,12 @@ struct SignInView: View {
                             }
                         } label: {
                             Image(systemName: "arrow.right.circle")
-                                .foregroundColor(userId.isEmpty ? Color(UIColor.placeholderText): Color(UIColor.link))
+                                .foregroundColor((userId.isEmpty || !networkMonitor.isConnected) ? Color(UIColor.placeholderText): Color("AccentColor"))
                         }
                         .accessibilityLabel("Sign in with \(userId)")
-                        .disabled(userId.isEmpty)
+                        .disabled(userId.isEmpty || !networkMonitor.isConnected)
                     }
+                    .frame(height: textHeight)
                 }
                 Section() {
                     Text(errorMessage)
@@ -91,7 +97,10 @@ struct SignInView: View {
                     } label: {
                         Text("Sign Up")
                     }
-                    .foregroundColor(Color(UIColor.link))
+                    .frame(height: textHeight)
+                    .disabled(!networkMonitor.isConnected)
+                    .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
+                    
                     Button {
                         idFocus = false
                         showSVC = true
@@ -101,6 +110,7 @@ struct SignInView: View {
                         }
                         .foregroundColor(.primary)
                     }
+                    .frame(height: textHeight)
                 }
             }
             .scrollDisabled(true)
@@ -123,8 +133,23 @@ struct SignInView: View {
             SignUpSheet()
         }
         .sheet(isPresented: $showSVC) {
-            SafariViewController(url: URL(string: "https://pastecard.net/help/#tos")!)
-                .ignoresSafeArea()
+            if networkMonitor.isConnected {
+                SafariViewController(url: URL(string: "https://pastecard.net/help/#tos")!)
+                    .ignoresSafeArea()
+            } else {
+                VStack(spacing: 0) {
+                    HStack {
+                        Button("Done") {
+                            showSVC = false
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    .background(.bar)
+                    .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(UIColor.systemFill)), alignment: .bottom)
+                    HTMLView(fileName: "help", anchor: "tos")
+                }
+            }
         }
     }
     

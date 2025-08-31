@@ -10,6 +10,7 @@ import PastecardCore
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
+    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @EnvironmentObject var actionService: ActionService
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var networkMonitor = NetworkMonitor()
@@ -78,7 +79,6 @@ struct CardView: View {
                             }
                             .font(.headline)
                             .foregroundColor(Color("AccentColor"))
-                            .padding(.horizontal)
                             
                             Spacer()
                             
@@ -88,8 +88,11 @@ struct CardView: View {
                             .font(.headline)
                             .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
                             .disabled(!networkMonitor.isConnected)
-                            .padding(.horizontal)
                         }
+                        .frame(height: textHeight)
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .padding(.bottom, 28) // fighting against safeAreaInset
                     })
                     .sheet(isPresented: $showMenu) {
                         SwipeMenu(shareText: card.currentText)
@@ -267,6 +270,7 @@ struct CardView: View {
                 hasBeenActiveOnce = true
                 refreshIfNeeded()
                 lastBackgroundTime = nil
+                updateEmptyState()
                 return
             }
 
@@ -321,7 +325,6 @@ private struct KeyboardToolbarModifier<Toolbar: View>: ViewModifier {
             .safeAreaInset(edge: .bottom) {
                 if isKeyboardShown {
                     toolbar
-                        .frame(height: 46)
                         .background(.bar)
                         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color(UIColor.systemFill)), alignment: .top)
                 }
