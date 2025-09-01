@@ -10,7 +10,6 @@ import PastecardCore
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
-    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @EnvironmentObject var actionService: ActionService
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var networkMonitor = NetworkMonitor()
@@ -89,15 +88,12 @@ struct CardView: View {
                             .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
                             .disabled(!networkMonitor.isConnected)
                         }
-                        .frame(height: textHeight)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        .padding(.bottom, 28) // fighting against safeAreaInset
+                        .padding()
                     })
                     .sheet(isPresented: $showMenu) {
                         SwipeMenu(shareText: card.currentText)
                     }
-                    .alert("Error", isPresented: $showSaveAlert, actions: {
+                    .alert("Oops", isPresented: $showSaveAlert, actions: {
                         Button("Cancel", role: .cancel) {
                             cancelEditing()
                         }
@@ -107,7 +103,7 @@ struct CardView: View {
                     }, message: {
                         Text("There was a problem saving to the cloud.")
                     })
-                    .alert("Error", isPresented: $showLoadAlert, actions: {
+                    .alert("Oops", isPresented: $showLoadAlert, actions: {
                         Button("Cancel", role: .cancel) {}
                         Button("Try Again") {
                             refresh()
@@ -273,8 +269,8 @@ struct CardView: View {
                 updateEmptyState()
                 return
             }
-
-            // Refresh if in background 60 seconds
+            
+            // Refresh if in background for 60 seconds
             if let bgTime = lastBackgroundTime,
                Date().timeIntervalSince(bgTime) > 60 {
                 refreshIfNeeded()
@@ -310,7 +306,7 @@ extension Notification.Name {
     static let refreshRequested = Notification.Name("refreshRequested")
 }
 
-// MARK: - Keyboard Toolbar Modifier
+// MARK: Keyboard Toolbar modifier
 
 private struct KeyboardToolbarModifier<Toolbar: View>: ViewModifier {
     @State private var isKeyboardShown = false
@@ -325,6 +321,7 @@ private struct KeyboardToolbarModifier<Toolbar: View>: ViewModifier {
             .safeAreaInset(edge: .bottom) {
                 if isKeyboardShown {
                     toolbar
+                    // .safeAreaPadding(.bottom, 12) // needed for simulators but not real devices??
                         .background(.bar)
                         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color(UIColor.systemFill)), alignment: .top)
                 }
