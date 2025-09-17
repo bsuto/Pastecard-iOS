@@ -55,23 +55,36 @@ class ShareViewController: UIViewController {
                 })
             }
         }
+        
+        self.hideView()
     }
     
     private func showView() {
-        let controller = UIHostingController(rootView: SwiftUIView())
+        let controller = UIHostingController(rootView: SwiftUIShareView())
         addChild(controller)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(controller.view)
         controller.didMove(toParent: self)
         
-        NSLayoutConstraint.activate([
-            controller.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0),
-            controller.view.heightAnchor.constraint(equalToConstant: 96),
-            controller.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        // pause a moment so the Saving message is readable
+        if #available(iOS 26, *) {
+            NSLayoutConstraint.activate([
+                controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                controller.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                controller.view.topAnchor.constraint(equalTo: view.topAnchor),
+                controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                controller.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0),
+                controller.view.heightAnchor.constraint(equalToConstant: 96),
+                controller.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    private func hideView() {
+        // add a pause so the Saving message is readable
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) {
             self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }

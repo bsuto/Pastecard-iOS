@@ -47,6 +47,10 @@ struct SimpleEntry: TimelineEntry {
 
 struct PCWidgetEntryView : View {
     var entry: Provider.Entry
+    var is26: Bool {
+        if #available(iOS 26, *) { return true }
+        else { return false }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -56,6 +60,7 @@ struct PCWidgetEntryView : View {
                 .widgetAccentable()
             Text(entry.text)
                 .padding(12)
+                .padding(.bottom, is26 ? 18 : 12)
                 .font(.body)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
