@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PastecardCore
+import WebKit
 
 struct menuCell: View {
     let symbol: String
@@ -88,7 +89,9 @@ struct SwipeMenu: View {
             } else {
                 if #available(iOS 26, *) {
                     ZStack {
-                        HTMLView(fileName: "help", anchor: "app")
+                        WebView(
+                            url: URL(string: "#app", relativeTo: Bundle.main.url(forResource: "help", withExtension: "html"))
+                        )
                         VStack() {
                             Spacer()
                             HStack {

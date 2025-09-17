@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PastecardCore
+import WebKit
 
 struct SignInView: View {
     @EnvironmentObject var card: Pastecard
@@ -139,7 +140,9 @@ struct SignInView: View {
             } else {
                 if #available(iOS 26, *) {
                     ZStack {
-                        HTMLView(fileName: "help", anchor: "tos")
+                        WebView(
+                            url: URL(string: "#tos", relativeTo: Bundle.main.url(forResource: "help", withExtension: "html"))
+                        )
                         VStack() {
                             Spacer()
                             HStack {
