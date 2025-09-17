@@ -86,17 +86,41 @@ struct SwipeMenu: View {
                 SafariViewController(url: URL(string: "https://pastecard.net/help/#app")!)
                     .ignoresSafeArea()
             } else {
-                VStack(spacing: 0) {
-                    HStack {
-                        Button("Done") {
-                            showSVC = false
+                if #available(iOS 26, *) {
+                    ZStack {
+                        HTMLView(fileName: "help", anchor: "app")
+                        VStack() {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Button {
+                                    showSVC = false
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(.primary)
+                                        .font(.title)
+                                        .padding()
+                                }
+                                .accessibilityLabel("Done")
+                                .glassEffect()
+                                .padding()
+                            }
                         }
-                        Spacer()
                     }
-                    .padding()
-                    .background(.bar)
-                    .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(UIColor.systemFill)), alignment: .bottom)
-                    HTMLView(fileName: "help", anchor: "app")
+                }
+                else {
+                    VStack(spacing: 0) {
+                        HStack {
+                            Button("Done") {
+                                showSVC = false
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                        .background(.bar)
+                        .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(UIColor.systemFill)), alignment: .bottom)
+                        HTMLView(fileName: "help", anchor: "app")
+                    }
                 }
             }
         }
