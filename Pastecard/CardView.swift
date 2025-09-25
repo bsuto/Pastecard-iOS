@@ -401,9 +401,9 @@ private struct CustomToolbarModifier<Toolbar: View>: ViewModifier {
                     if #available(iOS 26.0, *) {
                         toolbar
                             .padding(18)
+                            // .safeAreaPadding(.bottom, 12) // needed for simulators but not real devices??
                     } else {
                         toolbar
-                        // .safeAreaPadding(.bottom, 12) // needed for simulators but not real devices??
                             .background(.bar)
                             .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color(UIColor.systemFill)), alignment: .top)
                     }

@@ -23,6 +23,11 @@ struct SignInView: View {
     @FocusState private var idFocus: Bool
     let impact = UIImpactFeedbackGenerator(style: .light)
     
+    var is26: Bool {
+        if #available(iOS 26.0, *) { return true }
+        else { return false }
+    }
+    
     var body: some View {
         GeometryReader { geo in
             List {
@@ -118,7 +123,7 @@ struct SignInView: View {
             .safeAreaInset(edge: .top) {
                 Color("TrademarkBlue")
                     .frame(width: geo.size.width,
-                           height: geo.safeAreaInsets.top + 44)
+                           height: is26 ? geo.safeAreaInsets.top + 54 : geo.safeAreaInsets.top + 44)
                     .padding(.top, -geo.safeAreaInsets.top)
             }
         }
