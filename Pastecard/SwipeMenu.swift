@@ -81,7 +81,6 @@ struct SwipeMenu: View {
             }
         }
         .scrollDisabled(true)
-        .presentationDetents([.medium, .fraction(0.67), .fraction(0.9)])
         .sheet(isPresented: $showSVC) {
             if networkMonitor.isConnected {
                 SafariViewController(url: URL(string: "https://pastecard.net/help/#app")!)
@@ -148,7 +147,7 @@ struct SwipeMenu: View {
             do {
                 try await card.refresh()
             } catch {
-                throw NetworkError.signInError
+                throw NetworkError.loadError
             }
         }
     }

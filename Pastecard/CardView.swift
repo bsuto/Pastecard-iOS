@@ -95,6 +95,9 @@ struct CardView: View {
             }
             .sheet(isPresented: $showMenu) {
                 SwipeMenu(shareText: card.currentText)
+                    .presentationDetents([.medium, .fraction(0.67), .fraction(0.9)])
+                    .scrollContentBackground(is26 ? .hidden : .visible)
+                    .background(is26 ? .ultraThinMaterial : .regular)
             }
             .alert("Oops", isPresented: $showSaveAlert, actions: {
                 saveAlertActions
