@@ -16,6 +16,11 @@ struct SignUpSheet: View {
     @State private var errorMessage = ""
     @FocusState private var newFocus: Bool
     
+    var is26: Bool {
+        if #available(iOS 26.0, *) { return true }
+        else { return false }
+    }
+    
     var body: some View {
         VStack {
             Text("Create a Pastecard")
@@ -55,10 +60,9 @@ struct SignUpSheet: View {
                 .foregroundColor(.red)
             Spacer()
         }
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(is26 ? .ultraThinMaterial : .regularMaterial)
         .frame(maxHeight: .infinity, alignment: .top)
         .edgesIgnoringSafeArea(.bottom)
-        .presentationDetents([.fraction(0.33)])
         .onAppear{newFocus = true}
     }
     

@@ -132,6 +132,7 @@ struct SignInView: View {
         }
         .sheet(isPresented: $showSignUp) {
             SignUpSheet()
+                .presentationDetents([.fraction(0.33)])
         }
         .sheet(isPresented: $showSVC) {
             if networkMonitor.isConnected {
