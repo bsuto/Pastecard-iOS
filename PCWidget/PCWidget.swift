@@ -48,7 +48,7 @@ struct SimpleEntry: TimelineEntry {
 struct PCWidgetEntryView : View {
     var entry: Provider.Entry
     var is26: Bool {
-        if #available(iOS 26, *) { return true }
+        if #available(iOS 26.0, *) { return true }
         else { return false }
     }
     

@@ -66,7 +66,7 @@ class ShareViewController: UIViewController {
         view.addSubview(controller.view)
         controller.didMove(toParent: self)
         
-        if #available(iOS 26, *) {
+        if #available(iOS 26.0, *) {
             NSLayoutConstraint.activate([
                 controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 controller.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),

@@ -138,7 +138,7 @@ struct SignInView: View {
                 SafariViewController(url: URL(string: "https://pastecard.net/help/#tos")!)
                     .ignoresSafeArea()
             } else {
-                if #available(iOS 26, *) {
+                if #available(iOS 26.0, *) {
                     ZStack {
                         WebView(
                             url: URL(string: "#tos", relativeTo: Bundle.main.url(forResource: "help", withExtension: "html"))
