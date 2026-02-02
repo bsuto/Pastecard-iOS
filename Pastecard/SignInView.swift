@@ -37,11 +37,7 @@ struct SignInView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .listRowBackground(Color.primary.opacity(0))
-                .onTapGesture {
-                    if idFocus {
-                        idFocus = false
-                    }
-                }
+                
                 Section(header: Text("Sign In")) {
                     HStack(spacing: 0) {
                         Text("pastecard.net/")
@@ -52,11 +48,15 @@ struct SignInView: View {
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
                             .onSubmit {
-                                Task {
-                                    do {
-                                        try await signIn()
-                                    } catch {
-                                        errorMessage = "Oops, something didn’t work. Please try again."
+                                if (userId.isEmpty || !networkMonitor.isConnected) {
+                                    idFocus = false
+                                } else {
+                                    Task {
+                                        do {
+                                            try await signIn()
+                                        } catch {
+                                            errorMessage = "Oops, something didn’t work. Please try again."
+                                        }
                                     }
                                 }
                             }
@@ -187,7 +187,7 @@ struct SignInView: View {
     }
     
     func signIn() async throws {
-        if userId.isEmpty { return }
+        if (userId.isEmpty || !networkMonitor.isConnected) { return }
         idFocus = false
         
         let nameCheck = userId.lowercased().trimmingCharacters(in: .whitespaces)
