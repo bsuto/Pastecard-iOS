@@ -85,7 +85,21 @@ struct CardView: View {
             .onChange(of: editingText) { _, _ in
                 if isEditing { enforceLimit() }
             }
-            .gesture(swipeGesture)
+            .onDrop(of: [.plainText], isTargeted: nil) { providers in
+                guard isEditing else { return false }
+                
+                for provider in providers {
+                    _ = provider.loadObject(ofClass: String.self) { dropText, _ in
+                        if let dropText {
+                            DispatchQueue.main.async {
+                                editingText += dropText
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+            .gesture(isEditing ? nil : swipeGesture)
             .keyboardToolbar {
                 if #available(iOS 26.0, *) {
                     newToolbar
@@ -114,7 +128,7 @@ struct CardView: View {
     private var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 44, coordinateSpace: .local)
             .onEnded { value in
-                if value.translation.height < 0 {
+                if value.translation.height < 0 && !isEditing {
                     showMenu = true
                 }
             }
@@ -221,9 +235,6 @@ struct CardView: View {
     private func handleFocusChange(_ focused: Bool) {
         if focused && !isEditing {
             startEditing()
-        } else if !focused && isEditing {
-            // User tapped away without saving, i.e. cancel
-            cancelEditing()
         }
     }
     
