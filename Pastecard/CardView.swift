@@ -28,12 +28,6 @@ struct CardView: View {
         else { return false }
     }
     
-    // Keep track of when to refresh
-    @State private var lastBackgroundTime: Date?
-    @State private var hasBeenActiveOnce = false
-    @State private var loadTask: Task<Void, Never>?
-    @AppStorage("lastRefreshedDate") private var lastRefreshedDate: Double = 0
-    
     var displayText: String {
         if isEditing {
             return editingText
@@ -321,30 +315,18 @@ struct CardView: View {
                 try await card.refresh()
                 await MainActor.run {
                     updateEmptyState()
-                    let now = Date()
-                    card.lastRefreshed = now
-                    lastRefreshedDate = now.timeIntervalSince1970
                 }
             } catch {
                 showLoadAlert = true
-                throw NetworkError.loadError
             }
         }
     }
     
-    private func refreshIfNeeded() {
-        let last = Date(timeIntervalSince1970: lastRefreshedDate)
-        let elapsed = Date().timeIntervalSince(last)
-        guard elapsed > 60 else { return } // 60 seconds
-        
-        loadTask?.cancel()
-        loadTask = Task {
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second debounce
-            
-            if !Task.isCancelled {
-                await MainActor.run {
-                    refresh()
-                }
+    private func checkRefresh() {
+        Task {
+            try? await card.refreshIfNeeded()
+            await MainActor.run {
+                updateEmptyState()
             }
         }
     }
@@ -353,42 +335,9 @@ struct CardView: View {
         switch newPhase {
         case .active:
             swapIconAction()
-            
-            // Cold launch
-            if !hasBeenActiveOnce {
-                hasBeenActiveOnce = true
-                refreshIfNeeded()
-                lastBackgroundTime = nil
-                updateEmptyState()
-                return
-            }
-            
-            // Refresh if in background for 60 seconds
-            if let bgTime = lastBackgroundTime,
-               Date().timeIntervalSince(bgTime) > 60 {
-                refreshIfNeeded()
-            }
-            
-            lastBackgroundTime = nil
-            
-        case .background:
-            loadTask?.cancel()
-            
-            // Only set background time if still in background after 5 seconds
-            if !isEditing {
-                loadTask = Task {
-                    try? await Task.sleep(nanoseconds: 5_000_000_000)
-                    if !Task.isCancelled {
-                        await MainActor.run {
-                            if scenePhase == .background {
-                                lastBackgroundTime = Date()
-                            }
-                        }
-                    }
-                }
-            }
-        case .inactive:
-            break // Don't treat inactive as background time
+            checkRefresh()
+        case .background, .inactive:
+            break
         default:
             break
         }
