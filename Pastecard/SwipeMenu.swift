@@ -9,25 +9,8 @@ import SwiftUI
 import PastecardCore
 import WebKit
 
-struct menuCell: View {
-    let symbol: String
-    let label: String
-    let fColor: Color
-    
-    var body: some View {
-        HStack {
-            Image(systemName: symbol)
-                .font(Font.body.weight(.semibold))
-                .frame(width:20)
-            Text(label)
-        }
-        .foregroundStyle(fColor)
-    }
-}
-
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
-    @ScaledMetric(relativeTo: .body) var textHeight: CGFloat = 24
     @Environment(\.dismiss) var dismiss
     @StateObject private var networkMonitor = NetworkMonitor()
     
@@ -41,24 +24,24 @@ struct SwipeMenu: View {
                 Button {
                     refreshCard()
                 } label: {
-                    menuCell(symbol: "arrow.clockwise", label: "Refresh", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
+                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .frame(height: textHeight)
+                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
                 .disabled(!networkMonitor.isConnected)
                 
                 ShareLink (
                     item: shareText
                 ) {
-                    menuCell(symbol: "square.and.arrow.up", label: "Share", fColor: .primary)
+                    Label("Share", systemImage: "square.and.arrow.up")
                 }
-                .frame(height: textHeight)
+                .foregroundStyle(.primary)
                 
                 Button {
                     showSVC = true
                 } label: {
-                    menuCell(symbol: "questionmark.circle", label: "Help", fColor: .primary)
+                    Label("Help", systemImage: "questionmark.circle")
                 }
-                .frame(height: textHeight)
+                .foregroundStyle(.primary)
             }
             .headerProminence(.increased)
             
@@ -67,16 +50,16 @@ struct SwipeMenu: View {
                     self.dismiss()
                     card.signOut()
                 } label: {
-                    menuCell(symbol: "rectangle.portrait.and.arrow.forward", label: "Sign Out", fColor: .primary)
+                    Label("Sign Out", systemImage: "arrow.right.to.line.square")
                 }
-                .frame(height: textHeight)
+                .foregroundStyle(.primary)
                 
                 Button {
                     showDeleteAlert = true
                 } label: {
-                    menuCell(symbol: "trash", label: "Delete Account", fColor: Color(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray)))
+                    Label("Delete Account", systemImage: "trash")
                 }
-                .frame(height: textHeight)
+                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
                 .disabled(!networkMonitor.isConnected)
             }
         }
