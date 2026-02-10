@@ -55,7 +55,8 @@ struct SignUpSheet: View {
             .cornerRadius(12)
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             Text(errorMessage)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
                 .padding()
                 .foregroundColor(.red)
             Spacer()
@@ -71,7 +72,7 @@ struct SignUpSheet: View {
         
         let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
         let initialText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it and save your changes to the cloud.\n\nAccess your card from anywhere at pastecard.net/" + name
-        let parameters: [String: String] = ["cardText": initialText, "createdFrom": "ios" ]
+        let parameters: [String: String] = ["cardText": initialText, "createdFrom": "iOS" ]
         let url = URL(string: "https://pastecard.net/api/users/" + name)!
         
         var request = URLRequest(url: url)

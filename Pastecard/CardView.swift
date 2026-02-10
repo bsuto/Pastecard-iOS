@@ -318,6 +318,7 @@ struct CardView: View {
                 }
             } catch {
                 showLoadAlert = true
+                throw NetworkError.loadError
             }
         }
     }

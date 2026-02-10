@@ -90,7 +90,8 @@ struct SignInView: View {
                 }
                 Section() {
                     Text(errorMessage)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                         .padding(.top, -8)
                         .foregroundColor(.red)
                         .listRowBackground(Color.primary.opacity(0))

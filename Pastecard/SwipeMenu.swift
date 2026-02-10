@@ -26,7 +26,7 @@ struct SwipeMenu: View {
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
+                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
                 .disabled(!networkMonitor.isConnected)
                 
                 ShareLink (
@@ -59,7 +59,7 @@ struct SwipeMenu: View {
                 } label: {
                     Label("Delete Account", systemImage: "trash")
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(UIColor.systemGray))
+                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
                 .disabled(!networkMonitor.isConnected)
             }
         }
