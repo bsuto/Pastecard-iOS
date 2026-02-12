@@ -25,9 +25,6 @@ import PastecardCore
             self.uid = savedUser
             self.currentText = core.loadLocal()
         }
-        if let lastRefreshTime = defaults.object(forKey: "lastRefresh") as? Date {
-            self.lastRefreshed = lastRefreshTime
-        }
     }
     
     func signIn(_ user: String) async throws {
@@ -49,7 +46,6 @@ import PastecardCore
         self.loadingState = .idle
         defaults.removeObject(forKey: "ID")
         defaults.removeObject(forKey: "text")
-        defaults.removeObject(forKey: "lastRefresh")
         WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
     }
     
@@ -61,9 +57,7 @@ import PastecardCore
             let text = try await core.loadRemote()
             currentText = text
             loadingState = .loaded
-            let now = Date()
-            lastRefreshed = now
-            defaults.set(now, forKey: "lastRefresh")
+            lastRefreshed = Date()
         } catch {
             currentText = core.loadLocal()
             loadingState = .error(error)
