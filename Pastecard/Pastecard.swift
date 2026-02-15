@@ -17,6 +17,7 @@ import PastecardCore
     
     private let core = PastecardCore.shared
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
+    private var coldRefresh = true
     private let refreshThreshold: TimeInterval = 60 // seconds
     
     init() {
@@ -66,6 +67,12 @@ import PastecardCore
     }
     
     func refreshIfNeeded() async throws {
+        if coldRefresh {
+            coldRefresh = false
+            try await refresh()
+            return
+        }
+        
         let elapsed = Date().timeIntervalSince(lastRefreshed)
         guard elapsed > refreshThreshold else { return }
 
