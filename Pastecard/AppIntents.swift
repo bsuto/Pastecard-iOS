@@ -7,6 +7,7 @@
 
 import AppIntents
 import PastecardCore
+import SwiftUI
 
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Get Pastecard text"
@@ -14,14 +15,13 @@ struct GetText: AppIntent {
     static var openAppWhenRun = false
     
     private let core = PastecardCore.shared
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     private func loadText() async throws -> String {
-        let localText = core.loadLocal()
-        if !localText.isEmpty {
-            return localText
-        } else {
-            // If local is empty, try to load from remote just in case
+        if networkMonitor.isConnected {
             return try await core.loadRemote()
+        } else {
+            return core.loadLocal()
         }
     }
     
@@ -59,15 +59,20 @@ struct AppendText: AppIntent {
     }
     
     private let core = PastecardCore.shared
+    @StateObject private var networkMonitor = NetworkMonitor()
 
     func perform() async throws -> some ProvidesDialog {
         if !core.isSignedIn {
             return .result(dialog: "Please open the app and sign in first.")
         }
         
-        let addText = try await $text.requestValue("What would you like to add?")
-        try await core.append(addText)
-        return .result(dialog: "")
+        if networkMonitor.isConnected {
+            let addText = try await $text.requestValue("What would you like to add?")
+            try await core.append(addText)
+            return .result(dialog: "")
+        } else {
+            return .result(dialog: "Sorry, I can't add text without an internet connection.")
+        }
     }
 }
 
