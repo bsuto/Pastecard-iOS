@@ -7,7 +7,6 @@
 
 import AppIntents
 import PastecardCore
-import SwiftUI
 
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Get Pastecard text"
@@ -15,32 +14,31 @@ struct GetText: AppIntent {
     static var openAppWhenRun = false
     
     private let core = PastecardCore.shared
-    @StateObject private var networkMonitor = NetworkMonitor()
     
     private func loadText() async throws -> String {
-        if networkMonitor.isConnected {
+        do {
             return try await core.loadRemote()
-        } else {
+        } catch {
             return core.loadLocal()
         }
     }
     
     func perform() async throws -> some ReturnsValue<String> & ProvidesDialog {
-            if !core.isSignedIn {
-                let dialog = IntentDialog("Please open the app and sign in first.")
-                return .result(value: "", dialog: dialog)
-            }
-            
-            let cardText = try await loadText()
-            let dialog: IntentDialog
-            if cardText.isEmpty {
-                dialog = "Your Pastecard is empty."
-            } else {
-                dialog = IntentDialog(stringLiteral: cardText)
-            }
-            
-            return .result(value: cardText, dialog: dialog)
+        if !core.isSignedIn {
+            let dialog = IntentDialog("Please open the app and sign in first.")
+            return .result(value: "", dialog: dialog)
         }
+        
+        let cardText = try await loadText()
+        let dialog: IntentDialog
+        if cardText.isEmpty {
+            dialog = "Your Pastecard is empty."
+        } else {
+            dialog = IntentDialog(stringLiteral: cardText)
+        }
+        
+        return .result(value: cardText, dialog: dialog)
+    }
 }
 
 struct AppendText: AppIntent {
@@ -52,26 +50,25 @@ struct AppendText: AppIntent {
     var text: String?
     static var parameterSummary: some ParameterSummary {
         When(\.$text, .hasAnyValue) {
-                Summary("Add \(\.$text) to your Pastecard")
-            } otherwise: {
-                Summary("Add text to your Pastecard")
-            }
+            Summary("Add \(\.$text) to your Pastecard")
+        } otherwise: {
+            Summary("Add text to your Pastecard")
+        }
     }
     
     private let core = PastecardCore.shared
-    @StateObject private var networkMonitor = NetworkMonitor()
-
+    
     func perform() async throws -> some ProvidesDialog {
         if !core.isSignedIn {
             return .result(dialog: "Please open the app and sign in first.")
         }
         
-        if networkMonitor.isConnected {
-            let addText = try await $text.requestValue("What would you like to add?")
+        let addText = try await $text.requestValue("What would you like to add?")
+        do {
             try await core.append(addText)
-            return .result(dialog: "")
-        } else {
-            return .result(dialog: "Sorry, I can't add text without an internet connection.")
+            return .result(dialog: "Saved!")
+        } catch {
+            return .result(dialog: "Sorry, I couldn't save that. Please check your internet connection.")
         }
     }
 }
