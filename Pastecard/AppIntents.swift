@@ -48,11 +48,14 @@ struct AppendText: AppIntent {
     static var description = IntentDescription("Append some text to the end of your Pastecard.")
     static var openAppWhenRun = false
     
-    @Parameter(title: "Text", requestValueDialog: IntentDialog("What would you like to add?"))
-    var text: String
-    
+    @Parameter(title: "Text")
+    var text: String?
     static var parameterSummary: some ParameterSummary {
-        Summary("Add \(\.$text) to your Pastecard")
+        When(\.$text, .hasAnyValue) {
+                Summary("Add \(\.$text) to your Pastecard")
+            } otherwise: {
+                Summary("Add text to your Pastecard")
+            }
     }
     
     private let core = PastecardCore.shared
@@ -62,7 +65,8 @@ struct AppendText: AppIntent {
             return .result(dialog: "Please open the app and sign in first.")
         }
         
-        try await core.append(text)
+        let addText = try await $text.requestValue("What would you like to add?")
+        try await core.append(addText)
         return .result(dialog: "")
     }
 }
