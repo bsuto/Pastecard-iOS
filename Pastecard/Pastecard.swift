@@ -68,14 +68,15 @@ import PastecardCore
     
     func refreshIfNeeded() async throws {
         if coldRefresh {
-            coldRefresh = false
             try await refresh()
+            coldRefresh = false
             return
         }
         
         let elapsed = Date().timeIntervalSince(lastRefreshed)
         guard elapsed > refreshThreshold else { return }
-
+        guard loadingState != .loading else { return }
+        
         try await refresh()
     }
     
