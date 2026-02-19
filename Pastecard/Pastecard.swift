@@ -17,7 +17,6 @@ import PastecardCore
     
     private let core = PastecardCore.shared
     private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
-    private var coldRefresh = true
     private let refreshThreshold: TimeInterval = 60 // seconds
     
     init() {
@@ -53,31 +52,30 @@ import PastecardCore
     func refresh() async throws {
         guard isSignedIn else { return }
         
-        loadingState = .loading
+        await MainActor.run { loadingState = .loading }
         do {
             let text = try await core.loadRemote()
-            currentText = text
-            loadingState = .loaded
-            lastRefreshed = Date()
+            await MainActor.run {
+                currentText = text
+                loadingState = .loaded
+                lastRefreshed = Date()
+            }
         } catch {
-            currentText = core.loadLocal()
-            loadingState = .error(error)
+            await MainActor.run {
+                currentText = core.loadLocal()
+                loadingState = .error(error)
+            }
             throw NetworkError.loadError
         }
     }
-    
-    func refreshIfNeeded() async throws {
-        if coldRefresh {
-            try await refresh()
-            coldRefresh = false
-            return
-        }
+
+    func checkRefresh() async throws {
+        guard loadingState != .loading && loadingState != .saving else { return }
         
         let elapsed = Date().timeIntervalSince(lastRefreshed)
-        guard elapsed > refreshThreshold else { return }
-        guard loadingState != .loading else { return }
-        
-        try await refresh()
+        if lastRefreshed == Date.distantPast || elapsed > refreshThreshold {
+            try? await refresh()
+        }
     }
     
     func save(_ text: String) async throws {

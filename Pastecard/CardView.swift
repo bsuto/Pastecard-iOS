@@ -51,6 +51,9 @@ struct CardView: View {
                 swipeUpIcon
             }
         }
+        .onAppear {
+            checkRefresh()
+        }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
         }
@@ -325,7 +328,7 @@ struct CardView: View {
     
     private func checkRefresh() {
         Task {
-            try? await card.refreshIfNeeded()
+            try? await card.checkRefresh()
             await MainActor.run {
                 updateEmptyState()
             }
