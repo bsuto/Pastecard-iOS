@@ -57,6 +57,14 @@ struct CardView: View {
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
         }
+        .onChange(of: card.currentText) { _, _ in
+            updateEmptyState()
+        }
+        .onChange(of: card.loadingState) { _, newState in
+            if case .loaded = newState {
+                updateEmptyState()
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
             refresh()
         }
@@ -253,7 +261,6 @@ struct CardView: View {
         Task {
             do {
                 try await card.save(textToSave)
-                await MainActor.run { updateEmptyState() }
             } catch {
                 // Re-enter editing mode with the text they were trying to save
                 isEditing = true
@@ -316,9 +323,6 @@ struct CardView: View {
         Task {
             do {
                 try await card.refresh()
-                await MainActor.run {
-                    updateEmptyState()
-                }
             } catch {
                 showLoadAlert = true
                 throw NetworkError.loadError
@@ -329,9 +333,6 @@ struct CardView: View {
     private func checkRefresh() {
         Task {
             try? await card.checkRefresh()
-            await MainActor.run {
-                updateEmptyState()
-            }
         }
     }
     
