@@ -45,22 +45,34 @@ struct SwipeMenu: View {
             }
             .headerProminence(.increased)
             
-            Section(header: Text("pastecard.net/\(card.uid)")) {
-                Button {
-                    self.dismiss()
-                    card.signOut()
-                } label: {
-                    Label("Sign Out", systemImage: "arrow.right.to.line.square")
+            if card.isLocal {
+                Section(footer: Text("Your card text will be copied to the clipboard and cleared from the app.")) {
+                    Button {
+                        self.dismiss()
+                        card.signOut()
+                    } label: {
+                        Label("Sign In or Sign Up", systemImage: "person.crop.square")
+                    }
+                    .foregroundStyle(.primary)
                 }
-                .foregroundStyle(.primary)
-                
-                Button {
-                    showDeleteAlert = true
-                } label: {
-                    Label("Delete Account", systemImage: "trash")
+            } else {
+                Section(header: Text("pastecard.net/\(card.uid)")) {
+                    Button {
+                        self.dismiss()
+                        card.signOut()
+                    } label: {
+                        Label("Sign Out", systemImage: "arrow.right.to.line.square")
+                    }
+                    .foregroundStyle(.primary)
+                    
+                    Button {
+                        showDeleteAlert = true
+                    } label: {
+                        Label("Delete Account", systemImage: "trash")
+                    }
+                    .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
+                    .disabled(!networkMonitor.isConnected)
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
-                .disabled(!networkMonitor.isConnected)
             }
         }
         .scrollDisabled(true)

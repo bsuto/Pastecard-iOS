@@ -119,6 +119,17 @@ struct SignInView: View {
                     }
                     .frame(height: textHeight)
                 }
+                Section() {
+                    Button {
+                        Task {
+                            try await card.signIn(PastecardCore.localUser)
+                        }
+                    } label: {
+                        Text("Use without an account")
+                    }
+                    .frame(height: textHeight)
+                    .foregroundColor(Color("AccentColor"))
+                }
             }
             .scrollDisabled(true)
             .safeAreaInset(edge: .top) {

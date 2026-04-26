@@ -49,6 +49,21 @@ public final class PastecardCore: @unchecked Sendable {
     private let session = URLSession(configuration: .ephemeral)
     private init() {}
     
+    public static let localUser = "📴"
+    public static let localsOnlyText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it."
+    public var isLocal: Bool {
+        return currentUser == PastecardCore.localUser
+    }
+    public func loadLocalsOnly() {
+        saveLocal(PastecardCore.localsOnlyText)
+    }
+    public var firstRunDone: Bool {
+        return defaults.bool(forKey: "firstRunDone")
+    }
+    public func setFirstRunDone() {
+        defaults.set(true, forKey: "firstRunDone")
+    }
+    
     public var currentUser: String? {
         return defaults.string(forKey: "ID")
     }
@@ -70,6 +85,9 @@ public final class PastecardCore: @unchecked Sendable {
     public func loadRemote() async throws -> String {
         guard let uid = currentUser else {
             throw NetworkError.signInError
+        }
+        guard !isLocal else {
+            return loadLocal()
         }
         
         var returnText = ""
@@ -101,6 +119,10 @@ public final class PastecardCore: @unchecked Sendable {
         guard let uid = currentUser else {
             throw NetworkError.signInError
         }
+        guard !isLocal else {
+            saveLocal(text)
+            return text
+        }
         
         let parameters: [String: String] = ["text": text ]
         let url = URL(string: "https://pastecard.net/api/users/" + uid + "/write")!
@@ -125,6 +147,14 @@ public final class PastecardCore: @unchecked Sendable {
     public func append(_ text: String) async throws {
         guard let uid = currentUser else {
             throw NetworkError.signInError
+        }
+        guard !isLocal else {
+            let currentText = loadLocal()
+            guard currentText.count < 1034 else { return }
+            let combined = currentText.isEmpty ? text : currentText + "\n\n" + text
+            let trimmed = String(combined.prefix(1034))
+            saveLocal(trimmed)
+            return
         }
         
         let parameters: [String: String] = ["text": text ]
