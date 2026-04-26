@@ -23,6 +23,9 @@
 		7AA9B5F62E156C520002B7B3 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA9B5F52E156C520002B7B3 /* PastecardCore */; };
 		7AAFB3202E78D3BB00D34DC7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7AAFB31F2E78D3BB00D34DC7 /* AppIcon.icon */; };
 		7AAFB3222E78D50600D34DC7 /* AltIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7AAFB3212E78D50600D34DC7 /* AltIcon.icon */; };
+		7AB2CE502F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
+		7AB2CE512F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
+		7AB2CE522F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
 		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
 		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AD1E1BC29EF3EFD003262F3 /* SwiftUIShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIShareView.swift */; };
@@ -92,6 +95,7 @@
 		7A79FBF92E64D7F000E15D12 /* help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = help.html; sourceTree = "<group>"; };
 		7AAFB31F2E78D3BB00D34DC7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		7AAFB3212E78D50600D34DC7 /* AltIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AltIcon.icon; sourceTree = "<group>"; };
+		7AB2CE4F2F9E2E290020857F /* Env.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Env.xcconfig; sourceTree = "<group>"; };
 		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7AD1E1AD29EF2FC7003262F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 		7AFC09B3290AC47C009CAC71 = {
 			isa = PBXGroup;
 			children = (
+				7AB2CE4F2F9E2E290020857F /* Env.xcconfig */,
 				7A0401202BB1B1C10042FB3A /* PrivacyInfo.xcprivacy */,
 				7AFC09BE290AC47C009CAC71 /* Pastecard */,
 				7AEC326829E9F136000B30EA /* PCWidget */,
@@ -335,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401232BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
+				7AB2CE502F9E2E290020857F /* Env.xcconfig in Resources */,
 				7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401222BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
+				7AB2CE522F9E2E290020857F /* Env.xcconfig in Resources */,
 				7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +364,7 @@
 				7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */,
 				7A0401212BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
 				7AAFB3202E78D3BB00D34DC7 /* AppIcon.icon in Resources */,
+				7AB2CE512F9E2E290020857F /* Env.xcconfig in Resources */,
 				7AAFB3222E78D50600D34DC7 /* AltIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +425,7 @@
 /* Begin XCBuildConfiguration section */
 		7AD1E1B229EF2FC7003262F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -447,6 +456,7 @@
 		};
 		7AD1E1B329EF2FC7003262F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -477,6 +487,7 @@
 		};
 		7AEC327429E9F137000B30EA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -511,6 +522,7 @@
 		};
 		7AEC327529E9F137000B30EA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -545,6 +557,7 @@
 		};
 		7AFC09C8290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -609,6 +622,7 @@
 		};
 		7AFC09C9290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -667,6 +681,7 @@
 		};
 		7AFC09CB290AC47D009CAC71 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AltIcon;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -708,6 +723,7 @@
 		};
 		7AFC09CC290AC47D009CAC71 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AltIcon;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
