@@ -12,6 +12,7 @@ import WebKit
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
     @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var showSVC = false
@@ -56,7 +57,15 @@ struct SwipeMenu: View {
                     .foregroundStyle(.primary)
                 }
             } else {
-                Section(header: Text("pastecard.net/\(card.uid)")) {
+                Section(header:
+                            Button(action: {
+                    if let url = URL(string: "https://pastecard.net/\(card.uid)") {
+                        openURL(url)
+                    }
+                }) {
+                    Text("pastecard.net/\(card.uid)") }
+                    .buttonStyle(.plain)
+                ){
                     Button {
                         self.dismiss()
                         card.signOut()
