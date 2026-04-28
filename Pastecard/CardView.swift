@@ -183,12 +183,12 @@ struct CardView: View {
                 } label: {
                     Text("Save")
                         .font(.headline)
-                        .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
+                        .foregroundColor(networkMonitor.isConnected || card.isLocal ? Color("AccentColor") : Color(UIColor.systemGray))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                 }
                 .glassEffect()
-                .disabled(!networkMonitor.isConnected)
+                .disabled(!networkMonitor.isConnected && !card.isLocal)
             }
         }
     }

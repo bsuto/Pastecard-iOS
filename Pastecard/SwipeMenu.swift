@@ -27,8 +27,8 @@ struct SwipeMenu: View {
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
-                .disabled(!networkMonitor.isConnected)
+                .foregroundStyle(networkMonitor.isConnected || card.isLocal ? .primary : Color(uiColor: .label).opacity(0.8))
+                .disabled(!networkMonitor.isConnected && !card.isLocal)
                 
                 ShareLink (
                     item: shareText
