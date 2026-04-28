@@ -257,6 +257,7 @@ struct CardView: View {
         isEditing = false
         isFocused = false
         NotificationCenter.default.post(name: .editingDidEnd, object: nil)
+        updateEmptyState()
         
         Task {
             do {
