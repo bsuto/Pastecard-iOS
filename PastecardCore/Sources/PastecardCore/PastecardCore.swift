@@ -50,12 +50,14 @@ public final class PastecardCore: @unchecked Sendable {
     private init() {}
     
     public static let localUser = "📴"
-    public static let localsOnlyText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it."
+    public static let localsOnlyText = "Welcome to Pastecard.\n\nTap this text to edit it, or swipe up for the menu."
     public var isLocal: Bool {
         return currentUser == PastecardCore.localUser
     }
     public func loadLocalsOnly() {
-        saveLocal(PastecardCore.localsOnlyText)
+        if loadLocal().isEmpty { // remove this to force it every time
+            saveLocal(PastecardCore.localsOnlyText)
+        }
     }
     public var firstRunDone: Bool {
         return defaults.bool(forKey: "firstRunDone")
