@@ -102,7 +102,7 @@ public final class PastecardCore: @unchecked Sendable {
         request.timeoutInterval = 10.0
         
         let (data, response) = try await session.data(for: request)
-        let remoteText = try! JSONDecoder().decode(PCJSON.self, from: data)
+        let remoteText = try JSONDecoder().decode(PCJSON.self, from: data)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.loadError
         }
@@ -141,7 +141,7 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.saveError
         }
         
-        let returnText = try! JSONDecoder().decode(PCJSON.self, from: data)
+        let returnText = try JSONDecoder().decode(PCJSON.self, from: data)
         saveLocal(returnText.cardText)
         return returnText.cardText
     }
