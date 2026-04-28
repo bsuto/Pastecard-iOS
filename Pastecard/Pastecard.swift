@@ -36,17 +36,6 @@ import PastecardCore
         } else {
             self.isSignedIn = false
         }
-        
-//        self.isSignedIn = core.isSignedIn
-//        if let savedUser = core.currentUser {
-//            self.uid = savedUser
-//            self.currentText = core.loadLocal()
-//        } else {
-//            defaults.set(PastecardCore.localUser, forKey: "ID")
-//            self.isSignedIn = true
-//            self.uid = PastecardCore.localUser
-//            self.currentText = ""
-//        }
     }
     
     func signIn(_ user: String) async throws {
@@ -121,7 +110,6 @@ import PastecardCore
         if isLocal {
             core.saveLocal(text)
             currentText = text
-            loadingState = .loaded
             return
         }
         
