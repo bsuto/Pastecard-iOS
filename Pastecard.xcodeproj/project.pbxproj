@@ -23,9 +23,6 @@
 		7AA9B5F62E156C520002B7B3 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA9B5F52E156C520002B7B3 /* PastecardCore */; };
 		7AAFB3202E78D3BB00D34DC7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7AAFB31F2E78D3BB00D34DC7 /* AppIcon.icon */; };
 		7AAFB3222E78D50600D34DC7 /* AltIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7AAFB3212E78D50600D34DC7 /* AltIcon.icon */; };
-		7AB2CE502F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
-		7AB2CE512F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
-		7AB2CE522F9E2E290020857F /* Env.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */; };
 		7AD1E1A929EF2FC7003262F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1A829EF2FC7003262F3 /* ShareViewController.swift */; };
 		7AD1E1B029EF2FC7003262F3 /* PCShareExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AD1E1BC29EF3EFD003262F3 /* SwiftUIShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E1BB29EF3EFD003262F3 /* SwiftUIShareView.swift */; };
@@ -298,7 +295,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					7AD1E1A529EF2FC6003262F3 = {
 						CreatedOnToolsVersion = 14.3;
@@ -340,7 +337,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401232BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
-				7AB2CE502F9E2E290020857F /* Env.xcconfig in Resources */,
 				7A5A5FEE2B6371A800BD1150 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,7 +346,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0401222BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
-				7AB2CE522F9E2E290020857F /* Env.xcconfig in Resources */,
 				7AEC326E29E9F137000B30EA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +359,6 @@
 				7AFC09C4290AC47D009CAC71 /* Assets.xcassets in Resources */,
 				7A0401212BB1B1C10042FB3A /* PrivacyInfo.xcprivacy in Resources */,
 				7AAFB3202E78D3BB00D34DC7 /* AppIcon.icon in Resources */,
-				7AB2CE512F9E2E290020857F /* Env.xcconfig in Resources */,
 				7AAFB3222E78D50600D34DC7 /* AltIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,11 +419,10 @@
 /* Begin XCBuildConfiguration section */
 		7AD1E1B229EF2FC7003262F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
@@ -440,7 +433,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -456,11 +449,10 @@
 		};
 		7AD1E1B329EF2FC7003262F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCShareExt/PCShareExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCShareExt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCShareExt;
@@ -471,7 +463,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCShareExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -487,14 +479,13 @@
 		};
 		7AEC327429E9F137000B30EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
@@ -505,7 +496,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -522,14 +513,13 @@
 		};
 		7AEC327529E9F137000B30EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AB2CE4F2F9E2E290020857F /* Env.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = PCWidget/PCWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PCWidget;
@@ -540,7 +530,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -689,7 +679,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -708,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -731,7 +721,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Pastecard/Pastecard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "\"Pastecard/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -750,7 +740,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
