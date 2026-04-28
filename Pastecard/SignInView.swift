@@ -125,7 +125,7 @@ struct SignInView: View {
                             try await card.signIn(PastecardCore.localUser)
                         }
                     } label: {
-                        Text("Use without an account")
+                        Text("Use Without an Account")
                     }
                     .frame(height: textHeight)
                     .foregroundColor(Color("AccentColor"))

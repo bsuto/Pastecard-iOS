@@ -71,7 +71,7 @@ struct SignUpSheet: View {
         if invalidID { return }
         
         let name = newUser.lowercased().trimmingCharacters(in: .whitespaces)
-        let initialText = "Welcome to Pastecard for iPhone.\n\nSwipe up for an options menu, or tap this text to edit it and save your changes to the cloud.\n\nAccess your card from anywhere at pastecard.net/" + name
+        let initialText = "Welcome to Pastecard.\n\nSwipe up for an options menu, or tap this text to edit it and save your changes to the cloud.\n\nAccess your card from anywhere at pastecard.net/" + name
         let parameters: [String: String] = ["cardText": initialText, "createdFrom": "iOS" ]
         let url = URL(string: "https://pastecard.net/api/users/" + name)!
         
