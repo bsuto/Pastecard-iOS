@@ -12,6 +12,7 @@ import WebKit
 struct SwipeMenu: View {
     @EnvironmentObject var card: Pastecard
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
     @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var showSVC = false
@@ -26,8 +27,8 @@ struct SwipeMenu: View {
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
-                .disabled(!networkMonitor.isConnected)
+                .foregroundStyle(networkMonitor.isConnected || card.isLocal ? .primary : Color(uiColor: .label).opacity(0.8))
+                .disabled(!networkMonitor.isConnected && !card.isLocal)
                 
                 ShareLink (
                     item: shareText
@@ -45,22 +46,42 @@ struct SwipeMenu: View {
             }
             .headerProminence(.increased)
             
-            Section(header: Text("pastecard.net/\(card.uid)")) {
-                Button {
-                    self.dismiss()
-                    card.signOut()
-                } label: {
-                    Label("Sign Out", systemImage: "arrow.right.to.line.square")
+            if card.isLocal {
+                Section(footer: Text("Your card text will be copied to the clipboard and cleared from the app.")) {
+                    Button {
+                        self.dismiss()
+                        card.signOut()
+                    } label: {
+                        Label("Sign In or Sign Up", systemImage: "person.crop.square")
+                    }
+                    .foregroundStyle(.primary)
                 }
-                .foregroundStyle(.primary)
-                
-                Button {
-                    showDeleteAlert = true
-                } label: {
-                    Label("Delete Account", systemImage: "trash")
+            } else {
+                Section(header:
+                            Button(action: {
+                    if let url = URL(string: "https://pastecard.net/\(card.uid)") {
+                        openURL(url)
+                    }
+                }) {
+                    Text("pastecard.net/\(card.uid)") }
+                    .buttonStyle(.plain)
+                ){
+                    Button {
+                        self.dismiss()
+                        card.signOut()
+                    } label: {
+                        Label("Sign Out", systemImage: "arrow.right.to.line.square")
+                    }
+                    .foregroundStyle(.primary)
+                    
+                    Button {
+                        showDeleteAlert = true
+                    } label: {
+                        Label("Delete Account", systemImage: "trash")
+                    }
+                    .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
+                    .disabled(!networkMonitor.isConnected)
                 }
-                .foregroundStyle(networkMonitor.isConnected ? .primary : Color(uiColor: .label).opacity(0.8))
-                .disabled(!networkMonitor.isConnected)
             }
         }
         .scrollDisabled(true)

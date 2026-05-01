@@ -49,6 +49,23 @@ public final class PastecardCore: @unchecked Sendable {
     private let session = URLSession(configuration: .ephemeral)
     private init() {}
     
+    public static let localUser = "📴"
+    public static let localsOnlyText = "Welcome to Pastecard.\n\nTap this text to edit it, or swipe up for the menu."
+    public var isLocal: Bool {
+        return currentUser == PastecardCore.localUser
+    }
+    public func loadLocalsOnly() {
+        if loadLocal().isEmpty { // remove this to force it every time
+            saveLocal(PastecardCore.localsOnlyText)
+        }
+    }
+    public var firstRunDone: Bool {
+        return defaults.bool(forKey: "firstRunDone")
+    }
+    public func setFirstRunDone() {
+        defaults.set(true, forKey: "firstRunDone")
+    }
+    
     public var currentUser: String? {
         return defaults.string(forKey: "ID")
     }
@@ -71,6 +88,9 @@ public final class PastecardCore: @unchecked Sendable {
         guard let uid = currentUser else {
             throw NetworkError.signInError
         }
+        guard !isLocal else {
+            return loadLocal()
+        }
         
         var returnText = ""
         let url = URL(string: "https://pastecard.net/api/users/" + uid)!
@@ -82,7 +102,7 @@ public final class PastecardCore: @unchecked Sendable {
         request.timeoutInterval = 10.0
         
         let (data, response) = try await session.data(for: request)
-        let remoteText = try! JSONDecoder().decode(PCJSON.self, from: data)
+        let remoteText = try JSONDecoder().decode(PCJSON.self, from: data)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw NetworkError.loadError
         }
@@ -101,6 +121,10 @@ public final class PastecardCore: @unchecked Sendable {
         guard let uid = currentUser else {
             throw NetworkError.signInError
         }
+        guard !isLocal else {
+            saveLocal(text)
+            return text
+        }
         
         let parameters: [String: String] = ["text": text ]
         let url = URL(string: "https://pastecard.net/api/users/" + uid + "/write")!
@@ -117,7 +141,7 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.saveError
         }
         
-        let returnText = try! JSONDecoder().decode(PCJSON.self, from: data)
+        let returnText = try JSONDecoder().decode(PCJSON.self, from: data)
         saveLocal(returnText.cardText)
         return returnText.cardText
     }
@@ -125,6 +149,14 @@ public final class PastecardCore: @unchecked Sendable {
     public func append(_ text: String) async throws {
         guard let uid = currentUser else {
             throw NetworkError.signInError
+        }
+        guard !isLocal else {
+            let currentText = loadLocal()
+            guard currentText.count < 1034 else { return }
+            let combined = currentText.isEmpty ? text : currentText + "\n\n" + text
+            let trimmed = String(combined.prefix(1034))
+            saveLocal(trimmed)
+            return
         }
         
         let parameters: [String: String] = ["text": text ]
@@ -147,7 +179,8 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/trash")!
+        let slug = (Bundle.main.infoDictionary?["DELETE_SLUG"] as! String)
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + slug)!
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"

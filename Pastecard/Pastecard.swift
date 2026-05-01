@@ -5,11 +5,13 @@
 //  Created by Brian Sutorius on 2/12/23.
 //
 
+import UIKit
 import WidgetKit
 import PastecardCore
 
 @MainActor class Pastecard: ObservableObject {
     @Published var isSignedIn: Bool
+    var isLocal: Bool { return core.isLocal }
     @Published var uid = ""
     @Published var currentText = ""
     @Published var loadingState: LoadingState = .idle
@@ -20,10 +22,19 @@ import PastecardCore
     private let refreshThreshold: TimeInterval = 60 // seconds
     
     init() {
-        self.isSignedIn = core.isSignedIn
-        if let savedUser = core.currentUser {
-            self.uid = savedUser
+        if core.isSignedIn {
+            self.isSignedIn = true
+            self.uid = core.currentUser!
             self.currentText = core.loadLocal()
+        } else if !core.firstRunDone {
+            defaults.set(PastecardCore.localUser, forKey: "ID")
+            self.isSignedIn = true
+            self.uid = PastecardCore.localUser
+            core.loadLocalsOnly()
+            self.currentText = core.loadLocal()
+            core.setFirstRunDone()
+        } else {
+            self.isSignedIn = false
         }
     }
     
@@ -31,6 +42,13 @@ import PastecardCore
         self.isSignedIn = true
         self.uid = user
         defaults.set(user, forKey: "ID")
+        
+        if core.isLocal {
+            core.loadLocalsOnly()
+            self.currentText = core.loadLocal()
+            self.loadingState = .loaded
+            return
+        }
         
         do {
             try await refresh()
@@ -40,6 +58,10 @@ import PastecardCore
     }
     
     func signOut() {
+        if isLocal && !currentText.isEmpty {
+            UIPasteboard.general.string = currentText
+        }
+        
         self.isSignedIn = false
         self.uid = ""
         self.currentText = ""
@@ -51,6 +73,11 @@ import PastecardCore
     
     func refresh() async throws {
         guard isSignedIn else { return }
+        guard !isLocal else {
+            currentText = core.loadLocal()
+            loadingState = .loaded
+            return
+        }
         
         await MainActor.run { loadingState = .loading }
         do {
@@ -80,6 +107,11 @@ import PastecardCore
     
     func save(_ text: String) async throws {
         guard isSignedIn else { return }
+        if isLocal {
+            core.saveLocal(text)
+            currentText = text
+            return
+        }
         
         loadingState = .saving
         do {
