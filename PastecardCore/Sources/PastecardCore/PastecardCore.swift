@@ -179,8 +179,7 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let slug = (Bundle.main.infoDictionary?["DELETE_SLUG"] as! String)
-        let url = URL(string: "https://pastecard.net/api/users/" + uid + slug)!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/trash")!
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"

@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
-               BuildableName = "Pastecard.app"
-               BlueprintName = "Pastecard"
+               BuildableName = "Pastecard-iOS.app"
+               BlueprintName = "Pastecard-iOS"
                ReferencedContainer = "container:Pastecard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
-            BuildableName = "Pastecard.app"
-            BlueprintName = "Pastecard"
+            BuildableName = "Pastecard-iOS.app"
+            BlueprintName = "Pastecard-iOS"
             ReferencedContainer = "container:Pastecard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -97,8 +97,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7AFC09BB290AC47C009CAC71"
-            BuildableName = "Pastecard.app"
-            BlueprintName = "Pastecard"
+            BuildableName = "Pastecard-iOS.app"
+            BlueprintName = "Pastecard-iOS"
             ReferencedContainer = "container:Pastecard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
