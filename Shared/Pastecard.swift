@@ -5,9 +5,14 @@
 //  Created by Brian Sutorius on 2/12/23.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 import WidgetKit
 import PastecardCore
+internal import Combine
 
 @MainActor class Pastecard: ObservableObject {
     @Published var isSignedIn: Bool
@@ -58,9 +63,17 @@ import PastecardCore
     }
     
     func signOut() {
+        // Platform-specific clipboard handling
+        #if os(iOS)
         if isLocal && !currentText.isEmpty {
             UIPasteboard.general.string = currentText
         }
+        #elseif os(macOS)
+        if isLocal && !currentText.isEmpty {
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(currentText, forType: .string)
+        }
+        #endif
         
         self.isSignedIn = false
         self.uid = ""
