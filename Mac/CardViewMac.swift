@@ -156,18 +156,18 @@ struct MacCardView: View {
                     .font(.system(size: fontSize))
                     .padding()
                     .focused($isFocused)
-                    .disabled(card.loadingState == .loading || card.loadingState == .saving)
-                    .onChange(of: isFocused) { _, newValue in
-                        guard newValue else { return }
-                        if suppressInitialFocus {
-                            suppressInitialFocus = false
-                            isFocused = false
-                            return
-                        }
-                        handleFocusChange(newValue)
-                    }
+                    .disabled(card.loadingState == .loading || card.loadingState == .saving || !isEditing)
                     .onChange(of: editingText) { _, _ in
                         if isEditing { enforceLimit() }
+                    }
+                    .overlay {
+                        if !isEditing {
+                            Color.clear
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    startEditing()
+                                }
+                        }
                     }
                 
                 editButtons
@@ -195,7 +195,6 @@ struct MacCardView: View {
         .task {
             await checkRefresh()
         }
-        .onAppear {}
         .onDisappear {
             if let monitor = keyMonitor {
                 NSEvent.removeMonitor(monitor)

@@ -82,8 +82,7 @@
 		7A536FE4299D1266002A8E85 /* SignUpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSheet.swift; sourceTree = "<group>"; };
 		7A5A5FED2B6371A800BD1150 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7A79FBF92E64D7F000E15D12 /* help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = help.html; sourceTree = "<group>"; };
-		7AA7B6972FD481240069DA5C /* Pastecard-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pastecard-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AA7B6B22FD491210069DA5C /* Pastecard-Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pastecard-Mac.entitlements"; sourceTree = "<group>"; };
+		7AA7B6972FD481240069DA5C /* Pastecard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastecard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AAFB31F2E78D3BB00D34DC7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		7AAFB3212E78D50600D34DC7 /* AltIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AltIcon.icon; sourceTree = "<group>"; };
 		7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCShareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,7 +206,6 @@
 		7AFC09B3290AC47C009CAC71 = {
 			isa = PBXGroup;
 			children = (
-				7AA7B6B22FD491210069DA5C /* Pastecard-Mac.entitlements */,
 				7AA7B6A22FD482250069DA5C /* Shared */,
 				7AFC09BE290AC47C009CAC71 /* iOS */,
 				7AEC326829E9F136000B30EA /* PCWidget */,
@@ -224,7 +222,7 @@
 				7AFC09BC290AC47C009CAC71 /* Pastecard-iOS.app */,
 				7AEC326229E9F136000B30EA /* PCWidget.appex */,
 				7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */,
-				7AA7B6972FD481240069DA5C /* Pastecard-Mac.app */,
+				7AA7B6972FD481240069DA5C /* Pastecard.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,7 +230,6 @@
 		7AFC09BE290AC47C009CAC71 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */,
 				7AFC09CD290ADFBB009CAC71 /* Info.plist */,
 				7AFC09BF290AC47C009CAC71 /* PastecardApp.swift */,
 				7AE7F75B2A0164EF007194F5 /* AppDelegate.swift */,
@@ -246,6 +243,7 @@
 				7AAFB3212E78D50600D34DC7 /* AltIcon.icon */,
 				7AAFB31F2E78D3BB00D34DC7 /* AppIcon.icon */,
 				7AFC09C3290AC47D009CAC71 /* Assets.xcassets */,
+				7AEC325D29E9ED08000B30EA /* Pastecard.entitlements */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -281,7 +279,7 @@
 				7AA7B6B32FD491640069DA5C /* PastecardCore */,
 			);
 			productName = "Pastecard-Mac";
-			productReference = 7AA7B6972FD481240069DA5C /* Pastecard-Mac.app */;
+			productReference = 7AA7B6972FD481240069DA5C /* Pastecard.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7AD1E1A529EF2FC6003262F3 /* PCShareExt */ = {
@@ -497,17 +495,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Pastecard-Mac.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -519,7 +528,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pastecard;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -539,17 +548,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Pastecard-Mac.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Pastecard;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -561,7 +581,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pastecard;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

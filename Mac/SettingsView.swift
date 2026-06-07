@@ -23,6 +23,8 @@ struct MacSettingsView: View {
                         Text("This Mac Only")
                         Spacer()
                         Button("Sign In or Sign Up") {
+                            windowFloating = false
+                            fontSize = 13
                             card.signOut()
                         }
                     }
@@ -41,6 +43,8 @@ struct MacSettingsView: View {
                             Spacer()
                             
                             Button("Sign Out") {
+                                windowFloating = false
+                                fontSize = 13
                                 card.signOut()
                             }
                         }
@@ -94,6 +98,19 @@ struct MacSettingsView: View {
         }
         .animation(.easeInOut(duration: 0.25), value: card.isSignedIn)
         .animation(.easeInOut(duration: 0.25), value: card.isLocal)
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { notification in
+            guard let closingWindow = notification.object as? NSWindow,
+                  closingWindow.identifier?.rawValue.hasPrefix("com_apple_SwiftUI_Settings") == true
+            else { return }
+            
+            let otherWindows = NSApplication.shared.windows.filter {
+                $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
+            }
+            
+            if otherWindows.isEmpty {
+                NSApplication.shared.terminate(nil)
+            }
+        }
     }
 
     

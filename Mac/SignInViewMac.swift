@@ -13,7 +13,7 @@ struct SignInViewMac: View {
     @State private var isSigningIn = false
     
     var body: some View {
-        VStack(spacing: 36) {
+        VStack(spacing: 24) {
             GroupBox {
                 HStack() {
                     Text("pastecard.net/")
@@ -58,26 +58,50 @@ struct SignInViewMac: View {
             }
         }
         
-        // Sign Up and Locals Only buttons
-        VStack(spacing: 12) {
-            HStack {
+        GroupBox {
+            VStack(alignment: .leading, spacing: 8) {
                 Button("Create a Pastecard") {
                     showSignUp = true
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(.link)
+                .foregroundStyle(.primary)
                 .disabled(!networkMonitor.isConnected)
-                
-                Spacer()
                 
                 Button("Use Without an Account") {
                     Task {
                         try? await card.signIn(PastecardCore.localUser)
-                        closeSettingsAndOpenMain()
+                        resetWindows()
                     }
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(.link)
+                .foregroundStyle(.primary)
             }
+            .padding(4)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } label: {
+            Text("Sign Up")
         }
+        
+        HStack() {
+            Button("Help") {
+                NSHelpManager.shared.openHelpAnchor("app", inBook: "net.pastecard.Pastecard.help")
+            }
+            .buttonStyle(.link)
+            .font(.callout)
+            .foregroundStyle(.primary)
+            
+            Spacer()
+            
+            Button("Privacy & Terms") {
+                NSHelpManager.shared.openHelpAnchor("tos", inBook: "net.pastecard.Pastecard.help")
+            }
+            .buttonStyle(.link)
+            .font(.callout)
+            .foregroundStyle(.primary)
+        }
+        .padding(4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
         
         .sheet(isPresented: $showSignUp) {
             SignUpSheetMac()
@@ -85,11 +109,23 @@ struct SignInViewMac: View {
         }
     }
     
-    private func closeSettingsAndOpenMain() {
+    private func resetWindows() {
+        let mainWindows = NSApplication.shared.windows.filter {
+            $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
+        }
+        mainWindows.dropFirst().forEach { $0.close() }
+        
         NSApplication.shared.windows
             .first { $0.identifier?.rawValue.hasPrefix("com_apple_SwiftUI_Settings") == true }?
             .close()
-        openWindow(id: "main")
+        
+        if let mainWindow = NSApplication.shared.windows.first(where: {
+            $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
+        }) {
+            mainWindow.makeKeyAndOrderFront(nil)
+        } else {
+            openWindow(id: "main")
+        }
     }
     
     private func signIn() async {
@@ -112,7 +148,7 @@ struct SignInViewMac: View {
                 case 200:
                     try await card.signIn(nameCheck)
                     errorMessage = ""
-                    closeSettingsAndOpenMain()
+                    resetWindows()
                 case 404:
                     errorMessage = "Sorry, the computer can't find that ID."
                 default:
@@ -120,6 +156,13 @@ struct SignInViewMac: View {
                 }
             }
         } catch {
+            print("Error type: \(type(of: error))")
+                print("Error: \(error)")
+                print("Localized: \(error.localizedDescription)")
+                if let urlError = error as? URLError {
+                    print("URLError code: \(urlError.code)")
+                    print("URLError code raw: \(urlError.code.rawValue)")
+                }
             errorMessage = "Connection error. Please check your internet and try again."
         }
         
