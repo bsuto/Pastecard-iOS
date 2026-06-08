@@ -63,6 +63,12 @@ struct PastecardMacApp: App {
                 .keyboardShortcut("c", modifiers: [.command, .shift])
                 .disabled(card.currentText.isEmpty)
             }
+            CommandGroup(replacing: .help) {
+                Button("Pastecard Help") {
+                    HelpWindowController.shared.open()
+                }
+                .keyboardShortcut("?", modifiers: .command)
+            }
         }
         
         Settings {

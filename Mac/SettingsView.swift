@@ -56,14 +56,14 @@ struct MacSettingsView: View {
                 GroupBox {
                     VStack(alignment: .leading, spacing: 8) {
                         Button("Help") {
-                            NSHelpManager.shared.openHelpAnchor("app", inBook: "net.pastecard.Pastecard.help")
+                            HelpWindowController.shared.open(anchor: "app")
                         }
                         .buttonStyle(.link)
                         .font(.callout)
                         .foregroundStyle(.primary)
     
                         Button("Privacy & Terms") {
-                            NSHelpManager.shared.openHelpAnchor("tos", inBook: "net.pastecard.Pastecard.help")
+                            HelpWindowController.shared.open(anchor: "tos")
                         }
                         .buttonStyle(.link)
                         .font(.callout)
