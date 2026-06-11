@@ -32,56 +32,30 @@ struct MacSettingsView: View {
                 } label: {
                     Text("Account")
                 }
+                
+                helpLinks
             } else {
                 generalControls
                 
                 GroupBox {
-                        HStack {
-                            Text(card.uid)
-                                .textSelection(.enabled)
-                            
-                            Spacer()
-                            
-                            Button("Sign Out") {
-                                windowFloating = false
-                                fontSize = 13
-                                card.signOut()
-                            }
+                    HStack {
+                        Text(card.uid)
+                            .textSelection(.enabled)
+                        
+                        Spacer()
+                        
+                        Button("Sign Out") {
+                            windowFloating = false
+                            fontSize = 13
+                            card.signOut()
                         }
+                    }
                     .padding(4)
                 } label: {
                     Text("Account")
                 }
                 
-                GroupBox {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Button("Help") {
-                            HelpWindowController.shared.open(anchor: "app")
-                        }
-                        .buttonStyle(.link)
-                        .font(.callout)
-                        .foregroundStyle(.primary)
-    
-                        Button("Privacy & Terms") {
-                            HelpWindowController.shared.open(anchor: "tos")
-                        }
-                        .buttonStyle(.link)
-                        .font(.callout)
-                        .foregroundStyle(.primary)
-                        
-                        Button("Delete Account") {
-                            showDeleteAlert = true
-                        }
-                        .buttonStyle(.link)
-                        .font(.callout)
-                        .disabled(!networkMonitor.isConnected)
-                        .foregroundColor(.red)
-                    }
-                    .padding(4)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                } label: {
-                    Text("Support")
-                }
+                helpLinks
             }
         }
         .padding()
@@ -121,6 +95,7 @@ struct MacSettingsView: View {
                     Text("Floating Window")
                     Spacer()
                     Toggle("", isOn: $windowFloating)
+                        .controlSize(.small)
                         .toggleStyle(.switch)
                         .labelsHidden()
                 }
@@ -139,6 +114,40 @@ struct MacSettingsView: View {
             .padding(4)
         } label: {
             Text("General")
+        }
+    }
+    
+    private var helpLinks: some View {
+        GroupBox {
+            VStack(alignment: .leading, spacing: 8) {
+                Button("Help") {
+                    HelpWindowController.shared.open(anchor: "app")
+                }
+                .buttonStyle(.link)
+                .font(.callout)
+                .foregroundStyle(.primary)
+
+                Button("Privacy & Terms") {
+                    HelpWindowController.shared.open(anchor: "tos")
+                }
+                .buttonStyle(.link)
+                .font(.callout)
+                .foregroundStyle(.primary)
+                
+                if card.isSignedIn && !card.isLocal {
+                    Button("Delete Account") {
+                        showDeleteAlert = true
+                    }
+                    .buttonStyle(.link)
+                    .font(.callout)
+                    .disabled(!networkMonitor.isConnected)
+                    .foregroundColor(.red)
+                }
+            }
+            .padding(4)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } label: {
+            Text("Support")
         }
     }
 }
