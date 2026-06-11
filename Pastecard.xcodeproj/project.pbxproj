@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A00C2E12FD8E3AF00C012D6 /* PCSafariExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A00C2C92FD8E3AF00C012D6 /* PCSafariExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7A00C2E72FD8E4A500C012D6 /* PastecardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7A00C2E62FD8E4A500C012D6 /* PastecardCore */; };
 		7A152D07296DC84C00EF049D /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A152D06296DC84C00EF049D /* SafariViewController.swift */; };
 		7A417C66296B14C6002E8B4D /* SwipeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C65296B14C6002E8B4D /* SwipeMenu.swift */; };
 		7A417C68296B1CC4002E8B4D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A417C67296B1CC4002E8B4D /* SignInView.swift */; };
@@ -34,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7A00C2DF2FD8E3AF00C012D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A00C2C82FD8E3AF00C012D6;
+			remoteInfo = PCSafariExt;
+		};
 		7AD1E1AE29EF2FC7003262F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
@@ -61,6 +70,17 @@
 			name = "Embed ExtensionKit Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AB215502FD6FCAA00753DBA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7A00C2E12FD8E3AF00C012D6 /* PCSafariExt.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AEC327629E9F137000B30EA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7A00C2C92FD8E3AF00C012D6 /* PCSafariExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PCSafariExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A152D06296DC84C00EF049D /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		7A417C65296B14C6002E8B4D /* SwipeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeMenu.swift; sourceTree = "<group>"; };
 		7A417C67296B1CC4002E8B4D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -107,6 +128,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7A00C2E52FD8E3AF00C012D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */;
+		};
 		7AA7B6A32FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -132,11 +160,20 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A00C2E52FD8E3AF00C012D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (Resources/_locales, Resources/images, ); path = PCSafariExt; sourceTree = "<group>"; };
 		7AA7B6982FD481240069DA5C /* Mac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Mac; sourceTree = "<group>"; };
 		7AA7B6A22FD482250069DA5C /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7AA7B6B62FD4917D0069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A32FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A42FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A00C2C62FD8E3AF00C012D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A00C2E72FD8E4A500C012D6 /* PastecardCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA7B6942FD481240069DA5C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +248,7 @@
 				7AEC326829E9F136000B30EA /* PCWidget */,
 				7AD1E1A729EF2FC7003262F3 /* PCShareExt */,
 				7AA7B6982FD481240069DA5C /* Mac */,
+				7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */,
 				7AEC326329E9F136000B30EA /* Frameworks */,
 				7AFC09BD290AC47C009CAC71 /* Products */,
 			);
@@ -223,6 +261,7 @@
 				7AEC326229E9F136000B30EA /* PCWidget.appex */,
 				7AD1E1A629EF2FC6003262F3 /* PCShareExt.appex */,
 				7AA7B6972FD481240069DA5C /* Pastecard.app */,
+				7A00C2C92FD8E3AF00C012D6 /* PCSafariExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,6 +298,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A00C2E22FD8E3AF00C012D6 /* Build configuration list for PBXNativeTarget "PCSafariExt" */;
+			buildPhases = (
+				7A00C2C52FD8E3AF00C012D6 /* Sources */,
+				7A00C2C62FD8E3AF00C012D6 /* Frameworks */,
+				7A00C2C72FD8E3AF00C012D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */,
+			);
+			name = PCSafariExt;
+			packageProductDependencies = (
+				7A00C2E62FD8E4A500C012D6 /* PastecardCore */,
+			);
+			productName = PCSafariExt;
+			productReference = 7A00C2C92FD8E3AF00C012D6 /* PCSafariExt.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7AA7B6962FD481240069DA5C /* Pastecard-Mac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AA7B69F2FD481250069DA5C /* Build configuration list for PBXNativeTarget "Pastecard-Mac" */;
@@ -266,10 +328,12 @@
 				7AA7B6932FD481240069DA5C /* Sources */,
 				7AA7B6942FD481240069DA5C /* Frameworks */,
 				7AA7B6952FD481240069DA5C /* Resources */,
+				7AB215502FD6FCAA00753DBA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7A00C2E02FD8E3AF00C012D6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7AA7B6982FD481240069DA5C /* Mac */,
@@ -356,6 +420,9 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					7A00C2C82FD8E3AF00C012D6 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					7AA7B6962FD481240069DA5C = {
 						CreatedOnToolsVersion = 26.3;
 						LastSwiftMigration = 2630;
@@ -391,11 +458,19 @@
 				7AA7B6962FD481240069DA5C /* Pastecard-Mac */,
 				7AEC326129E9F136000B30EA /* PCWidget */,
 				7AD1E1A529EF2FC6003262F3 /* PCShareExt */,
+				7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A00C2C72FD8E3AF00C012D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA7B6952FD481240069DA5C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,6 +509,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A00C2C52FD8E3AF00C012D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA7B6932FD481240069DA5C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -476,6 +558,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7A00C2E02FD8E3AF00C012D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */;
+			targetProxy = 7A00C2DF2FD8E3AF00C012D6 /* PBXContainerItemProxy */;
+		};
 		7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7AD1E1A529EF2FC6003262F3 /* PCShareExt */;
@@ -489,6 +576,107 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7A00C2E32FD8E3AF00C012D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PCSafariExt/PCSafariExt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCSafariExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCSafariExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.7;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac.PCSafariExt";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7A00C2E42FD8E3AF00C012D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PCSafariExt/PCSafariExt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 4JC57Z4N28;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PCSafariExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PCSafariExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.7;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac.PCSafariExt";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		7AA7B6A02FD481250069DA5C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -498,7 +686,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -551,7 +739,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -928,6 +1116,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A00C2E22FD8E3AF00C012D6 /* Build configuration list for PBXNativeTarget "PCSafariExt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A00C2E32FD8E3AF00C012D6 /* Debug */,
+				7A00C2E42FD8E3AF00C012D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AA7B69F2FD481250069DA5C /* Build configuration list for PBXNativeTarget "Pastecard-Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -983,6 +1180,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7A00C2E62FD8E4A500C012D6 /* PastecardCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */;
+			productName = PastecardCore;
+		};
 		7AA7B6B32FD491640069DA5C /* PastecardCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7AA9B5EE2E156B760002B7B3 /* XCLocalSwiftPackageReference "PastecardCore" */;

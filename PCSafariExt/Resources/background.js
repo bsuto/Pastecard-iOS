@@ -1,6 +1,12 @@
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log("Received request: ", request);
+browser.action.onClicked.addListener((tab) => {
+  browser.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ["content.js"]
+  });
+});
 
-    if (request.greeting === "hello")
-        return Promise.resolve({ farewell: "goodbye" });
+browser.runtime.onMessage.addListener((message) => {
+  if (message.text) {
+    browser.runtime.sendNativeMessage("", { text: message.text });
+  }
 });

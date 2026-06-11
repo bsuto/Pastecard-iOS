@@ -38,10 +38,17 @@ struct WindowStateReader: NSViewRepresentable {
     class Coordinator {
         var onFullScreenChange: ((Bool) -> Void)?
         private var observed: NSWindow?
+        private var hasResignedInitialFocus = false
         
         func observe(window: NSWindow) {
             guard window !== observed else { return }
             observed = window
+            if !hasResignedInitialFocus {
+                hasResignedInitialFocus = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    window.makeFirstResponder(nil)
+                }
+            }
             NotificationCenter.default.addObserver(
                 forName: NSWindow.didEnterFullScreenNotification,
                 object: window, queue: .main
