@@ -104,11 +104,12 @@ struct MacSettingsView: View {
                     HStack {
                         Text("Font Size")
                         Spacer()
-                        Text("\(Int(fontSize))pt")
+                        Text("\(Int(fontSize))")
                             .foregroundColor(.secondary)
                             .monospacedDigit()
                     }
                     Slider(value: $fontSize, in: 10...24, step: 1)
+                        .padding(.top, 4)
                 }
             }
             .padding(4)
@@ -121,7 +122,7 @@ struct MacSettingsView: View {
         GroupBox {
             VStack(alignment: .leading, spacing: 8) {
                 Button("Help") {
-                    HelpWindowController.shared.open(anchor: "app")
+                    HelpWindowController.shared.open(anchor: "basic")
                 }
                 .buttonStyle(.link)
                 .font(.callout)
