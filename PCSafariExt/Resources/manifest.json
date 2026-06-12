@@ -4,12 +4,16 @@
   "description": "Appends the current tab's selected text or URL to your Pastecard.",
   "version": "1.0",
   "permissions": ["activeTab", "scripting", "nativeMessaging"],
-
   "background": {
     "service_worker": "background.js"
   },
   "action": {
     "default_title": "Save to Pastecard",
     "default_icon": "images/toolbar-icon.svg"
+  },
+  "icons": {
+    "16": "images/pcplacer.png",
+    "32": "images/pcplacer.png",
+    "128": "images/pcplacer.png"
   }
 }

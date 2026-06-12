@@ -36,7 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7A00C2DF2FD8E3AF00C012D6 /* PBXContainerItemProxy */ = {
+		7A89E89E2FDC8F8700B7261E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7AFC09B4290AC47C009CAC71 /* Project object */;
 			proxyType = 1;
@@ -160,7 +160,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A00C2E52FD8E3AF00C012D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (Resources/_locales, Resources/images, ); path = PCSafariExt; sourceTree = "<group>"; };
+		7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A00C2E52FD8E3AF00C012D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (Resources/images, ); path = PCSafariExt; sourceTree = "<group>"; };
 		7AA7B6982FD481240069DA5C /* Mac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Mac; sourceTree = "<group>"; };
 		7AA7B6A22FD482250069DA5C /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7AA7B6B62FD4917D0069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A32FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A42FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -333,7 +333,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				7A00C2E02FD8E3AF00C012D6 /* PBXTargetDependency */,
+				7A89E89F2FDC8F8700B7261E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7AA7B6982FD481240069DA5C /* Mac */,
@@ -558,10 +558,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7A00C2E02FD8E3AF00C012D6 /* PBXTargetDependency */ = {
+		7A89E89F2FDC8F8700B7261E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */;
-			targetProxy = 7A00C2DF2FD8E3AF00C012D6 /* PBXContainerItemProxy */;
+			targetProxy = 7A89E89E2FDC8F8700B7261E /* PBXContainerItemProxy */;
 		};
 		7AD1E1AF29EF2FC7003262F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -613,7 +613,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac.PCSafariExt";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCSafariExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -664,7 +664,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac.PCSafariExt";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard.PCSafariExt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -715,7 +715,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = Pastecard;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -768,7 +768,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pastecard.Pastecard-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pastecard.Pastecard;
 				PRODUCT_NAME = Pastecard;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
