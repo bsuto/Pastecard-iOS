@@ -50,7 +50,11 @@ public final class PastecardCore: @unchecked Sendable {
     private init() {}
     
     public static let localUser = "📴"
+    #if os(iOS)
     public static let localsOnlyText = "Welcome to Pastecard.\n\nTap this text to edit it, or swipe up for the menu."
+    #elseif os(macOS)
+    public static let localsOnlyText = "Welcome to Pastecard.\n\nClick here to edit this text and save your changes."
+    #endif
     public var isLocal: Bool {
         return currentUser == PastecardCore.localUser
     }
@@ -179,8 +183,7 @@ public final class PastecardCore: @unchecked Sendable {
             throw NetworkError.signInError
         }
         
-        let slug = (Bundle.main.infoDictionary?["DELETE_SLUG"] as! String)
-        let url = URL(string: "https://pastecard.net/api/users/" + uid + slug)!
+        let url = URL(string: "https://pastecard.net/api/users/" + uid + "/trash")!
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"

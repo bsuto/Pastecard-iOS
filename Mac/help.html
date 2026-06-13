@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#004080">
+	<title>Pastecard Help</title>
+	<style type="text/css">
+		body { font: 16px system-ui, sans-serif; background-color: #fff; color: #111; text-align: center; margin: 0; padding: 0; }
+		header { margin: 2rem auto; padding: 0; }
+		section { width: 90%; margin: 2rem auto; padding: 0; text-align: left; }
+		h1 { color: #222; font-size: 2.25rem; font-weight: 600; line-height: 1; margin: 0 0 0.25rem 0; padding: 0; }
+		h2 { color: #444; font-weight: normal; margin: 2rem 0 0 0; padding: 0; }
+		p, li { line-height: 1.4; }
+		ul { padding-left: 1rem; }
+		ul li { margin-bottom: 0.5rem; }
+        li.indent { margin-left: 1rem; list-style-type: circle; }
+		/* h2:target { margin-left: -1.5rem; padding-left: 0.5rem; border-left: 1rem solid #fc6; } */
+        a, a:visited { color: #004080; }
+		
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #111; color: #eee; }
+			h1 { color: #ddd; }
+			h2 { color: #aaa; }
+            a, a:visited { color: #008AFF; }
+		}
+	</style>
+</head>
+<body>
+<header>
+	<h1>Pastecard Help</h1>
+</header>
+
+<section>
+	<h2>About</h2>
+	<p>Pastecard is a small, single page for notes. You can add to, edit, or completely erase it however you like. It&rsquo;s like the digital version of writing on the back of your hand. Try it for:</p>
+	<ul>
+		<li>Shopping lists</li>
+		<li>To-dos and reminders</li>
+		<li>Navigation directions</li>
+		<li>Links to view later</li>
+		<li>Contact information</li>
+		<li>and more!</li>
+	</ul>
+
+	<h2 id="basic">Using Pastecard</h2>
+	<ul>
+		<li>Click on the card to make it editable, and you can make changes or copy text to your clipboard.</li>
+		<li>Once you&rsquo;re done editing, click or tap &ldquo;Save&rdquo; to save your changes permanently, or &ldquo;Cancel&rdquo; to discard your changes. Either button will return you to the card view.</li>
+		<li>If you use Pastecard when your Mac has no internet connection, Pastecard will attempt to display the last-saved version of your text in an offline read-only mode.</li>
+		<li>Under read-only mode, you won&rsquo;t be able to make any edits until you&rsquo;re back online.</li>
+	</ul>
+
+	<h2 id="app">Mac App</h2>
+    <p>There are two general controls in <strong>Settings</strong> that affect the Pastecard window.</p>
+    <ul>
+    <li>Turn on &ldquo;Floating Window&rdquo; to have the Pastecard window float above other windows. This is helpful if you want to use Pastecard like a widget.</li>
+    <li>Adjust the font size by dragging the slider.</li>
+    </ul>
+	<p>By default, Pastecard only saves your card text to your Mac and does not sync it to the cloud.</p>
+	<ul>
+	<li>To sign into an existing Pastecard account or create a new Pastecard account, go to <strong>Settings</strong> and click &ldquo;Sign In or Sign Up&rdquo;</li>
+	<li>Enter your Pastecard ID into the field at the top and click &ldquo;Go&rdquo; to sign in. Your changes will then be synced to the cloud.</li>
+	<li>Click &ldquo;Create a Pastecard&rdquo; to sign up for an account. You will then be signed in and your changes will be synced to the cloud.</li>
+	<li>To sign out of your account, go to Settings and click &ldquo;Sign Out&rdquo;</li>
+	<li>You can go back to only saving your text on your Mac by clicking &ldquo;Use Without an Account&rdquo;</li>
+	</ul>
+	<p>Pastecard includes a browser extension to help you save links from Safari.</p>
+	<ul>
+	<li>Enable it from the Extensions tab in Safari&rsquo;s Settings window. <a href="https://support.apple.com/en-us/102343">More instructions from Apple</a></li>
+	<li>When you click the extension icon or use a keyboard shortcut, any selected text in the current browser tab will be added to the end of your Pastecard.</li>
+	<li>If there is no text selected, the current tab&rsquo;s URL will be added to the end of your Pastecard.</li>
+    <li>No keyboard shortcut is set by default. Command-Shift-P is recommended.</li>
+	<li>There is a <a href="https://pastecard.net/lab/#bookmarklet">bookmarklet</a> that provides the same functionality for other browsers.</li>
+	</ul>
+
+	<h2>Security</h2>
+	<ul>
+		<li>Pastecard does not use passwords: <strong>if someone knows your Pastecard URL, they have the same access you do.</strong> Please don&rsquo;t use Pastecard for any sensitive information.</li>
+		<li>If you&rsquo;re concerned about privacy, we recommend choosing an ID that you don&rsquo;t use anywhere else.</li>
+		<li>Only the current version of your Pastecard is saved. There is no way to undo or recover old text.</li>
+	</ul>
+
+	<h2 id="tos">Privacy Policy and Terms of Service</h2>
+	<p>By using Pastecard, you accept and agree with the following:</p>
+	<ul>
+		<li>The only data Pastecard explicitly collects from you is your ID and your card text. We never share this with anybody.</li>
+		<li>However, there are no passwords. Anyone can view and/or edit your Pastecard if they know your ID. Pastecard does not claim responsibility for the privacy nor the security of your card text.</li>
+		<li>Standard usage data like time stamps, IP addresses, and user agents are logged at the server level. We do nothing with this information.</li>
+		<li>We may modify the service from time to time, hopefully always to make it better.</li>
+		<li>We will delete your account and/or restrict your access if you use it in a bad way. We reserve the right to define what those bad ways are.</li>
+		<li>We use <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> for our infrastructure (including data storage, compute, DNS, domain registry, email routing, and SSL), and <a href="https://www.google.com/intl/en/policies/">Google</a> for our email.</li>
+	</ul>
+
+	<h2>Contact</h2>
+	<p>Email <a href="mailto:support@pastecard.net">support@pastecard.net</a> with any questions, requests, or comments.</p>
+
+</section>
+</body>
+</html>

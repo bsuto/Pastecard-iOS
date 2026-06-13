@@ -7,6 +7,8 @@
 
 import Network
 import SwiftUI
+import Foundation
+internal import Combine
 
 class NetworkMonitor: ObservableObject {
     @Published var isConnected = false
