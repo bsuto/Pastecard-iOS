@@ -1,6 +1,16 @@
 {
   "fill" : {
-    "automatic-gradient" : "srgb:0.00000,0.25098,0.50196,1.00000"
+    "automatic-gradient" : "display-p3:0.00000,0.25098,0.50196,1.00000",
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
   },
   "groups" : [
     {
@@ -8,38 +18,35 @@
       "hidden" : false,
       "layers" : [
         {
-          "fill" : "none",
-          "glass" : true,
-          "hidden" : false,
-          "image-name" : "Rectangle.png",
-          "name" : "Rectangle",
-          "opacity-specializations" : [
-            {
-              "value" : 1
-            },
+          "fill-specializations" : [
             {
               "appearance" : "dark",
-              "value" : 0
+              "value" : {
+                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+              }
             }
-          ]
+          ],
+          "image-name" : "Rectangle 3.png",
+          "name" : "Divider",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              -275.7578125
+            ]
+          }
         },
         {
-          "hidden" : false,
-          "image-name" : "Rectangle 2.png",
-          "name" : "Rectangle 2",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
+          "fill-specializations" : [
             {
               "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
+              "value" : {
+                "automatic-gradient" : "srgb:0.00000,0.25098,0.50196,1.00000"
+              }
             }
-          ]
+          ],
+          "image-name" : "Rounded Rectangle.png",
+          "name" : "Card"
         }
       ],
       "lighting" : "individual",
@@ -51,7 +58,7 @@
         {
           "value" : {
             "enabled" : true,
-            "value" : 0.25
+            "value" : 0.33
           }
         },
         {

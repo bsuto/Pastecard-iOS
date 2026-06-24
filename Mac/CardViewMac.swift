@@ -127,6 +127,7 @@ struct MacCardView: View {
     @State private var showLoadAlert = false
     @FocusState private var isFocused: Bool
     @AppStorage("fontSize") private var fontSize: Double = 13
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isFullScreen = false
     @State private var keyMonitor: Any?
     @State private var suppressInitialFocus = true
@@ -213,7 +214,7 @@ struct MacCardView: View {
                 editingText = card.currentText
             }
         }
-        .alert("Save Error", isPresented: $showSaveAlert) {
+        .alert("Error", isPresented: $showSaveAlert) {
             Button("Cancel", role: .cancel) {
                 cancelEditing()
             }
@@ -223,7 +224,7 @@ struct MacCardView: View {
         } message: {
             Text("There was a problem saving to the cloud.")
         }
-        .alert("Load Error", isPresented: $showLoadAlert) {
+        .alert("Error", isPresented: $showLoadAlert) {
             Button("OK", role: .cancel) {}
             Button("Try Again") {
                 refresh()
@@ -236,16 +237,22 @@ struct MacCardView: View {
     private var editButtons: some View {
         HStack {
             if isEditing {
-                Button("Cancel") {
+                Button(action: {
                     cancelEditing()
+                }) {
+                    Text("Cancel")
+                        .foregroundStyle(colorScheme == .dark ? .white : Color("TrademarkBlue"))
                 }
                 // .keyboardShortcut(.escape)
                 // .keyboardShortcut(".", modifiers: .command)
                 
                 Spacer()
                 
-                Button("Save") {
+                Button(action: {
                     saveText()
+                }) {
+                    Text("Save")
+                        .foregroundStyle(colorScheme == .dark ? .white : Color("TrademarkBlue"))
                 }
                 .keyboardShortcut("s", modifiers: .command)
                 // .keyboardShortcut(.return, modifiers: .command)

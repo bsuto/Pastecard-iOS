@@ -38,9 +38,17 @@ struct MacSettingsView: View {
                 generalControls
                 
                 GroupBox {
-                    HStack {
-                        Text(card.uid)
-                            .textSelection(.enabled)
+                    HStack() {
+                        Button(action: {
+                            if let url = URL(string: "https://pastecard.net/\(card.uid)") {
+                                openURL(url)
+                            }
+                        }) {
+                            Text("pastecard.net/")
+                                .foregroundStyle(.secondary)
+                            + Text(card.uid)
+                        }
+                        .buttonStyle(.plain)
                         
                         Spacer()
                         
