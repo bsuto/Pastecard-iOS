@@ -117,6 +117,33 @@ struct KeyCommandHandler: NSViewRepresentable {
     }
 }
 
+struct customOverlay: NSViewRepresentable {
+    var onTap: () -> Void
+    
+    func makeNSView(context: Context) -> NSView {
+        let view = customOverlayNSView()
+        view.onTap = onTap
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSView, context: Context) {
+        (nsView as? customOverlayNSView)?.onTap = onTap
+    }
+    
+    class customOverlayNSView: NSView {
+        var onTap: (() -> Void)?
+        
+        override func mouseDown(with event: NSEvent) {
+            onTap?()
+        }
+        
+        override func scrollWheel(with event: NSEvent) {
+            // Pass scroll events to the next responder instead of consuming them
+            nextResponder?.scrollWheel(with: event)
+        }
+    }
+}
+
 struct MacCardView: View {
     @EnvironmentObject var card: Pastecard
     @StateObject private var networkMonitor = NetworkMonitor()
@@ -170,11 +197,9 @@ struct MacCardView: View {
                     }
                     .overlay {
                         if !isEditing {
-                            Color.clear
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    startEditing()
-                                }
+                            customOverlay {
+                                startEditing()
+                            }
                         }
                     }
                 
