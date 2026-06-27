@@ -134,6 +134,13 @@
 			);
 			target = 7A00C2C82FD8E3AF00C012D6 /* PCSafariExt */;
 		};
+		7A0B99B12FEF60DF00C683D8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7AA7B6962FD481240069DA5C /* Pastecard-Mac */;
+		};
 		7AA7B6A32FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -160,7 +167,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7A00C2CA2FD8E3AF00C012D6 /* PCSafariExt */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A00C2E52FD8E3AF00C012D6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (Resources/images, ); path = PCSafariExt; sourceTree = "<group>"; };
-		7AA7B6982FD481240069DA5C /* Mac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Mac; sourceTree = "<group>"; };
+		7AA7B6982FD481240069DA5C /* Mac */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A0B99B12FEF60DF00C683D8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Mac; sourceTree = "<group>"; };
 		7AA7B6A22FD482250069DA5C /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7AA7B6B62FD4917D0069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A32FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7AA7B6A42FD483250069DA5C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -579,7 +586,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCSafariExt/PCSafariExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -630,7 +637,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PCSafariExt/PCSafariExt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -684,7 +691,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -738,7 +745,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Mac/Pastecard-Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 4JC57Z4N28;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;

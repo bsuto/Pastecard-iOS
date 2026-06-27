@@ -1,4 +1,5 @@
 import SwiftUI
+internal import Combine
 import PastecardCore
 
 struct SignInViewMac: View {
@@ -15,7 +16,7 @@ struct SignInViewMac: View {
     var body: some View {
         VStack(spacing: 24) {
             GroupBox {
-                HStack() {
+                HStack(spacing: 0) {
                     Text("pastecard.net/")
                         .foregroundColor(.secondary)
                     
@@ -31,9 +32,10 @@ struct SignInViewMac: View {
                             Task { await signIn() }
                         }
                     }
-                    .textCase(.lowercase)
+                    // .textCase(.lowercase)
                     .frame(minWidth: 150, maxWidth: 300, alignment: .leading)
                     .autocorrectionDisabled(true)
+                    .onReceive(Just(userId)) { _ in charLimit(20) }
                     
                     Spacer()
                     
@@ -106,6 +108,12 @@ struct SignInViewMac: View {
         .sheet(isPresented: $showSignUp) {
             SignUpSheetMac()
                 .environmentObject(card)
+        }
+    }
+    
+    private func charLimit(_ upper: Int) {
+        if userId.count > upper {
+            userId = String(userId.prefix(upper))
         }
     }
     
