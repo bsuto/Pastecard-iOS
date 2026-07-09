@@ -1,6 +1,5 @@
 import SwiftUI
 internal import Combine
-import PastecardCore
 
 struct SignInViewMac: View {
     @EnvironmentObject var card: Pastecard

@@ -6,7 +6,6 @@
 //
 
 import AppIntents
-import PastecardCore
 
 struct GetText: AppIntent {
     static var title: LocalizedStringResource = "Get Pastecard text"

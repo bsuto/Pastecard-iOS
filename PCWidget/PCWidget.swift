@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import PastecardCore
 
 @MainActor
 struct Provider: @preconcurrency TimelineProvider {

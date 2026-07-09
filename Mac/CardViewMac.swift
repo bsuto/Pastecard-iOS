@@ -2,7 +2,6 @@
 
 import SwiftUI
 import AppKit
-import PastecardCore
 
 struct WindowDragRegion: NSViewRepresentable {
     func makeNSView(context: Context) -> DragView { DragView() }

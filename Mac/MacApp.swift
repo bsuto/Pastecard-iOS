@@ -2,7 +2,6 @@
 #if os(macOS)
 
 import SwiftUI
-import PastecardCore
 
 @main
 struct PastecardMacApp: App {

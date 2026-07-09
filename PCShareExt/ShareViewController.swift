@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PastecardCore
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {

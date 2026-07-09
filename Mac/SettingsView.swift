@@ -1,7 +1,6 @@
 #if os(macOS)
 
 import SwiftUI
-import PastecardCore
 
 struct MacSettingsView: View {
     @EnvironmentObject var card: Pastecard

@@ -11,7 +11,6 @@ import UIKit
 import AppKit
 #endif
 import WidgetKit
-import PastecardCore
 internal import Combine
 
 @MainActor class Pastecard: ObservableObject {
