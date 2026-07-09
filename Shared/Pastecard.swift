@@ -20,9 +20,7 @@ internal import Combine
     @Published var currentText = ""
     @Published var loadingState: LoadingState = .idle
     @Published var lastRefreshed = Date.distantPast
-    
     private let core = PastecardCore.shared
-    private let defaults = UserDefaults(suiteName: "group.net.pastecard")!
     private let refreshThreshold: TimeInterval = 60 // seconds
     
     init() {
@@ -31,7 +29,7 @@ internal import Combine
             self.uid = core.currentUser!
             self.currentText = core.loadLocal()
         } else if !core.firstRunDone {
-            defaults.set(PastecardCore.localUser, forKey: "ID")
+            core.signIn(PastecardCore.localUser)
             self.isSignedIn = true
             self.uid = PastecardCore.localUser
             core.loadLocalsOnly()
@@ -45,7 +43,7 @@ internal import Combine
     func signIn(_ user: String) async throws {
         self.isSignedIn = true
         self.uid = user
-        defaults.set(user, forKey: "ID")
+        core.signIn(user)
         
         if core.isLocal {
             core.loadLocalsOnly()
@@ -78,9 +76,7 @@ internal import Combine
         self.uid = ""
         self.currentText = ""
         self.loadingState = .idle
-        defaults.removeObject(forKey: "ID")
-        defaults.removeObject(forKey: "text")
-        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
+        core.clearLocal()
     }
     
     func refresh() async throws {

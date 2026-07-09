@@ -68,7 +68,7 @@ struct PCWidgetEntryView : View {
 }
 
 struct PCWidget: Widget {
-    let kind: String = "PCWidget"
+    let kind: String = PastecardCore.widgetKind
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
