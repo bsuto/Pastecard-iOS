@@ -1,5 +1,3 @@
-#if os(macOS)
-
 import SwiftUI
 import AppKit
 
@@ -365,5 +363,3 @@ struct MacCardView_Previews: PreviewProvider {
             .environmentObject(Pastecard())
     }
 }
-
-#endif

@@ -1,6 +1,5 @@
 // Call HelpWindowController.shared.open() or .open(anchor:) from anywhere.
 
-#if os(macOS)
 import AppKit
 import WebKit
 
@@ -151,4 +150,3 @@ final class HelpWindowController: NSObject, NSWindowDelegate, WKNavigationDelega
         disabledNavColor = .white.withAlphaComponent(0.35)
     }
 }
-#endif

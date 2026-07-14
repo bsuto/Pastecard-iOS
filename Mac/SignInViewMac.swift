@@ -71,7 +71,7 @@ struct SignInViewMac: View {
                 Button("Use Without an Account") {
                     Task {
                         try? await card.signIn(PastecardCore.localUser)
-                        resetWindows()
+                        WindowManager.resetToMainWindow(openWindow: openWindow)
                     }
                 }
                 .buttonStyle(.link)
@@ -116,25 +116,6 @@ struct SignInViewMac: View {
         }
     }
     
-    private func resetWindows() {
-        let mainWindows = NSApplication.shared.windows.filter {
-            $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
-        }
-        mainWindows.dropFirst().forEach { $0.close() }
-        
-        NSApplication.shared.windows
-            .first { $0.identifier?.rawValue.hasPrefix("com_apple_SwiftUI_Settings") == true }?
-            .close()
-        
-        if let mainWindow = NSApplication.shared.windows.first(where: {
-            $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
-        }) {
-            mainWindow.makeKeyAndOrderFront(nil)
-        } else {
-            openWindow(id: "main")
-        }
-    }
-    
     private func signIn() async {
         guard !userId.isEmpty && networkMonitor.isConnected else { return }
         
@@ -155,7 +136,7 @@ struct SignInViewMac: View {
                 case 200:
                     try await card.signIn(nameCheck)
                     errorMessage = ""
-                    resetWindows()
+                    WindowManager.resetToMainWindow(openWindow: openWindow)
                 case 404:
                     errorMessage = "Sorry, the computer can't find that ID."
                 default:

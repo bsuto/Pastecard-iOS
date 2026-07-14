@@ -1,5 +1,4 @@
 //  macOS app entry point
-#if os(macOS)
 
 import SwiftUI
 
@@ -79,7 +78,7 @@ struct PastecardMacApp: App {
     private func applyWindowLevel(floating: Bool) {
         NSApplication.shared.windows.forEach { window in
             // Only apply to the main content window, not Settings or others
-            guard window.identifier?.rawValue.hasPrefix("com_apple_SwiftUI_Settings") != true else { return }
+            guard window.identifier?.rawValue.hasPrefix(WindowIdentifier.settingsPrefix) != true else { return }
             window.level = floating ? .floating : .normal
         }
     }
@@ -103,5 +102,3 @@ class MacAppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 }
-#endif
-
