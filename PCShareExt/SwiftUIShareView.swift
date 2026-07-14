@@ -19,7 +19,7 @@ struct SwiftUIShareView: View {
                     .fill(Color("TrademarkBlue"))
                     .frame(height: is26 ? 36 : 18)
                 
-                Text("Saving…")
+                Text("Saving to Pastecard…")
                     .font(.title2)
                     .padding(.top, is26 ? 0 : 16)
                     .frame(maxWidth: .infinity, maxHeight: is26 ? .infinity : 96)

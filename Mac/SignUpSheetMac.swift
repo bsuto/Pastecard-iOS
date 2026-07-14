@@ -1,10 +1,9 @@
-#if os(macOS)
-
 import SwiftUI
 
 struct SignUpSheetMac: View {
     @EnvironmentObject var card: Pastecard
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openWindow) private var openWindow
     
     @State private var newUser = ""
     @State private var invalidID = true
@@ -90,6 +89,7 @@ struct SignUpSheetMac: View {
                 case 201:
                     try await card.signIn(name)
                     dismiss()
+                    WindowManager.resetToMainWindow(openWindow: openWindow)
                 case 409, 403:
                     errorMessage = "Sorry, that ID is not available."
                 default:
@@ -123,5 +123,3 @@ struct SignUpSheetMac: View {
         }
     }
 }
-
-#endif

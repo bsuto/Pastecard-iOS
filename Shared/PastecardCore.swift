@@ -49,6 +49,8 @@ public final class PastecardCore: @unchecked Sendable {
     private let session = URLSession(configuration: .ephemeral)
     private init() {}
     
+    public static let widgetKind = "PCWidget"
+    
     public static let localUser = "📴"
     #if os(iOS)
     public static let localsOnlyText = "Welcome to Pastecard.\n\nTap this text to edit it, or swipe up for the menu."
@@ -73,9 +75,11 @@ public final class PastecardCore: @unchecked Sendable {
     public var currentUser: String? {
         return defaults.string(forKey: "ID")
     }
-    
     public var isSignedIn: Bool {
         return currentUser != nil
+    }
+    public func signIn(_ user: String) {
+        defaults.set(user, forKey: "ID")
     }
     
     public func loadLocal() -> String {
@@ -118,7 +122,7 @@ public final class PastecardCore: @unchecked Sendable {
     
     public func saveLocal(_ text: String) {
         defaults.set(text, forKey: "text")
-        WidgetCenter.shared.reloadTimelines(ofKind: "PCWidget")
+        WidgetCenter.shared.reloadTimelines(ofKind: PastecardCore.widgetKind)
     }
     
     public func saveRemote(_ text: String) async throws -> String {
@@ -176,6 +180,12 @@ public final class PastecardCore: @unchecked Sendable {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.appendError
         }
+    }
+    
+    public func clearLocal() {
+        defaults.removeObject(forKey: "ID")
+        defaults.removeObject(forKey: "text")
+        WidgetCenter.shared.reloadTimelines(ofKind: PastecardCore.widgetKind)
     }
     
     public func deleteAccount() async throws {

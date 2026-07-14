@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PastecardCore
 
 struct SignUpSheet: View {
     @EnvironmentObject var card: Pastecard

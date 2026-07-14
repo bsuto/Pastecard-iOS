@@ -1,7 +1,4 @@
-#if os(macOS)
-
 import SwiftUI
-import PastecardCore
 
 struct MacSettingsView: View {
     @EnvironmentObject var card: Pastecard
@@ -82,11 +79,13 @@ struct MacSettingsView: View {
         .animation(.easeInOut(duration: 0.25), value: card.isLocal)
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { notification in
             guard let closingWindow = notification.object as? NSWindow,
-                  closingWindow.identifier?.rawValue.hasPrefix("com_apple_SwiftUI_Settings") == true
+                  closingWindow.identifier?.rawValue.hasPrefix(WindowIdentifier.settingsPrefix) == true
             else { return }
             
+            guard !card.isSignedIn else { return }
+            
             let otherWindows = NSApplication.shared.windows.filter {
-                $0.identifier?.rawValue.hasPrefix("main-AppWindow") == true
+                $0.identifier?.rawValue.hasPrefix(WindowIdentifier.mainPrefix) == true
             }
             
             if otherWindows.isEmpty {
@@ -167,5 +166,3 @@ struct MacSettingsView_Previews: PreviewProvider {
             .environmentObject(Pastecard())
     }
 }
-
-#endif
