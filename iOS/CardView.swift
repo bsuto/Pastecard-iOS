@@ -83,6 +83,7 @@ struct CardView: View {
             .padding()
             .focused($isFocused)
             .scrollDisabled(!isFocused)
+            .disabled(card.loadingState == .loading || card.loadingState == .saving)
             .onChange(of: isFocused) { _, newValue in
                 handleFocusChange(newValue)
             }
@@ -325,7 +326,7 @@ struct CardView: View {
                 try await card.refresh()
             } catch {
                 showLoadAlert = true
-                throw NetworkError.loadError
+                // throw NetworkError.loadError
             }
         }
     }
