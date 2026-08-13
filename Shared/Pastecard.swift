@@ -60,8 +60,10 @@ internal import Combine
     }
     
     func signOut() {
-        // Platform-specific clipboard handling
         #if os(iOS)
+        UserDefaults.standard.set(true, forKey: "resetTip")
+        
+        // Platform-specific clipboard handling
         if isLocal && !currentText.isEmpty {
             UIPasteboard.general.string = currentText
         }
