@@ -7,6 +7,7 @@
 
 #if os(iOS)
 import UIKit
+import TipKit
 #elseif os(macOS)
 import AppKit
 #endif
@@ -62,6 +63,7 @@ internal import Combine
     func signOut() {
         #if os(iOS)
         UserDefaults.standard.set(true, forKey: "resetTip")
+        try? Tips.resetDatastore()
         
         // Platform-specific clipboard handling
         if isLocal && !currentText.isEmpty {
