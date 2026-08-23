@@ -95,30 +95,18 @@ struct SignInView: View {
                         .foregroundColor(.red)
                         .listRowBackground(Color.primary.opacity(0))
                 }
-                Section(header: Text("Create a Pastecard")) {
+                Section(header: Text("Sign Up")) {
                     Button {
                         impact.impactOccurred()
                         idFocus = false
                         showSignUp = true
                     } label: {
-                        Text("Sign Up")
+                        Text("Create a Pastecard")
                     }
                     .frame(height: textHeight)
                     .disabled(!networkMonitor.isConnected)
                     .foregroundColor(networkMonitor.isConnected ? Color("AccentColor") : Color(UIColor.systemGray))
                     
-                    Button {
-                        idFocus = false
-                        showSVC = true
-                    } label: {
-                        HStack {
-                            Text("Privacy & Terms")
-                        }
-                        .foregroundColor(.primary)
-                    }
-                    .frame(height: textHeight)
-                }
-                Section() {
                     Button {
                         Task {
                             try await card.signIn(PastecardCore.localUser)
@@ -129,6 +117,25 @@ struct SignInView: View {
                     .frame(height: textHeight)
                     .foregroundColor(Color("AccentColor"))
                 }
+                
+                Spacer()
+                    .listRowBackground(Color.primary.opacity(0))
+                    .listRowSeparator(.hidden)
+                
+                Button {
+                    idFocus = false
+                    showSVC = true
+                } label: {
+                    HStack {
+                        Spacer()
+                        
+                        Text("Privacy & Terms")
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                    }
+                }
+                .listRowBackground(Color.primary.opacity(0))
             }
             .scrollDisabled(true)
             .safeAreaInset(edge: .top) {

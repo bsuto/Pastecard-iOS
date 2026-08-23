@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct CardView: View {
     @EnvironmentObject var card: Pastecard
@@ -19,8 +20,7 @@ struct CardView: View {
     @State private var showSaveAlert = false
     @State private var showLoadAlert = false
     @FocusState private var isFocused: Bool
-    @State private var showEmptyState = false
-    @State private var animateTip = false
+    private let swipeTip = SwipeTip()
     
     var is26: Bool {
         if #available(iOS 26.0, *) { return true }
@@ -47,22 +47,19 @@ struct CardView: View {
             VStack(spacing: -geo.safeAreaInsets.top) {
                 headerView(geo: geo)
                 textEditorView
-                swipeUpIcon
+                if !isEditing {
+                    TipView(swipeTip)
+                        .padding(.horizontal)
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
+                }
             }
+            .animation(.easeInOut(duration: 0.2), value: isEditing)
         }
         .onAppear {
             checkRefresh()
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
-        }
-        .onChange(of: card.currentText) { _, _ in
-            updateEmptyState()
-        }
-        .onChange(of: card.loadingState) { _, newState in
-            if case .loaded = newState {
-                updateEmptyState()
-            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshRequested)) { _ in
             refresh()
@@ -135,6 +132,7 @@ struct CardView: View {
             .onEnded { value in
                 if value.translation.height < 0 && !isEditing {
                     showMenu = true
+                    swipeTip.invalidate(reason: .actionPerformed)
                 }
             }
     }
@@ -223,7 +221,6 @@ struct CardView: View {
         isEditing = true
         editingText = card.currentText
         isFocused = true
-        showEmptyState = false
         NotificationCenter.default.post(name: .editingDidStart, object: nil)
         let impact = UIImpactFeedbackGenerator(style: .light)
         impact.impactOccurred()
@@ -233,7 +230,6 @@ struct CardView: View {
         isEditing = false
         editingText = ""
         isFocused = false
-        updateEmptyState()
         NotificationCenter.default.post(name: .editingDidEnd, object: nil)
     }
     
@@ -254,10 +250,12 @@ struct CardView: View {
         guard isEditing else { return }
         
         let textToSave = editingText
+        if textToSave.isEmpty {
+            SwipeTip.clearedCard = true
+        }
         isEditing = false
         isFocused = false
         NotificationCenter.default.post(name: .editingDidEnd, object: nil)
-        updateEmptyState()
         
         Task {
             do {
@@ -272,34 +270,7 @@ struct CardView: View {
         }
     }
     
-    // MARK: Icon helpers
-    
-    private var swipeUpIcon: some View {
-        Image("SwipeUp")
-            .resizable()
-            .frame(width: 48.0, height: 48.0)
-            .padding(.bottom, showEmptyState ? nil : 0)
-            .foregroundColor(Color(UIColor.placeholderText))
-            .opacity(showEmptyState ? 1 : 0)
-            .offset(y: animateTip ? -80 : 0)
-            .onTapGesture {
-                animateSwipeUpTip()
-            }
-    }
-    
-    private func updateEmptyState() {
-        showEmptyState = !isEditing && card.currentText.isEmpty
-    }
-    
-    private func animateSwipeUpTip() {
-        withAnimation(.easeInOut(duration: 0.5)) {
-            animateTip = true
-        } completion: {
-            withAnimation {
-                animateTip = false
-            }
-        }
-    }
+    // MARK: Alt Icon helper
     
     private func swapIconAction() {
         guard let action = actionService.action else { return }
