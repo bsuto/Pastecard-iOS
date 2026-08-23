@@ -16,13 +16,17 @@ struct PastecardApp: App {
     
     init() {
         if UserDefaults.standard.bool(forKey: "resetTip") {
-            try? Tips.resetDatastore()
+            do {
+                try Tips.resetDatastore()
+            } catch {}
             UserDefaults.standard.set(false, forKey: "resetTip")
         }
-        try? Tips.configure([
-            .displayFrequency(.immediate),
-            .datastoreLocation(.applicationDefault)
-        ])
+        do {
+            try Tips.configure([
+                .displayFrequency(.immediate),
+                .datastoreLocation(.applicationDefault)
+            ])
+        } catch {}
     }
     
     var body: some Scene {
