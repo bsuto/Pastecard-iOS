@@ -274,7 +274,9 @@ struct MacCardView: View {
                     saveText()
                 }) {
                     Text("Save")
-                        .foregroundStyle(colorScheme == .dark ? .white : Color("TrademarkBlue"))
+                        .foregroundStyle(
+                            !canSave ? .secondary : (colorScheme == .dark ? .white : Color("TrademarkBlue"))
+                        )
                 }
                 .keyboardShortcut("s", modifiers: .command)
                 // .keyboardShortcut(.return, modifiers: .command)
